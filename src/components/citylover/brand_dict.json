@@ -1,0 +1,282 @@
+{
+  "citymapper": {
+    "name": "Citymapper",
+    "type": [
+      "job"
+    ],
+    "image": "https://logovectorseek.com/wp-content/uploads/2020/11/citymapper-logo-vector.png",
+    "image_size": "60px"
+  },
+  "planetizen": {
+    "name": "Planetizen",
+    "type": [
+      "news"
+    ],
+    "image": "https://simplycareer.com/wp-content/uploads/2015/05/planetizen-425x215.png",
+    "image_size": "60px"
+  },
+  "thecityfix": {
+    "name": "TheCityFix",
+    "type": [
+      "article"
+    ],
+    "image": "https://thecityfixlearn.org/sites/default/files/18_Logo_TheCityFix_Learn.png",
+    "image_size": "35px"
+  },
+  "allthingsurban": {
+    "name": "All Things Urban",
+    "type": [
+      "blog"
+    ],
+    "image": "https://all-things-urban.storage.googleapis.com/static/images/social.jpg",
+    "image_size": "35px"
+  },
+  "monocle": {
+    "name": "Monocle",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmKMTL7s8pHWi3lGcPnbXw5_bP4VXZIP2PgdXV5wr-u7tlTtgf",
+    "image_size": "70px"
+  },
+  "smartcities": {
+    "name": "Smartcities",
+    "type": [
+      "news"
+    ],
+    "image": "https://leadingcities2014.files.wordpress.com/2019/09/smartcities_logo_black.png",
+    "image_size": "18px"
+  },
+  "datasmart": {
+    "name": "Datasmart",
+    "type": [
+      "article"
+    ],
+    "image": "https://pbs.twimg.com/profile_images/877596367555874817/EsB6Sxl4.jpg",
+    "image_size": "70px"
+  },
+  "strongtowns": {
+    "name": "Strongtowns",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://pbcdn1.podbean.com/imglogo/image-logo/2312128/Blue_Stripe_Square_edit.png",
+    "image_size": "70px"
+  },
+  "itetalk": {
+    "name": "Itetalk",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://d3wo5wojvuv7l.cloudfront.net/t_square_limited_320/images.spreaker.com/original/d933ad68df9d533175abe3a002d22ede.jpg",
+    "image_size": "70px"
+  },
+  "metromag": {
+    "name": "Metro Mag",
+    "type": [
+      "news"
+    ],
+    "image": "https://fleetimages.bobitstudios.com/upload/metro-magazine/met-og-__-1200x630-s.png",
+    "image_size": "55px"
+  },
+  "talkingheadways": {
+    "name": "Talking Headways",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://ssl-static.libsyn.com/p/assets/3/3/e/8/33e8d0ffe911533c/talking_headways_v7.png",
+    "image_size": "60px"
+  },
+  "secondave": {
+    "name": "Second Ave Sagas",
+    "type": [
+      "blog"
+    ],
+    "image": "http://bkabak.wpengine.com/wp-content/uploads/2019/10/saslogo960x200.jpg",
+    "image_size": "20px"
+  },
+  "cityjournal": {
+    "name": "City Journal",
+    "type": [
+      "news"
+    ],
+    "image": "https://upload.wikimedia.org/wikipedia/commons/4/48/City_Journal_logo.png",
+    "image_size": "70px"
+  },
+  "bikeleague": {
+    "name": "Bike League",
+    "type": [
+      "blog"
+    ],
+    "image": "https://www.bikeleague.org/sites/all/themes/lab/images/league-logo.png",
+    "image_size": "60px"
+  },
+  "govlove": {
+    "name": "GovLove",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://storage.googleapis.com/proudcity/elglor/uploads/2018/02/cropped-elgl-icon-blue.png",
+    "image_size": "40px"
+  },
+  "nextcity": {
+    "name": "Next City",
+    "type": [
+      "news"
+    ],
+    "image": "https://nextcity.org/images/events/Next_City_Orange_Logo.png",
+    "image_size": "60px"
+  },
+  "apany": {
+    "name": "NY APA",
+    "type": [
+      "jobs"
+    ],
+    "image": "https://planning-org-uploaded-media.s3.amazonaws.com/uploads/PROFILE_PHOTOS/7816568a-17ef-47c6-8291-2cda62b13910.png",
+    "image_size": "40px"
+  },
+  "govtech": {
+    "name": "Govtech",
+    "type": [
+      "news"
+    ],
+    "image": "https://assets.website-files.com/59dfccba14d0c50001317351/5a625dd96f429200014442c3_gt.jpg",
+    "image_size": "70px"
+  },
+  "transitcenter": {
+    "name": "Transitcenter",
+    "type": [
+      "blog"
+    ],
+    "image": "https://d3n8a8pro7vhmx.cloudfront.net/circulatesd/pages/1101/attachments/original/1553274530/transit-center-logo.png?1553274530",
+    "image_size": "30px"
+  },
+  "streetsblog": {
+    "name": "Streetsblog",
+    "type": [
+      "blog"
+    ],
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm06X4-kgmtexgJpGSv8RLLBu86D7KkMISeaSVNP1vNtn7nggAIg&s",
+    "image_size": "70px"
+  },
+  "intelligenttransport": {
+    "name": "Intelligent Transport",
+    "type": [
+      "news"
+    ],
+    "image": "https://www.intelligenttransport.com/wp-content/themes/it19/images/IT-Logo@2x.png",
+    "image_size": "40px"
+  },
+  "parkingmobility": {
+    "name": "Parking Mobility",
+    "type": [
+      "article"
+    ],
+    "image": "https://www.parking-mobility.org/wp-content/themes/ipi/images/IPMI_LOGO-R_RGB_220x96.png",
+    "image_size": "30px"
+  },
+  "humantransit": {
+    "name": "Human Transit",
+    "type": [
+      "blog"
+    ],
+    "image": "https://humantransit.org/wp-content/uploads/HT-favicon@16x.png",
+    "image_size": "40px"
+  },
+  "metrospectives": {
+    "name": "METROspectives",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://fleetimages.bobitstudios.com/upload/podcasts/metrospectives/metrospectives-cover-__-315x315-r.png",
+    "image_size": "40px"
+  },
+  "Axios": {
+    "name": "Axios",
+    "type": [
+      "news"
+    ],
+    "image": "https://assets.axios.com/203e9f932cc97836ac2ff4c6c982676c.png",
+    "image_size": "50px"
+  },
+  "spur": {
+    "name": "Spur",
+    "type": [
+      "article"
+    ],
+    "image": "https://www.aaonetwork.org/sites/default/files/orgs_images/SPUR-only-Logo_black.gif",
+    "image_size": "60px"
+  },
+  "thetransitauthority": {
+    "name": "The Transit Authority",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://media.glassdoor.com/sqll/264289/american-public-transportation-association-squarelogo.png",
+    "image_size": "40px"
+  },
+  "themobilitypodcast": {
+    "name": "The Mobility Podcast",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://is3-ssl.mzstatic.com/image/thumb/Podcasts113/v4/74/07/46/7407463c-0bef-b30a-edb7-68915c5ade7c/mza_6209235826687352097.jpg/1200x1200bb.jpg",
+    "image_size": "40px"
+  },
+  "micromobilitynewsletter": {
+    "name": "The Micromobility Newsletter",
+    "type": [
+      "blog"
+    ],
+    "image": "https://cdn.substack.com/image/fetch/w_96,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb50394d7-f3de-45b5-9087-542005d1cef0_256x256.png",
+    "image_size": "40px"
+  },
+  "micromobilitypodcast": {
+    "name": "The Micromobility Podcast",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://cdn.substack.com/image/fetch/w_96,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fbucketeer-e05bbc84-baa3-437e-9518-adb32be77984.s3.amazonaws.com%2Fpublic%2Fimages%2Fb50394d7-f3de-45b5-9087-542005d1cef0_256x256.png",
+    "image_size": "40px"
+  },
+  "zag": {
+    "name": "Zag",
+    "type": [
+      "news"
+    ],
+    "image": "https://zagdaily.com/wp-content/uploads/2021/10/Zag-Daily.jpg",
+    "image_size": "40px"
+  },
+  "nyc_plannning": {
+    "name": "NYC Planning",
+    "type": [
+      "jobs"
+    ],
+    "image": "https://planning-org-uploaded-media.s3.amazonaws.com/uploads/PROFILE_PHOTOS/95ba7dce-738f-465b-917a-e457760cb7b1.png",
+    "image_size": "40px"
+  },
+  "transloc": {
+    "name": "transloc",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://biz.prlog.org/transloc/logo.png",
+    "image_size": "40px"
+  },
+  "commutifi": {
+    "name": "Commutifi",
+    "type": [
+      "podcast"
+    ],
+    "image": "https://uploads-ssl.webflow.com/6006f47f5b6ed87abfdb7d41/6006f67241d3345f61b36142_logo-teal%402x.png",
+    "image_size": "20px"
+  },
+  "carto": {
+    "name": "Carto",
+    "type": [
+      "jobs"
+    ],
+    "image": "https://mma.prnewswire.com/media/695160/CARTO_Logo.jpg",
+    "image_size": "40px"
+  }
+}
