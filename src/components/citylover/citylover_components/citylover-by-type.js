@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Card from '@mui/material/Card';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -29,24 +28,24 @@ export default function BySourceFilter({ data }) {
 
     return (
         <div onClick={handleClick}
-        style={{ margin: '0.75%', width: '100%', borderRadius: 10, border: `3px solid ${post_color}` }}>
+            style={{ margin: '0.75%', width: '100%', borderRadius: 10, border: `3px solid ${post_color}` }}>
             <h1>{capitalizeFirstLetter(data[0])}</h1>
             <div>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                {source_type.map(
-                    (source_type) => {
-                        return data[2][source_type] && data[2][source_type].map(
-                            (post) => (
-                                <ListItemButton style={{ fontSize: 13 }} onClick={() => window.open(`${post.url}`, "_blank")}>
-                                    {post.title}
-                                    </ListItemButton>
-                            )
-                        )
-                    }
-                )}
-                </List>
-            </Collapse>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {source_type.map(
+                            (source_type) => {
+                                return data[2][source_type] && data[2][source_type].map(
+                                    (post) => (
+                                        <ListItemButton style={{ fontSize: 13 }} onClick={() => window.open(`${post.url}`, "_blank")}>
+                                            {post.title}
+                                        </ListItemButton>
+                                    )
+                                )
+                            }
+                        )}
+                    </List>
+                </Collapse>
             </div>
         </div>
     )

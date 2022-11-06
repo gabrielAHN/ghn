@@ -4,32 +4,9 @@ import BrandDict from '../brand_dict.json';
 import { Grid } from '@material-ui/core';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { makeStyles } from "@material-ui/core/styles";
 import BySourceFilter from './citylover-by-type';
+import CityloverAllTable from './citylover-all-table';
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        "& > *": {
-            margin: theme.spacing(1),
-            width: "25ch"
-        }
-    },
-    gridList: {
-        width: "100%",
-        height: "auto",
-        padding: 20
-    },
-    card: {
-        maxWidth: 160,
-        height: "100%"
-    },
-    button: {
-        "&.active": {
-            background: 'black',
-        }
-    }
-}));
 
 const news_types = ['news', 'article', 'blog', 'podcast']
 const color_dict = {
@@ -76,6 +53,9 @@ export default function CityloverPosts({ data }) {
                             <ByBrandFilter key={index} data={[key, value, BrandDict]} />
                         </Grid>
                     ))}
+                {ViewType == 3 && data.post_sources &&
+                    <CityloverAllTable data={[data.post_sources, BrandDict, data.post_sources, color_dict ]}/>
+                }
             </Grid>
         </div>
     )

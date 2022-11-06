@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
 import { Grid } from '@material-ui/core';
-import SearchBar from "material-ui-search-bar";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Table from '@mui/material/Table';
@@ -101,7 +98,7 @@ export default function CityloverTable({ data }) {
                             fullWidth
                             label="Search"
                             variant="outlined"
-                            placeholder="Search for your City Work"
+                            placeholder="Search for your dream job 💼"
                             type="text"
                             value={searched}
                             onChange={(event) => setSearched(event.target.value)}

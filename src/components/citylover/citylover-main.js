@@ -34,11 +34,11 @@ const tab_list = [
     label: 'News about Cities 📰',
     component: <CityloverPosts data={{ post_sources }} />
   },
-  {
-    url: 'city_sources',
-    label: 'All Sources',
-    component: <h1>test</h1>
-  }
+  // {
+  //   url: 'city_sources',
+  //   label: 'All Sources',
+  //   component: <h1>test</h1>
+  // }
 ]
 
 
@@ -83,7 +83,7 @@ function Citylover() {
       <div style={{ margin: '3%' }}>
         <img src={citylover} style={{ width: '30%' }} />
         <h1>Welcome</h1>
-        <p>Citylover is the place to learn 📚, work 💼, or find the latest news about cities.
+        <p>Citylover is the place to find work 💼, or find the latest news 📰 about cities.
           I built this for myself to make this easier to track it all, but now opening this up for all.</p>
         <p>If you want to see more cool things like this checkout <a
         className="link-style" href={'/'}
