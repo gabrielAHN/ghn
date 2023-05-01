@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import HeatMapWidget from './citibike-graphs/citibike_heat_graph/citibike_heat_map';
 import LineGraph from './citibike-graphs/citibike_line_graph/citibike_by_user';
 import CitibikeMap from './citibike-maps/station-map';
-import CitiTripMap from './citibike-trips/trips-map';
+// import CitiTripMap from './citibike-trips/trips-map';
 
 
 function Citibike() {

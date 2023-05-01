@@ -14,7 +14,7 @@ import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import Slider from '@mui/material/Slider';
 import { TripsLayer } from '@deck.gl/geo-layers';
-// import CitibikeTrips from './test_2.json';
+import CitibikeTrips from './trip_map.json';
 import FormatedTable from './trip_table.js';
 
 
