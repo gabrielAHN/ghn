@@ -1,15 +1,21 @@
 import ME from './assets/me.png';
-import resume from './assets/public_resume.png';
 import wulfz from './assets/wulfz.gif';
 import { Grid } from '@material-ui/core';
-import { styled } from '@mui/material/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
-import BioCarousel from './landing-page_components/div-carousel';
+import BioCarousel from './landing-page_components/Bio-carousel';
 import WorkButtons from './landing-page_components/work-buttons';
-import Avatar from "@material-ui/core/Avatar";
+import citylover from './assets/citylover.png';
+import cityloverhover from './assets/workbutton-images/citylover-hover.gif'
+import citibikemap from './assets/workbutton-images/citibike-map.jpeg'
+import citibikehover from './assets/workbutton-images/citibike-hover.gif'
+import GitHubIcon from '@mui/icons-material/GitHub';
+import EmailIcon from '@mui/icons-material/Email';
+import IconButton from '@mui/material/IconButton';
+
 import ghn_theme from './theme';
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+
+
 
 const buttons_data = [
   {
@@ -22,7 +28,25 @@ const buttons_data = [
   },
   {
     text: 'Contact',
-    onclick_action: 'mailto: gabrielhn@hey.com'
+    onclick_action: '/#contact'
+  }
+]
+
+const photo_buttons = [
+  {
+      "name": "Citylover",
+      "image": citylover,
+      "hover_image": cityloverhover,
+      "color": "white",
+      "url": 'citylover'
+
+  },
+  {
+      "name": "Citibike Deep Dive",
+      "image": citibikemap,
+      "hover_image": citibikehover,
+      "color": "black",
+      "url": 'citibike'
   }
 ]
 
@@ -50,7 +74,8 @@ function LandingPage() {
         <h1 className="h1-ghn">Gabriel Hidalgo ~ Naranjo</h1>
         <h4 className="h2-ghn">Art 🧑‍🎨, Cities 🌇, and Tech🦾</h4>
         <Grid alignItems="center" container spacing={6} justifyContent="center">
-          {buttons_data.map((button, index) => (
+          {
+          buttons_data.map((button, index) => (
             <Grid item key={index}>
               <a className="link-style" href={button.onclick_action}
                   style={{
@@ -65,39 +90,17 @@ function LandingPage() {
         </Grid>
         <br/>
         <br/>
-        {/* <Grid alignItems="center" container spacing={6} justifyContent="center">
-          {buttons_data.map((button) => (
-            <Grid item key={button.text}>
-              <Button
-                variant='contained'
-                color="primary"
-                size="large"
-                onClick={() => window.location.replace(button.onclick_action)}>
-                {button.text}
-              </Button>
-            </Grid>
-          ))}
-          <Button
-            variant="contained"
-            color="secondary"
-            size="small"
-            startIcon={<Avatar src={'http://www.wpsimplesponsorships.com/wp-content/uploads/2019/05/cropped-icon-256x256.png'} />}
-          >
-            Delete
-          </Button>
-          <Grid item key='citylover'>
-            <Button
-              variant='contained'
-              color="primary"
-            // onClick={() => window.location.replace(button.onclick_action)}
-            >
-              Resume
-            </Button>
-          </Grid>
-        </Grid> */}
         <div>
-          <WorkButtons />
+          <WorkButtons photo_buttons={photo_buttons}/>
           <BioCarousel />
+        </div>
+        <div id="contact" >
+            <IconButton href='https://github.com/gh15hidalgo' target='_blank'>
+              <GitHubIcon />
+            </IconButton>
+            <IconButton href="mailto:example@example.com">
+              <EmailIcon />
+            </IconButton>
         </div>
       </div>
     </ThemeProvider>

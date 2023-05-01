@@ -1,7 +1,3 @@
-import citylover from '../assets/citylover.png';
-import cityloverhover from '../assets/workbutton-images/citylover-hover.gif'
-import citibikemap from '../assets/workbutton-images/citibike-map.jpeg'
-import citibikehover from '../assets/workbutton-images/citibike-hover.gif'
 import { Grid } from '@material-ui/core';
 import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
@@ -64,46 +60,14 @@ const Image = styled('span')(({ theme }) => ({
     color: theme.palette.common.white,
 }));
 
-const photo_buttons = [
-    {
-        "name": "Citylover",
-        "image": citylover,
-        "hover_image": cityloverhover,
-        "color": "white",
-        "url": 'citylover/city_intro'
 
-    },
-    {
-        "name": "Citibike Analysis",
-        "image": citibikemap,
-        "hover_image": citibikehover,
-        "color": "black",
-        "url": 'citibike'
-    },
-    {
-        "name": "Citibike Analysis",
-        "image": citibikemap,
-        "hover_image": citibikehover,
-        "color": "black",
-        "url": 'citylover'
-    },
-    {
-        "name": "Citibike 🚲 Analysis",
-        "image": citibikemap,
-        "hover_image": citibikehover,
-        "color": "black",
-        "url": 'citylover'
-    }
-]
-
-
-export default function WorkButtons() {
+export default function WorkButtons({ photo_buttons }) {
     return (
         <div id="work" className="h2-ghn">
             <h1>Work</h1>
             <Grid alignItems="center" container spacing={0} justifyContent="center" style={{ marginBottom: "10vh" }}>
                 {photo_buttons.map((photo, index) => (
-                    <Grid item key={index} style={{width: '50vh', margin: '0.9%'}} >
+                    <Grid item key={index} style={{ width: '50vh', margin: '0.9%' }} >
                         <ImageButton
                             variant='contained'
                             focusRipple
