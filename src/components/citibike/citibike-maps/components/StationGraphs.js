@@ -158,6 +158,7 @@ export default function StationGraphs({ station_info, slider_data, years_data })
             name: 'End of Trips',
             type: 'line',
             markPoint: {
+              symbolSize: 30,
               data: [
                 {
                   coord: [slider_data, station_info.date_data[slider_data].end],
@@ -183,6 +184,7 @@ export default function StationGraphs({ station_info, slider_data, years_data })
               trigger: 'axis',
             },
             markPoint: {
+              symbolSize: 30,
               data: [
                 {
                   coord: [slider_data, station_trip_totals.start],

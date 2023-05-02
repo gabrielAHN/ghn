@@ -7,6 +7,10 @@ frontend:
     build:
       commands:
         - yarn build
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
 
 # backend:
 #   phases:
