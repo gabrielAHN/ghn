@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import HeatMapWidget from './citibike-graphs/citibike_heat_graph/citibike_heat_map';
 import LineGraph from './citibike-graphs/citibike_line_graph/citibike_by_user';
 import CitibikeMap from './citibike-maps/station-map';
-import CitiTripMap from './citibike-trips/trips-map';
+// import CitiTripMap from './citibike-trips/trips-map';
 
 
 function Citibike() {
@@ -93,7 +93,7 @@ function Citibike() {
       <h2>Citibike Top 10 Trips by Year 🏆</h2>
       <p>Everyone has their favorite type of bike trips these are the top 🔟 citibike trips per year.</p>
       <p>When you get a chance check them the out they are definietly a fun way to spend the weekend 😎. </p>
-      <CitiTripMap />
+      {/* <CitiTripMap /> */}
     </div>
   );
 }
