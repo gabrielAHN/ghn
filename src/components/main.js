@@ -14,7 +14,7 @@ function Main() {
           {/* <Route path="/Citylover">
             <Route path=":tab" element={<Citylover/>} />
           </Route> */}
-          <Route path="/Citibike" element={<Citibike/>} />
+          {/* <Route path="./Citibike" element={<Citibike/>} /> */}
         </Routes>
     </div>
   );
