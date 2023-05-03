@@ -28,7 +28,7 @@ def main():
 
 
 def test_by_source(source_id, today_date):
-    data_date = today_date - timedelta(days=30)
+    data_date = today_date - timedelta(days=3000)
     scraped_objects = get_scrape_objects(data_date, source_id)
     if not scraped_objects:
         print('no scraped objects')
@@ -42,7 +42,7 @@ def test_by_source(source_id, today_date):
 
 
 def test_by_type(source_type, today_date):
-    data_date = today_date - timedelta(days=30)
+    data_date = today_date - timedelta(days=3000)
     scraped_objects = get_scrape_objects(data_date, source_type=source_type)
 
     for object in scraped_objects:

@@ -150,6 +150,7 @@ def transitcenter(website):
 
 
 def spur(url):
+    website = 'https://www.spur.org/{}'
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class', 'content'})[2:]
@@ -158,7 +159,7 @@ def spur(url):
     articles = [
         article_object(
             title=article.find('h2').text,
-            url=article.find('a').get('href'),
+            url=website.format(article.find('a').get('href')),
             datetime=article.find('time').text
         )
         for article in articles
