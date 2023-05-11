@@ -1,16 +1,58 @@
 {
-  "name": "amplify-react-app",
+  "name": "ghn",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/ui-react": "^0.2.14",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "aws-amplify": "^3.0.23",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@mapbox/tiny-sdf": "^2.0.6",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/lab": "^5.0.0-alpha.103",
+    "@mui/material": "^5.10.4",
+    "@mui/styled-engine-sc": "^5.10.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "aws-amplify": "^4.3.43",
+    "deck.gl": "^8.9.13",
+    "echarts": "^5.4.1",
+    "echarts-for-react": "^3.0.2",
+    "gl-matrix": "^3.4.3",
+    "mapbox-gl": "^1.13.0",
+    "papaparse": "^5.3.2",
+    "pretty-format": "^29.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-map-gl": "^7.0.21",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1",
+    "styled-components": "^5.3.5",
+    "web-vitals": "^2.1.4"
+  },
+  "resolutions": {
+    "@deck.gl/react": "^8.8.0",
+    "@deck.gl/core": "^8.8.0",
+    "@deck.gl/layers": "^8.8.0",
+    "@deck.gl/extensions": "^8.8.0",
+    "@deck.gl/geo-layers": "^8.8.0",
+    "@luma.gl/core": "^8.5.20",
+    "@luma.gl/webgl": "^8.5.20",
+    "@luma.gl/shadertools": "^8.5.20",
+    "@luma.gl/constants": "^8.5.20"
+  },
+  "overrides": {
+    "@deck.gl/react": "^8.8.0",
+    "@deck.gl/core": "^8.8.0",
+    "@deck.gl/layers": "^8.8.0",
+    "@deck.gl/extensions": "^8.8.0",
+    "@deck.gl/geo-layers": "^8.8.0",
+    "@luma.gl/core": "^8.5.20",
+    "@luma.gl/webgl": "^8.5.20",
+    "@luma.gl/shadertools": "^8.5.20",
+    "@luma.gl/constants": "^8.5.20"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,7 +61,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
