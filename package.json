@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "name": "ghn",
   "version": "0.1.0",
@@ -79,3 +80,8 @@
     ]
   }
 }
+=======
+version https://git-lfs.github.com/spec/v1
+oid sha256:9bc9dc549801a7ccef1a70bd050959c4012003cadd60742db0d01ad09fbfa810
+size 2159
+>>>>>>> main
