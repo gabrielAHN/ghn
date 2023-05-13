@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ghn-dev-235251-authRole",
+      "UnauthRoleArn": "arn:aws:iam::825901755642:role/amplify-ghn-dev-235251-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::825901755642:role/amplify-ghn-dev-235251-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ghn-dev-235251-deployment",
+      "UnauthRoleName": "amplify-ghn-dev-235251-unauthRole",
+      "StackName": "amplify-ghn-dev-235251",
+      "StackId": "arn:aws:cloudformation:us-east-1:825901755642:stack/amplify-ghn-dev-235251/f928d090-ee1c-11ed-b00b-128ba12d69d7",
+      "AmplifyAppId": "d3czdwll2w8qcd"
+    },
+    "categories": {
+      "function": {
+        "citylover": {
+          "deploymentBucketName": "amplify-ghn-dev-235251-deployment",
+          "s3Key": "amplify-builds/citylover-526a30366f2f79674d4c-build.zip"
+        }
+      }
+    }
+  }
+}
