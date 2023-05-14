@@ -219,7 +219,7 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
             </Box>
             <FormatedTable
                 data={JobsDataList}
-                column_names={['Job Name', 'Company Name', 'Location', 'Post Name']}
+                column_names={['Job Name', 'Company Name', 'Location', 'Date']}
                 row_fields={['title', 'company', 'location', 'post_time']}
                 message={'No Jobs for that 😳 please try a new search 🔎'}
             />
