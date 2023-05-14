@@ -2,7 +2,6 @@ import { Grid } from '@material-ui/core';
 import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import Typography from '@mui/material/Typography';
 
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({

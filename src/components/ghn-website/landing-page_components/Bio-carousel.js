@@ -10,8 +10,8 @@ const bio_sliders = [
         paragraph: {
             __html: `
         <p>Now working remotely in <a href="https://carto.com/" >CARTO</a> building maps and spatials tools 🗺.</p>
-        <p>Specifically, building the spatial tools for the growing area of cloud ☁️ data warehouses, and also, <a href="https://academy.carto.com/courses/developer-advance/">creating lectures</a> 🧑‍🏫 for all learn to solve complex spatial problems.</p>
-        <p>Check out me<a href="https://datastackshow.com/podcast/a-primer-on-spatial-data-with-gabriel-hidalgo-of-carto/"> here talking about CARTO and my journey so far</a> 🥾.</p>
+        <p>Specifically, building the spatial tools for the growing area of cloud ☁️ data warehouses, and also, <a href="https://academy.carto.com/courses/developer-advance/">lectures</a> 🧑‍🏫 for all to solve complex spatial problems.</p>
+        <p>Check out more<a href="https://datastackshow.com/podcast/a-primer-on-spatial-data-with-gabriel-hidalgo-of-carto/"> here to see me table CARTO and my journey so far</a> 🥾.</p>
         ` },
         color: 'black',
         photo: carto,
@@ -23,7 +23,7 @@ const bio_sliders = [
         paragraph: {
             __html: `
         <p>Relocated to London 🇬🇧 and joined <a href="https://citymapper.com/company" target="_blank">Citymapper</a> to make transport better for all.</p>
-        <p>There worked within the cities team managing data analyst 🧑‍💻 who were taking care many of the major cities in the US</p>
+        <p>Worked within the cities team as the USA Region led 🧑‍💻 taking care many of the major cities in the US like NYC, SF, and LA.</p>
         <p>At the same time coding and improving the technical systems in Citymapper to improve our data infrastructure for all possible datasets we encounter across the world 🌎. If you want to <a href="mailto: gabrielhn@hey.com">talk GTFS Pathways hit me up</a>😊.</p>
         `},
         photo: uk,
@@ -37,7 +37,7 @@ const bio_sliders = [
             __html: `
         <p>Lived in NYC🗽 working for the NYC Taxi and Limousine Commission in the External Affairs Team.</p>
         <p>Joined because of the extreme shifts in the industry caused by Uber 🚕 where my interest in tech, gov, transportation started.</p>
-        <p>Here I is where are started to coding to better understand 🔬 what was going on at the time, and what has made real the impact of tech 🤖.</p>`
+        <p>This is where I started to code so I could understand the change in transportation 🔬, and real time effect of tech 🤖.</p>`
         },
         photo: tlc,
         size: '20',

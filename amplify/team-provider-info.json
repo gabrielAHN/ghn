@@ -15,7 +15,7 @@
       "function": {
         "citylover": {
           "deploymentBucketName": "amplify-ghn-dev-235251-deployment",
-          "s3Key": "amplify-builds/citylover-526a30366f2f79674d4c-build.zip"
+          "s3Key": "amplify-builds/citylover-58573157484d59755061-build.zip"
         }
       }
     }

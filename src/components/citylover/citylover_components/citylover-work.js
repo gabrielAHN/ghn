@@ -177,8 +177,8 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
 
     return (
         <TableContainer component={Paper} >
-            <Box sx={{ flexGrow: 1, m: 1 }}>
-                <Grid container spacing={2}>
+            <Box sx={{ flexGrow: 2, m: 1 }}>
+                <Grid container spacing={2} sx={{ flexWrap: 'wrap', justifyContent: 'space-between' }}>
                     <Grid item xs sm={3}>
                         <Autocomplete
                             disablePortal
@@ -203,7 +203,7 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                             }
                         />
                     </Grid>
-                    <Grid item xs sm>
+                    <Grid item xs={12} sm>
                         <TextField
                             id="outlined-basic"
                             fullWidth

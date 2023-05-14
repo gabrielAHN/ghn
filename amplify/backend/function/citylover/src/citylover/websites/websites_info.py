@@ -73,8 +73,8 @@ website_info = [
         'image_size': '70px',
         'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmKMTL7s8pHWi3lGcPnbXw5_bP4VXZIP2PgdXV5wr-u7tlTtgf',
         'newsletter': {
-                'scrape_function': rss_parser,
-                'website': 'https://www.omnycontent.com/d/playlist/e6127ab7-b81e-456b-893c-a8d600215365/7903d81a-7481-40dd-85ff-a8db009e611f/ff59014c-a954-4271-8920-a8db009e612d/podcast.rss '
+                'scrape_function': apple_parser,
+                'website': 'https://podcasts.apple.com/us/podcast/the-urbanist/id474763572'
         }
     },
     {
