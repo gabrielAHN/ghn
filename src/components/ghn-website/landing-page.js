@@ -95,7 +95,7 @@ function LandingPage() {
           <BioCarousel />
         </div>
         <div id="contact" >
-            <IconButton href='https://github.com/gh15hidalgo' target='_blank'>
+            <IconButton href='https://github.com/gabrielAHN' target='_blank'>
               <GitHubIcon />
             </IconButton>
             <IconButton href="mailto:example@example.com">
