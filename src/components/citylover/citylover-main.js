@@ -1,6 +1,8 @@
 
 import citylover from '../ghn-website/assets/citylover.png';
 import React, { useState, useEffect } from 'react';
+import IconButton from '@mui/material/IconButton';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import CityloverIntro from './citylover_components/citylover-intro';
 import CityloverWork from './citylover_components/citylover-work';
 import CityloverPosts from './citylover_components/citylover-post/citylover-posts';
@@ -93,6 +95,9 @@ function Citylover() {
           'color': 'black',
           'textDecoration': 'none',
         }}>gabrielhn.com</a></p>
+        <IconButton href='https://github.com/gabrielAHN/citylover' target='_blank'>
+          <GitHubIcon />
+        </IconButton>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList onChange={handleChange} centered>
