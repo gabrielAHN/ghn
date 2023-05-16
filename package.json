@@ -1,7 +1,7 @@
 {
   "name": "ghn",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
@@ -33,7 +33,7 @@
     "web-vitals": "^2.1.4"
   },
   "resolutions": {
-    "deck.gl": "8.9.15",
+    "deck.gl": "8.8.0",
     "@deck.gl/react": "^8.8.0",
     "@deck.gl/core": "^8.8.0",
     "@deck.gl/layers": "^8.8.0",
