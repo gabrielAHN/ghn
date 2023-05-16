@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import IconButton from '@mui/material/IconButton';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 import HeatMapWidget from './citibike-graphs/citibike_heat_graph/citibike_heat_map';
 import LineGraph from './citibike-graphs/citibike_line_graph/citibike_by_user';
 import CitibikeMap from './citibike-maps/station-map';
-// import CitiTripMap from './citibike-trips/trips-map';
+import CitiTripMap from './citibike-trips/trips-map';
 
 
 function Citibike() {
@@ -70,6 +72,9 @@ function Citibike() {
       <p>Citibike data can be an overloading experience 🤯 to explore so I made 
         some interesting anaylsis to explore the citibike use over the years.
       </p>
+      <IconButton href='https://github.com/gabrielAHN/Citibike-Deepdive' target='_blank'>
+          <GitHubIcon />
+      </IconButton>
       
       <h2>Citibike Users Rides Over the Years 🚴‍♂️</h2>
       <p>There are different plans for riding citibikes from 1 day rentals, 3 day rentals to an annual pass 🎫.</p>
@@ -93,7 +98,7 @@ function Citibike() {
       <h2>Citibike Top 10 Trips by Year 🏆</h2>
       <p>Everyone has their favorite type of bike trips these are the top 🔟 citibike trips per year.</p>
       <p>When you get a chance check them the out they are definietly a fun way to spend the weekend 😎. </p>
-      {/* <CitiTripMap /> */}
+      <CitiTripMap />
     </div>
   );
 }

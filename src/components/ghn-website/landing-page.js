@@ -41,13 +41,13 @@ const photo_buttons = [
       "url": 'citylover'
 
   },
-  // {
-  //     "name": "Citibike Deep Dive",
-  //     "image": citibikemap,
-  //     "hover_image": citibikehover,
-  //     "color": "black",
-  //     "url": 'citibike'
-  // }
+  {
+      "name": "Citibike Deep Dive",
+      "image": citibikemap,
+      "hover_image": citibikehover,
+      "color": "black",
+      "url": 'citibike'
+  }
 ]
 
 function LandingPage() {
