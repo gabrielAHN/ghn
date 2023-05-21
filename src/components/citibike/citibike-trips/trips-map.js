@@ -12,6 +12,8 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
 import Slider from '@mui/material/Slider';
 import { TripsLayer } from '@deck.gl/geo-layers';
 import CitibikeTrips from './trip_map_data.json';
@@ -24,7 +26,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWN1YXN1c2hpIiwiYSI6ImNsYnltdTc0NDAwaHozdm4xeHV
 const INITIAL_VIEW_STATE = {
   latitude: 40.7257548,
   longitude: -73.9957581,
-  zoom: 11,
+  zoom: 12,
   maxZoom: 20,
   pitch: 0,
   bearing: 0
@@ -45,6 +47,7 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
   const years = get_years(CitibikeTrips)
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
   const [isRunning, setIsRunning] = useState(true);
+  const [SliderSpeed, setSliderSpeed] = useState(300);
   const [DataYear, setDataYear] = useState(years[years.length - 1]);
   const [FilterData, setFilterData] = useState([]);
   const [GraphTime, setGraphTime] = useState(CitibikeTrips[DataYear].start_time);
@@ -108,7 +111,7 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
             if (GraphTime >= CitibikeTrips[DataYear].end_time){
               setGraphTime(CitibikeTrips[DataYear].start_time)
             } else {
-              setGraphTime(GraphTime + 500)
+              setGraphTime(GraphTime + SliderSpeed)
             }
           }, 10);
       }
@@ -142,9 +145,9 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
 
   return (
     <Box sx={{ marginBottom: 10 }}>
-      <Grid container spacing={1}>
-        <Grid item sx={2} md={1}>
-          <FormControl size="small" >
+      <Grid container spacing={5}>
+        <Grid item sx={12} md={12} >
+          <FormControl size="medium" style={{marginRight: 40}} >
             <InputLabel id="demo-simple-select-label">Year</InputLabel>
             <Select
               defaultValue={DataYear}
@@ -159,8 +162,6 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
               ))}
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item sx={12} md={2}>
           <Button
             size="large"
             variant="contained"
@@ -172,8 +173,16 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
           >
             {isRunning ? 'Stop' : 'Play'}
           </Button>
+          <Button onClick={()=>setSliderSpeed(SliderSpeed-50)}>
+            <FastRewindIcon style={{ fontSize: 48 }}/>
+          </Button>
+          <Button  onClick={()=>setSliderSpeed(SliderSpeed+100)}>
+            <FastForwardIcon style={{ fontSize: 48 }}/>
+          </Button>
         </Grid>
-        <Grid item sx={12} md={9} style={{ width: '100%' }}>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item sx={12} md={12} style={{ width: '100%' }}>
           <Slider
             value={GraphTime}
             onChange={TimeChange}
@@ -184,18 +193,7 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
         </Grid>
       </Grid>
       <Grid container spacing={4} >
-        <Grid item sm={12} md={4}>
-          <FormatedTable
-            style={{ position: 'relative', width: '100%' }}
-            data={CitibikeTrips[DataYear].top_trips}
-            checkbox_object={CheckboxObject}
-            checkbox_function={handlecheckbox}
-            column_names={['', 'Start Station', 'End Station', ' Trip Amount']}
-            row_fields={['start_station_name', 'end_station_name', 'amount']}
-            message={'Getting Trips Data...'}
-          />
-        </Grid>
-        <Grid item sm={12} md={8} style={{ position: 'relative', width: '100%' }}>
+        <Grid item sm={12} md={6} style={{ position: 'relative', width: '100%' }}>
           <DeckGL
             style={{ position: 'relative', width: '100%', height: '85vh' }}
             viewState={viewState}
@@ -223,6 +221,17 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
               <div style={{ flex: 1, borderBottom: '5px solid rgb(246, 208, 19)', width: '50px' }} />
             </div>
           </div>
+        </Grid>
+        <Grid item sm={12} md={6}>
+          <FormatedTable
+            style={{ position: 'relative', width: '100%' }}
+            data={CitibikeTrips[DataYear].top_trips}
+            checkbox_object={CheckboxObject}
+            checkbox_function={handlecheckbox}
+            column_names={['', 'Start Station', 'End Station', ' Trip Amount']}
+            row_fields={['start_station_name', 'end_station_name', 'amount']}
+            message={'Getting Trips Data...'}
+          />
         </Grid>
       </Grid>
     </Box>

@@ -70,7 +70,7 @@ function Citibike() {
           'textDecoration': 'none',
         }}>gabrielhn.com</a>
       <p>Citibike data can be an overloading experience 🤯 to explore so I made 
-        some interesting anaylsis to explore the citibike use over the years.
+        some interesting anaylsis for the data across the years to find out how New Yorkers are using the biking.
       </p>
       <IconButton href='https://github.com/gabrielAHN/Citibike-Deepdive' target='_blank'>
           <GitHubIcon />
