@@ -2,14 +2,14 @@ from citylover.scrapers.newsletter_scrapers import (
     rss_parser, apple_parser, allthingsurban,
     govtech, transitcenter, streetsblog, parking_mobility,
     axios, spur, micromobilitypodcast,
-    zag, transloc, commutifi
+    zag, transloc, commutifi, electronomous
 )
 from citylover.scrapers.jobs_scrapers import (
     planetizen_jobs, allthingsurban_jobs,
     apany_jobs, govlove_jobs, beta_nyc_jobs,
     nyc_planning_jobs, carto_jobs, transitcenter_job,
     uber_jobs, via_jobs, mobilitydata_jobs,
-    citymapper_jobs, lever_jobs
+    citymapper_jobs, lever_jobs, smartgrowamerica_jobs
 )
 
 
@@ -507,6 +507,39 @@ website_info = [
         'jobs': {
             'scrape_function': lever_jobs,
             'website': 'https://jobs.lever.co/goswift'
+        }
+    },
+    {
+        'id': 'smartgrowthamerica',
+        'name': 'Smart Growth America',
+        'type': ['job'],
+        'image': 'https://smartgrowthamerica.org/wp-content/uploads/2021/08/SGA_logo_card.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': smartgrowamerica_jobs,
+            'website': 'https://smartgrowthamerica.org/about-us/careers/'
+        }
+    },
+    {
+        'id': 'nlc',
+        'name': 'National League of Cities',
+        'type': ['podcast'],
+        'image': 'https://upload.wikimedia.org/wikipedia/en/0/00/National_League_of_Cities_logo.png',
+        'image_size': '90px',
+        'newsletter': {
+            'scrape_function': apple_parser,
+            'website': 'https://podcasts.apple.com/us/podcast/citiesspeak-with-clarence-anthony/id1635203625'
+        }
+    },
+    {
+        'id': 'electronomous',
+        'name': 'Electronomous',
+        'type': ['news'],
+        'image': 'https://www.showsbee.com/newmaker/www/u/2022/20225/com_img/Electronomous-logo.png',
+        'image_size': '90px',
+        'newsletter': {
+            'scrape_function': electronomous,
+            'website': 'https://www.electronomous.com/news/'
         }
     },
     {

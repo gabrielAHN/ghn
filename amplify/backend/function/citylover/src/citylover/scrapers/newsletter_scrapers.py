@@ -296,3 +296,29 @@ def commutifi(url):
             continue
     if articles:
         return articles
+
+def electronomous(url):
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
+        'Safari/537.36'
+    }
+    content = get_response_header(url, header)
+    soup = BeautifulSoup(content, 'html.parser')
+    articles = soup.find_all('h1', {'class',"elementor-heading-title elementor-size-default"})
+    
+    if not articles:
+        return []
+
+    articles = [
+        article_object(
+            title= article.find('a').text,
+            url= article.find('a').get('href'),
+            datetime=''
+        )
+        for article in articles
+        if article
+        and article.find('a').text
+    ]
+    if articles:
+        return articles

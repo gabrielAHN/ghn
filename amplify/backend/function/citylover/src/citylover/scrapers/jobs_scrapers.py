@@ -423,6 +423,37 @@ def citymapper_jobs(url):
     if jobs:
         return jobs
 
+
+def smartgrowamerica_jobs(url):
+    response = get_response(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find_all('h2', {'class': 'wp-block-spacer'})
+
+    if not jobs:
+        return []
+    jobs = [
+        job_object(
+            title=job.find('span').text.replace('Now hiring: ', ''),
+            company='Smart Growth America',
+            location='Washington, DC',
+            url=job.find('a').get('href'),
+            datetime='',
+            job_type=job_typer(
+                    job.find('span').text.replace('Now hiring: ', ''), 
+                    'Smart Growth America'
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('span').text.replace('Now hiring: ', ''), 
+                    'Smart Growth America'
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+
 def beta_nyc_jobs(url):
     # response = get_response(url)
     # if response.status_code != 200:
@@ -465,23 +496,4 @@ def beta_nyc_jobs(url):
     # print(soup)
 
     return []
-    # if not jobs:
-    #     return []
-    # jobs = jobs.find_all('li')
-    # if not jobs:
-    #     return []
-    # jobs = [
-    #     job_object(
-    #         title=job.find('a').text,
-    #         company='Carto',
-    #         location=job.find('p').text,
-    #         url=job.find('a').get('href'),
-    #         datetime='',
-    #         job_type=job_typer(job.find('a').text, 'Carto')
-    #     )
-    #     for job in jobs
-    #     if job_typer(job.find('a').text, 'Carto')
-    #     and job.find('a')
-    # ]
-    # if jobs:
-    #     return jobs
+
