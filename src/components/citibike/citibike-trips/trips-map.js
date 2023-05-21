@@ -129,7 +129,7 @@ export default function CitiTripMap({ mapStyle = MAP_STYLE }) {
       currentTime: GraphTime,
       opacity: 1.0,
       widthMinPixels: 3,
-      rounded: true,
+      capRounded : true,
       shadowEnabled: false,
       trailLength: 5000,
       getColor: f => f.trip_type == 'electric_bike' ? [246, 208, 19] : [19, 102, 245],
