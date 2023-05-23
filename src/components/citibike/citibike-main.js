@@ -97,7 +97,7 @@ function Citibike() {
       }
       <h2>Citibike Top 10 Trips by Year 🏆</h2>
       <p>Everyone has their favorite type of bike trips these are the top 🔟 citibike trips per year.</p>
-      <p>When you get a chance check them the out they are definietly a fun way to spend the weekend 😎. </p>
+      <p>When you get a chance check them the out they are definitely a fun way to spend the weekend 😎. </p>
       <CitiTripMap />
     </div>
   );
