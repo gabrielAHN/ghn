@@ -6,7 +6,7 @@ import BioCarousel from './landing-page_components/Bio-carousel';
 import WorkButtons from './landing-page_components/work-buttons';
 import citylover from './assets/citylover.png';
 import cityloverhover from './assets/workbutton-images/citylover-hover.gif'
-import citibikemap from './assets/workbutton-images/citibike-map.jpeg'
+import citibikemap from './assets/workbutton-images/citibike.png'
 import citibikehover from './assets/workbutton-images/citibike-hover.gif'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -41,13 +41,13 @@ const photo_buttons = [
       "url": 'citylover'
 
   },
-  // {
-  //     "name": "Citibike Deep Dive",
-  //     "image": citibikemap,
-  //     "hover_image": citibikehover,
-  //     "color": "black",
-  //     "url": 'citibike'
-  // }
+  {
+      "name": "Citibike Deep Dive",
+      "image": citibikemap,
+      "hover_image": citibikehover,
+      "color": "black",
+      "url": 'citibike'
+  }
 ]
 
 function LandingPage() {
