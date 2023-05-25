@@ -2,7 +2,9 @@ import re
 
 NO_MATCHES = [
     'finance', 'health', 'hr', 'strategic', 'office coordinator',
-    'advertising', 'payroll', 'office manager', 'accountant'
+    'advertising', 'payroll', 'office manager', 'accountant',
+    'full time seasonal', 'driver', 'talent acquisition',
+    'talent pool', 'mechanic', 'shift', 'technician'
 ]
 
 
@@ -52,11 +54,10 @@ def city_builders(title, company):
 
 
 def urban_techies(title, company):
-    # Senior Java Software Developer
     title_list = [
         r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability) engineer',
-        r'data (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
-        r'backend engineer', r'database specialist', r'engineering manager',
+        r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
+        r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
         r'(data infra|full stack) team', r'Java Software Developer'
     ]
     company_list = [
@@ -68,8 +69,10 @@ def urban_techies(title, company):
 def gov_lovers(title, company):
     title_list = [
         r'of Government', r'department of', r'council of governments',
-        r'^(city|state|town|county) of .*',
+        r'^(city|state|town|county) of .*', r'government relations manager',
+        r'senior manager, public Affairs'
     ]
+
     company_list = [
         [r'(city planning)', r'(deputy director)'],
         [r'department of (housing( preservation)?|transportation|planning)', 
@@ -121,7 +124,7 @@ def company_matching(company_list, title, company):
     return False
 
 
-def job_typer(title, company, pre_type = []):
+def job_typer(title, company='', pre_type = []):
     if not title:
         return []
     blacklist = [

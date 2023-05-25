@@ -19,7 +19,7 @@ class article_object:
         self.datetime = get_datetime(datetime)
 
 
-def rss_parser(url):
+def rss_parser(url, name=''):
     try:
         response = get_response(url)
         root = ET.fromstring(response.content)
@@ -43,7 +43,7 @@ def rss_parser(url):
         return articles
 
 
-def apple_parser(url):
+def apple_parser(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('li', {'class', 'tracks__track tracks__track--podcast'})
@@ -61,7 +61,7 @@ def apple_parser(url):
         return articles
 
 
-def allthingsurban(url):
+def allthingsurban(url, name=''):
     website = 'https://www.allthingsurban.net{}'
 
     response = get_response(url)
@@ -83,7 +83,7 @@ def allthingsurban(url):
         return articles
 
 
-def govtech(url):
+def govtech(url, name=''):
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
@@ -106,7 +106,7 @@ def govtech(url):
         return articles
 
 
-def streetsblog(url):
+def streetsblog(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('article')
@@ -125,13 +125,13 @@ def streetsblog(url):
         return articles
 
 
-def transitcenter(website):
+def transitcenter(url, name=''):
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(website, header)
+    content = get_response_header(url, header)
     soup = BeautifulSoup(content, 'html.parser')
     articles = soup.find_all('div', {'class': 'container wide is-widescreen'})
     if not articles:
@@ -149,7 +149,7 @@ def transitcenter(website):
         return articles
 
 
-def spur(url):
+def spur(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class', 'content'})[2:]
@@ -167,7 +167,7 @@ def spur(url):
         return articles
 
 
-def parking_mobility(url):
+def parking_mobility(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class', 'blog-post-info'})
@@ -185,7 +185,7 @@ def parking_mobility(url):
         return articles
 
 
-def axios(url):
+def axios(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('amp-layout')
@@ -207,7 +207,7 @@ def axios(url):
         return articles
 
 
-def micromobilitypodcast(url):
+def micromobilitypodcast(url, name=''):
     website = 'https://micromobility.io{}'
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -226,7 +226,7 @@ def micromobilitypodcast(url):
         return articles
 
 
-def zag(url):
+def zag(url, name=''):
     response = get_response(url)
     if not response:
         return []
@@ -246,7 +246,7 @@ def zag(url):
         return articles
 
 
-def transloc(url):
+def transloc(url, name=''):
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
@@ -269,7 +269,7 @@ def transloc(url):
         return articles
 
 
-def commutifi(url):
+def commutifi(url, name=''):
     website = 'https://www.commutifi.com/{}'
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -297,7 +297,7 @@ def commutifi(url):
     if articles:
         return articles
 
-def electronomous(url):
+def electronomous(url, name=''):
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '

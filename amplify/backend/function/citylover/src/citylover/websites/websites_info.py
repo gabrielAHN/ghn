@@ -8,8 +8,9 @@ from citylover.scrapers.jobs_scrapers import (
     planetizen_jobs, allthingsurban_jobs,
     apany_jobs, govlove_jobs, beta_nyc_jobs,
     nyc_planning_jobs, carto_jobs, transitcenter_job,
-    uber_jobs, via_jobs, mobilitydata_jobs,
-    citymapper_jobs, lever_jobs, smartgrowamerica_jobs
+    uber_jobs, mobilitydata_jobs, citymapper_jobs, 
+    lever_jobs, smartgrowamerica_jobs,
+    greenhouse_jobs, lever_jobs
 )
 
 
@@ -461,8 +462,8 @@ website_info = [
             'website': 'https://podcasts.apple.com/us/podcast/modeshift/id1644748349'
         },
         'jobs': {
-            'scrape_function': via_jobs,
-            'website': 'https://boards-api.greenhouse.io/v1/boards/via/jobs?content=true'
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/via'
         }
     },
     {
@@ -551,6 +552,50 @@ website_info = [
         'jobs': {
             'scrape_function': beta_nyc_jobs,
             'website': 'https://beta.nyc/blog/'
+        }
+    },
+    {
+        'id': 'revel',
+        'name': 'Revel',
+        'type': ['job'],
+        'image': 'https://s4-recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/logos/400/075/500/resized/revel_greenhouse.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/revel'
+        }
+    },
+    {
+        'id': 'streetlightdata',
+        'name': 'Street Light Data',
+        'type': ['job'],
+        'image': 'https://lever-client-logos.s3.amazonaws.com/0046318a-573c-41a8-8de0-52fda3259340-1546914822777.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/streetlightdata'
+        }
+    },
+    {
+        'id': 'lime',
+        'name': 'Lime',
+        'type': ['job'],
+        'image': 'https://lever-client-logos.s3.amazonaws.com/04d69456-1062-431c-bf70-177b55749515-1571247003987.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/lime'
+        }
+    },
+    {
+        'id': 'urbanfootprint',
+        'name': 'Urban Footprint',
+        'type': ['job'],
+        'image': 'https://s4-recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/logos/400/646/400/resized/UF_Logo_-_1200x628_(1).png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/urbanfootprint'
         }
     }
 ]
