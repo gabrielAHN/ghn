@@ -4,7 +4,8 @@ NO_MATCHES = [
     'finance', 'health', 'hr', 'strategic', 'office coordinator',
     'advertising', 'payroll', 'office manager', 'accountant',
     'full time seasonal', 'driver', 'talent acquisition',
-    'talent pool', 'mechanic', 'shift', 'technician'
+    'talent pool', 'mechanic', 'shift', 'technician',
+    'recruiter'
 ]
 
 
@@ -54,11 +55,12 @@ def city_builders(title, company):
 
 
 def urban_techies(title, company):
+    # Full-Stack Web Developer
     title_list = [
-        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability) engineer',
+        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability|qa) engineer',
         r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
         r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
-        r'(data infra|full stack) team', r'Java Software Developer'
+        r'(data infra|full stack) team', r'(java software|full(\-)?stack web) developer'
     ]
     company_list = [
     ]

@@ -10,7 +10,7 @@ from citylover.scrapers.jobs_scrapers import (
     nyc_planning_jobs, carto_jobs, transitcenter_job,
     uber_jobs, mobilitydata_jobs, citymapper_jobs, 
     lever_jobs, smartgrowamerica_jobs,
-    greenhouse_jobs, lever_jobs
+    greenhouse_jobs, lever_jobs, optibus_jobs
 )
 
 
@@ -596,6 +596,28 @@ website_info = [
         'jobs': {
             'scrape_function': greenhouse_jobs,
             'website': 'https://boards.greenhouse.io/urbanfootprint'
+        }
+    },
+    {
+        'id': 'mbta',
+        'name': 'MBTA',
+        'type': ['job'],
+        'image': 'https://lever-client-logos.s3-us-west-2.amazonaws.com/753da791-a783-4cb5-b37d-ce85a22dc7bd-1596468426966.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/mbta/'
+        }
+    },
+    {
+        'id': 'optibus',
+        'name': 'Optibus',
+        'type': ['job'],
+        'image': 'https://www.optibus.com/wp-content/uploads/2021/12/optibus-dark-logo.svg',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': optibus_jobs,
+            'website': 'https://www.optibus.com/company/careers/jobs/'
         }
     }
 ]

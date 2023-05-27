@@ -9,7 +9,6 @@ from citylover.scrapers.job_typer import *
 from citylover.scrapers.location_standardizer import *
 
 
-
 class job_object:
     def __init__(self, title, company, location , url, datetime, job_type):
         self.title = clean_string(title).title()
@@ -50,11 +49,10 @@ def greenhouse_jobs(url, name=''):
     response = get_response(url)
 
     soup = BeautifulSoup(response.content, 'html.parser')
-    jobs = soup.find_all('section', {'class': 'level-0'})
+    jobs = soup.find_all('div', {'class': 'opening'})
 
     if not jobs:
         return []
-
     jobs = [
         job_object(
             title=job.find('a').text,
@@ -71,6 +69,7 @@ def greenhouse_jobs(url, name=''):
                     job.find('a').text
                 )
         and job
+        and country_black_list(job.find('span', {'class', 'location'}).text)
     ]
     if jobs:
         return jobs
@@ -483,6 +482,39 @@ def smartgrowamerica_jobs(url, name=''):
         if job_typer(
                     job.find('span').text.replace('Now hiring: ', ''), 
                     'Smart Growth America'
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+def optibus_jobs(url, name=''):
+    response = get_response(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find('ul', {'class': 'comeet-positions-list'})
+    
+    if not jobs:
+        return []
+    
+    jobs = jobs.find_all('li')
+    if not jobs:
+        return []
+    jobs = [
+        job_object(
+            title=job.find('div').text,
+            company=name,
+            location=job.find('div', {'class': 'location-tag filter-tags'}).text,
+            url=job.find('a').get('href')[2:],
+            datetime='',
+            job_type=job_typer(
+                    job.find('div').text,
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('div').text
                 )
         and job
     ]
