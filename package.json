@@ -15,8 +15,8 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^4.3.43",
-    "deck.gl": "^8.8.23",
-    "@deck.gl/react": "^8.9.19",
+    "deck.gl": "^8.8.18",
+    "@deck.gl/react": "8.9.18",
     "echarts": "^5.4.1",
     "echarts-for-react": "^3.0.2",
     "gl-matrix": "^3.4.3",
@@ -33,29 +33,19 @@
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },
-  "resolutions": {
-    "deck.gl": "8.9.19",
-    "@deck.gl/react": "8.9.19",
-    "@deck.gl/core": "8.9.19",
-    "@deck.gl/layers": "8.9.19",
-    "@deck.gl/extensions": "8.9.19",
-    "@deck.gl/geo-layers": "8.9.19",
-    "@luma.gl/core": "^8.5.20",
-    "@luma.gl/webgl": "^8.5.20",
-    "@luma.gl/shadertools": "^8.5.20",
-    "@luma.gl/constants": "^8.5.20"
-  },
   "overrides": {
-    "deck.gl": "8.9.19",
-    "@deck.gl/react": "8.9.19",
-    "@deck.gl/core": "8.9.19",
-    "@deck.gl/layers": "8.9.19",
-    "@deck.gl/extensions": "8.9.19",
-    "@deck.gl/geo-layers": "8.9.19",
-    "@luma.gl/core": "^8.5.20",
-    "@luma.gl/webgl": "^8.5.20",
-    "@luma.gl/shadertools": "^8.5.20",
-    "@luma.gl/constants": "^8.5.20"
+    "@deck.gl/core": "^8.8.18",
+    "@deck.gl/layers": "^8.8.18",
+    "@deck.gl/extensions": "^8.8.18",
+    "@deck.gl/geo-layers": "^8.8.18",
+    "@luma.gl/core": "^8.5.16"
+  },
+  "resolutions": {
+    "@deck.gl/core": "^8.8.18",
+    "@deck.gl/layers": "^8.8.18",
+    "@deck.gl/extensions": "^8.8.18",
+    "@deck.gl/geo-layers": "^8.8.18",
+    "@luma.gl/core": "^8.5.16"
   },
   "scripts": {
     "start": "react-scripts start",
