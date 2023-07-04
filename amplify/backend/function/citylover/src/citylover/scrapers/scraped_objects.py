@@ -70,6 +70,7 @@ def get_scrape_objects(data_date, source_id='', source_type=''):
                 title=job_feature.get('title'),
                 company=job_feature['id'],
                 location=job_feature.get('location'),
+                country=job_feature.get('country'),
                 url=job_feature.get('url'),
                 datetime='today',
                 job_type=job_feature.get('job_type')

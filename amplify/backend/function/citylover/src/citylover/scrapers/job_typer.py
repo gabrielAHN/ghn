@@ -5,14 +5,25 @@ NO_MATCHES = [
     'advertising', 'payroll', 'office manager', 'accountant',
     'full time seasonal', 'driver', 'talent acquisition',
     'talent pool', 'mechanic', 'shift', 'technician',
-    'recruiter'
+    'recruiter', 'ranger', 'mécanicien', 'financial',
+    'open application'
 ]
+
+def city_sellers(title, company):
+    title_list = [
+        r'(sales|revenue) operations', r'sales representative',
+        r'public sector sales', r'(acquisition|business) manager'
+    ]
+    company_list = [
+    ]
+    job_type = job_labeling('city_sellers', title_list, company_list, title, company)
+    return job_type 
 
 
 def urban_scholars(title, company):
     title_list = [
         r'gis lecturer', r'(assistant|associate) professor',
-        r'internship\: architecture',
+        r'internship\: architecture', r'intern(s)?', 'researcher'
     ]
     company_list = [
         [r'urban Policy', r'(research fellow)'],
@@ -43,7 +54,7 @@ def city_builders(title, company):
     title_list = [
         r'(associate|transportation|community|sustainability|environmental|senior|urban|principal|land( use)?|park) planner',
         r'urban design', r'zoning specialist',r'planning (intern|manager)', 'deputy commissioner of planning',
-        r'^planner$', r'director of engineering'
+        r'^planner$', r'director of engineering', r'transportation engineer'
     ]
     company_list = [
        [r'(city|department of) planning', r'(director)'],
@@ -55,9 +66,9 @@ def city_builders(title, company):
 
 
 def urban_techies(title, company):
-    # Full-Stack Web Developer
+
     title_list = [
-        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability|qa) engineer',
+        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability|qa|support) engineer',
         r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
         r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
         r'(data infra|full stack) team', r'(java software|full(\-)?stack web) developer'
@@ -140,7 +151,7 @@ def job_typer(title, company='', pre_type = []):
 
     job_type_list = [
         urban_techies, city_builders, transport_enthusiast,
-        gov_lovers, urban_scholars
+        gov_lovers, urban_scholars, city_sellers
     ]
 
     job_typings = [   

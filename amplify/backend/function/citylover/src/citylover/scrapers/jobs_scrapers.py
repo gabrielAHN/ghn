@@ -14,6 +14,7 @@ class job_object:
         self.title = clean_string(title).title()
         self.company = clean_string(company)
         self.location = location_standardizer(location)
+        self.country = country_standardizer(location)
         self.url = url.replace('www.', 'https://')
         self.datetime = get_datetime(clean_string(datetime))
         self.job_type = job_type
@@ -515,6 +516,75 @@ def optibus_jobs(url, name=''):
         for job in jobs
         if job_typer(
                     job.find('div').text
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+def ito_jobs(url, name=''):
+    website = "https://itoworld.bamboohr.com/careers/{}"
+
+    response = get_response(url)
+    if response.status_code != 200:
+        return []
+    jobs = response.json()
+    
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job['jobOpeningName'],
+            company=name,
+            location='Cambridge, Cambridgeshire (Remote)',
+            url=website.format(job['id']),
+            datetime='',
+            job_type=job_typer(
+                    job['jobOpeningName'],
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs['result']
+        if job_typer(
+                    job['jobOpeningName']
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+def voi_jobs(url, name=''):
+
+    response = get_response(url)
+    
+    if response.status_code != 200:
+        return []
+    
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find_all(
+        'li', {'class', "transition-opacity duration-150 border rounded block-grid-item border-block-base-text border-opacity-15"}
+        )
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job.find('span').get('title'),
+            company=name,
+            location=f"{job.find_all('span')[3].text}, {job.find_all('span')[5].text}",
+            url=job.find('a').get('href'),
+            datetime='',
+            job_type=job_typer(
+                    job.find('span').get('title'),
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('span').get('title')
                 )
         and job
     ]

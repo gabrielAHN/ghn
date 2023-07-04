@@ -65,6 +65,8 @@ def allthingsurban(url, name=''):
     website = 'https://www.allthingsurban.net{}'
 
     response = get_response(url)
+    if response.status_code != 200:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class': 'blog-item'})
     if not articles:

@@ -10,7 +10,8 @@ from citylover.scrapers.jobs_scrapers import (
     nyc_planning_jobs, carto_jobs, transitcenter_job,
     uber_jobs, mobilitydata_jobs, citymapper_jobs, 
     lever_jobs, smartgrowamerica_jobs,
-    greenhouse_jobs, lever_jobs, optibus_jobs
+    greenhouse_jobs, lever_jobs, optibus_jobs,
+    ito_jobs, voi_jobs
 )
 
 
@@ -489,17 +490,6 @@ website_info = [
         }
     },
     {
-        'id': 'mobilitydata',
-        'name': 'Mobility Data',
-        'type': ['job'],
-        'image': 'https://mobilitydata.org/app/uploads/2021/04/cropped-flaticon_logo-18.png',
-        'image_size':   '90px',
-        'jobs': {
-            'scrape_function': mobilitydata_jobs,
-            'website': 'https://careers.mobilitydata.org/?_gl=1*stwnoe*_ga*MTk2MDgxODQ5MS4xNjgwODg5NzYw*_ga_55GPMF0W9Z*MTY4MjczNzU3MC4xMC4xLjE2ODI3Mzc1NzAuMC4wLjA.'
-        }
-    },
-    {
         'id': 'goswift',
         'name': 'Swiftly',
         'type': ['job'],
@@ -618,6 +608,50 @@ website_info = [
         'jobs': {
             'scrape_function': optibus_jobs,
             'website': 'https://www.optibus.com/company/careers/jobs/'
+        }
+    },
+    {
+        'id': 'itoworld',
+        'name': 'Ito World',
+        'type': ['job'],
+        'image': 'https://www.itoworld.com/wp-content/uploads/2019/09/logo-2019-01-e1624962387164.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': ito_jobs,
+            'website': 'https://itoworld.bamboohr.com/careers/list'
+        }
+    },
+    {
+        'id': 'voi',
+        'name': 'Voi',
+        'type': ['job'],
+        'image': 'https://www.voi.com/wp-content/uploads/2019/07/voi_logo_coral.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': voi_jobs,
+            'website': 'https://careers.voi.com/jobs?department=Research+%26+Development&query='
+        }
+    },
+    {
+        'id': 'tier',
+        'name': 'Tier',
+        'type': ['job'],
+        'image': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/TIER_Mobility_Logo_%28blau%2C_2021%29.svg/1200px-TIER_Mobility_Logo_%28blau%2C_2021%29.svg.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/tiermobility'
+        }
+    },
+    {
+        'id': 'veo',
+        'name': 'Veo',
+        'type': ['job'],
+        'image': 'https://s4-recruiting.cdn.greenhouse.io/external_greenhouse_job_boards/logos/400/297/800/resized/veo_logo_black.png?1622840779',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/veocorporatecareers'
         }
     }
 ]
