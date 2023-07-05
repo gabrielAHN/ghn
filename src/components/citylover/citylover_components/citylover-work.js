@@ -15,6 +15,7 @@ const job_selections = [
     { job: 'City Builders 👷', job_type: ['city_builders'] },
     { job: 'Urban Techies 🧑‍💻', job_type: ['urban_techies'] },
     { job: 'Gov Lovers 📜', job_type: ['gov_lovers'] },
+    { job: 'City Sellers 🤑', job_type: ['city_sellers'] },
     { job: 'Other Jobs 🤔', job_type: ['other'] },
 ]
 
@@ -22,10 +23,12 @@ const job_selections = [
 export default function CityloverWork({ JobsData, BrandData, JobsDataFunction }) {
     const [JobsDataList, setJobsDataList] = useState(JobsData);
     const [JobsDataType, setJobsDataType] = useState(JobsData);
+    const [JobsLocation, setJobsLocation] = useState(JobsData);
     const [JobsDataSource, setJobsDataSource] = useState(JobsData);
     const [searched, setSearched] = useState('');
     const [dropdown, setDropDown] = useState('');
     const [dropdown2, setDropDown2] = useState('');
+    const [dropdown3, setDropDown3] = useState('');
 
 
     function filter_by_job_type(job_list) {
@@ -49,6 +52,15 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
             )
         )
     }
+    function filter_by_job_country(job_list) {
+        return Array.from(
+            new Set(
+                job_list.map(
+                    (d) =>
+                        d.country)
+            )
+        )
+    }
 
     function widget_filter_by_job_type(job_list) {
         return job_selections.filter(
@@ -61,30 +73,26 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
             });
     }
 
-    const filtered_job_selections = job_selections.filter(
-        (item) => {
-            return item.job_type.some(
-                (x) => filter_by_job_type(JobsDataList).some(
-                    (y) => y === x
-                )
-            );
-        });
+
+
 
     useEffect(
         () => {
 
             setJobsDataSource(filter_by_job_source(JobsDataList));
             setJobsDataType(widget_filter_by_job_type(JobsDataList));
+            setJobsLocation(filter_by_job_country(JobsDataList));
 
-            if (searched && !dropdown && !dropdown2) {
+            if (searched && !dropdown && !dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter((item) => {
                     return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
                 })
                 setJobsDataList(filteredData_list);
-                setJobsDataType(widget_filter_by_job_type(filteredData_list))
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
                 filter_by_job_source(filteredData_list);
             }
-            else if (!searched && dropdown && !dropdown2) {
+            else if (!searched && dropdown && !dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter(
                     (item) => {
                         return item && dropdown.job_type.some(
@@ -93,17 +101,28 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                     });
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list))
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
-            else if (!searched && !dropdown && dropdown2) {
+            else if (!searched && !dropdown && dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter((item) => {
                     return item && dropdown2 == item.source_name
                 });
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list))
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
-            else if (searched && dropdown && !dropdown2) {
+            else if (!searched && !dropdown && !dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter((item) => {
+                    return item && dropdown3 == item.country
+                });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list))
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (searched && dropdown && !dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter(
                     (item) => {
                         return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
@@ -115,22 +134,34 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                         });
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
-            else if (searched && !dropdown && dropdown2) {
+            else if (searched && !dropdown && dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter(
                     (item) => {
                         return item && dropdown2 == item.source_name
                     }).filter((item) => {
                         return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
                     });
-
-
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
-            else if (!searched && dropdown && dropdown2) {
+            else if (searched && !dropdown && !dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown3 == item.location
+                    }).filter((item) => {
+                        return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
+                    });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (!searched && dropdown && dropdown2 && !dropdown3) {
                 const filteredData_list = JobsData.filter(
                     (item) => {
                         return item && dropdown2 == item.source_name
@@ -142,9 +173,100 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                         });
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
-            else if (searched && dropdown && dropdown2) {
+            else if (!searched && !dropdown && dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown2 == item.source_name
+                    }).filter(
+                        ((item) => {
+                            return item && dropdown3 == item.country
+                        }));
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (!searched && !dropdown && dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown2 == item.source_name
+                    }).filter(
+                        ((item) => {
+                            return item && dropdown3 == item.country
+                        }));
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (!searched && dropdown && dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown2 == item.source_name
+                    }).filter((item) => {
+                        return item && dropdown3 == item.country
+                    }).filter(
+                        (item) => {
+                            return item && dropdown.job_type.some(
+                                (x) => item.job_type.includes(x)
+                            )
+                        });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (searched && !dropdown && dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown2 == item.source_name
+                    }).filter((item) => {
+                        return item && dropdown3 == item.country
+                    }).filter((item) => {
+                        return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
+                    });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (searched && dropdown && !dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown.job_type.some(
+                            (x) => item.job_type.includes(x)
+                        )
+                    }).filter((item) => {
+                        return item && dropdown3 == item.country
+                    }).filter((item) => {
+                        return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
+                    });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (searched && dropdown && dropdown2 && !dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown2 == item.source_name
+                    }).filter((item) => {
+                        return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
+                    }).filter(
+                        (item) => {
+                            return item && dropdown.job_type.some(
+                                (x) => item.job_type.includes(x)
+                            )
+                        });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
+            else if (searched && dropdown && dropdown2 && dropdown3) {
                 const filteredData_list = JobsData
                     .filter((item) => {
                         return Object.values(item).join('').toLowerCase().includes(searched.toLowerCase())
@@ -155,20 +277,25 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                         return item && dropdown.job_type.some(
                             (x) => item.job_type.includes(x)
                         )
+                    }).filter((item) => {
+                        return item && dropdown3 == item.country
                     });
                 setJobsDataList(filteredData_list);
                 setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
             else {
                 setJobsDataList(JobsData);
                 setJobsDataSource(filter_by_job_source(JobsData));
+                setJobsLocation(filter_by_job_country(JobsData));
                 setJobsDataType(widget_filter_by_job_type(JobsData));
 
             }
         }, [
         setJobsDataSource, filter_by_job_source, filter_by_job_type,
-        searched, dropdown, dropdown2, JobsDataType, setJobsDataType
+        searched, dropdown, dropdown2, dropdown3, JobsDataType, 
+        setJobsDataType, setJobsLocation, filter_by_job_country
     ]);
 
 
@@ -203,7 +330,19 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                             }
                         />
                     </Grid>
-                    <Grid item xs={12} sm>
+                    <Grid item xs={6} sm={3}>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={JobsLocation}
+                            getOptionLabel={(option) => option}
+                            onChange={(event, value) => setDropDown3(value)}
+                            renderInput={(params) =>
+                                (<TextField {...params} label="Country of Job" />)
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm>
                         <TextField
                             id="outlined-basic"
                             fullWidth

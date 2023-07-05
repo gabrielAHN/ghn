@@ -26,11 +26,7 @@ def create_jobs_data(scrape_objects):
         key=lambda x: x.scrape_object.datetime,
         reverse=True
     )
-    # for job in scrape_objects:
-    #     if 'job' in job.source_type:
-    #         print(job.source)
-    #         print(job.scrape_object)
-    #         print(job.source_type)
+
     jobs_data = [
         {
             'source': job.source,
@@ -38,6 +34,7 @@ def create_jobs_data(scrape_objects):
             'title': job.scrape_object.title,
             'company': job.scrape_object.company,
             'location': job.scrape_object.location,
+            'country': job.scrape_object.country,
             'url': job.scrape_object.url,
             'post_time': str(job.scrape_object.datetime),
             'job_type': job.scrape_object.job_type

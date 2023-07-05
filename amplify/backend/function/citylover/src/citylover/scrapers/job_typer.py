@@ -6,7 +6,7 @@ NO_MATCHES = [
     'full time seasonal', 'driver', 'talent acquisition',
     'talent pool', 'mechanic', 'shift', 'technician',
     'recruiter', 'ranger', 'mécanicien', 'financial',
-    'open application'
+    'open application', 'submit your resume'
 ]
 
 def city_sellers(title, company):
