@@ -176,6 +176,21 @@ export default function CityloverWork({ JobsData, BrandData, JobsDataFunction })
                 setJobsLocation(filter_by_job_country(filteredData_list));
                 setJobsDataType(widget_filter_by_job_type(filteredData_list));
             }
+            else if (!searched && dropdown && !dropdown2 && dropdown3) {
+                const filteredData_list = JobsData.filter(
+                    (item) => {
+                        return item && dropdown3 == item.country
+                    }).filter(
+                        (item) => {
+                            return item && dropdown.job_type.some(
+                                (x) => item.job_type.includes(x)
+                            )
+                        });
+                setJobsDataList(filteredData_list);
+                setJobsDataSource(filter_by_job_source(filteredData_list));
+                setJobsLocation(filter_by_job_country(filteredData_list));
+                setJobsDataType(widget_filter_by_job_type(filteredData_list));
+            }
             else if (!searched && !dropdown && dropdown2 && dropdown3) {
                 const filteredData_list = JobsData.filter(
                     (item) => {
