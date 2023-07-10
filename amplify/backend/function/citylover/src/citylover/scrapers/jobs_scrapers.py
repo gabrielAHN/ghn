@@ -405,11 +405,12 @@ def mobilitydata_jobs(url, name=''):
 
     if not jobs:
         return []
+
     jobs = [
         job_object(
             title=job.find('h2').text,
             company=name,
-            location=job.find('li', {'class':"location"}).text,
+            location=job.find('li', {'class':"location"}).find_all('span')[0].text,
             url=website.format(job.find('a').get('href')),
             datetime='',
             job_type=job_typer(job.find('h2').text, 'Mobility Data', ['transport_enthusiast'])

@@ -12,14 +12,18 @@ USA_STATE_REGEX = re.compile(
 UK_COUNTRY_REGEX = re.compile(r'united kingdom|uk')
 UK_STATE_REGEX = re.compile(r'(london|cambridge)')
 
-CANADA_COUNTRY_REGEX = re.compile(r'united kingdom|uk')
-CANADA_STATE_REGEX = re.compile(r'(vancouver|ottawa|montréal)')
+CANADA_COUNTRY_REGEX = re.compile(r'canada|^ca$')
+CANADA_STATE_REGEX = re.compile(r'(vancouver|ottawa|montr(é|e)al(,)?)')
 
 FRANCE_COUNTRY_REGEX = re.compile(r'france')
 FRANCE_STATE_REGEX = re.compile(r'(lille|ottawa|paris)')
 
 GERMANY_COUNTRY_REGEX = re.compile(r'germany')
 GERMANY_STATE_REGEX = re.compile(r'(berlin|hannover|ludwigshafen)')
+
+ITALY_COUNTRY_REGEX = re.compile(r'italy')
+ITALY_STATE_REGEX = re.compile(r'(milan)')
+
 BELGIUM_COUNTRY_REGEX = re.compile(r'belgium')
 
 
@@ -52,6 +56,14 @@ def uk_country_standard(location):
     if UK_COUNTRY or UK_STATE:
         return 'UK'
 
+def canada_country_standard(location):
+
+    CANADA_COUNTRY = re.search(CANADA_COUNTRY_REGEX, location)
+    CANADA_STATE = re.search(CANADA_STATE_REGEX, location)
+
+    if CANADA_COUNTRY or CANADA_STATE:
+        return 'Canada'
+
 def germany_country_standard(location):
 
     GERMANY_COUNTRY = re.search(GERMANY_COUNTRY_REGEX, location)
@@ -75,6 +87,14 @@ def france_country_standard(location):
     if FRANCE_COUNTRY or FRANCE_STATE:
         return 'France'
 
+def italy_country_standard(location):
+
+    ITALY_COUNTRY = re.search(ITALY_COUNTRY_REGEX, location)
+    ITALY_STATE = re.search(ITALY_STATE_REGEX, location)
+
+    if ITALY_COUNTRY or ITALY_STATE:
+        return 'Italy'
+
 
 def location_standardizer(location, area='',country=''):
     clean_location = clean_string(location.lower()).title()
@@ -95,22 +115,26 @@ def country_standardizer(location):
     germany_country = germany_country_standard(clean_location)
     belgium_country = belgium_country_standard(clean_location)
     france_country = france_country_standard(clean_location)
+    canada_country = canada_country_standard(clean_location)
+    italy_country = italy_country_standard(clean_location)
     remote_or_hybrid = remote_or_hybrid_standard(clean_location)
 
     if usa_country:
         return usa_country
     elif uk_country:
         return uk_country
+    elif canada_country:
+        return canada_country
     elif germany_country:
         return germany_country
     elif belgium_country:
         return belgium_country
     elif france_country:
         return france_country
+    elif italy_country:
+        return italy_country
     elif 'norway' in clean_location:
         return 'Norway'
-    elif 'italy' in clean_location:
-        return 'Italy'
     elif remote_or_hybrid:
         return remote_or_hybrid
     else:
