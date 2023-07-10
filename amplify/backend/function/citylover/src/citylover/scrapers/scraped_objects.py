@@ -55,7 +55,7 @@ def get_scrape_objects(data_date, source_id='', source_type=''):
                 scrape_object=job
             )
             for website in all_websites
-            for job in get_items_list(website.get('jobs', []), data_date)
+            for job in get_items_list(website.get('jobs', []), data_date, website['name'])
             if job
             ]
         )
@@ -70,6 +70,7 @@ def get_scrape_objects(data_date, source_id='', source_type=''):
                 title=job_feature.get('title'),
                 company=job_feature['id'],
                 location=job_feature.get('location'),
+                country=job_feature.get('country'),
                 url=job_feature.get('url'),
                 datetime='today',
                 job_type=job_feature.get('job_type')
@@ -93,13 +94,13 @@ def get_website_id():
     all_websites = ''.join(all_websites)
     return all_websites
 
-def get_items_list(website, data_date):
+def get_items_list(website, data_date, website_name=''):
     if not website:
         return []
     scrape_function = website.get('scrape_function')
     if not scrape_function:
         return []
-    items = scrape_function(website['website'])
+    items = scrape_function(website['website'], website_name)
     items = filter_latest(items, data_date)
     return items
 

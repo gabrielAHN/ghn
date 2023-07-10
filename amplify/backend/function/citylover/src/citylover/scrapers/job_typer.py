@@ -2,14 +2,30 @@ import re
 
 NO_MATCHES = [
     'finance', 'health', 'hr', 'strategic', 'office coordinator',
-    'advertising', 'payroll', 'office manager', 'accountant'
+    'advertising', 'payroll', 'office manager', 'accountant',
+    'full time seasonal', 'driver', 'talent acquisition',
+    'talent pool', 'mechanic', 'shift', 'technician',
+    'recruiter', 'ranger', 'mécanicien', 'financial',
+    'open application', 'submit your resume'
 ]
+
+def city_sellers(title, company):
+    title_list = [
+        r'(sales|revenue) operations', r'sales( development)? representative',
+        r'public sector sales', r'(acquisition|business|account) manager',
+        r'account executive', r'customer success manager', r'director of marketing'
+        r'city partnerships director'
+    ]
+    company_list = [
+    ]
+    job_type = job_labeling('city_sellers', title_list, company_list, title, company)
+    return job_type 
 
 
 def urban_scholars(title, company):
     title_list = [
         r'gis lecturer', r'(assistant|associate) professor',
-        r'internship\: architecture',
+        r'internship\: architecture', r'intern(s)?', 'researcher'
     ]
     company_list = [
         [r'urban Policy', r'(research fellow)'],
@@ -40,7 +56,7 @@ def city_builders(title, company):
     title_list = [
         r'(associate|transportation|community|sustainability|environmental|senior|urban|principal|land( use)?|park) planner',
         r'urban design', r'zoning specialist',r'planning (intern|manager)', 'deputy commissioner of planning',
-        r'^planner$', r'director of engineering'
+        r'^planner$', r'director of engineering', r'transportation engineer'
     ]
     company_list = [
        [r'(city|department of) planning', r'(director)'],
@@ -52,12 +68,13 @@ def city_builders(title, company):
 
 
 def urban_techies(title, company):
-    # Senior Java Software Developer
+
     title_list = [
-        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability) engineer',
-        r'data (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
-        r'backend engineer', r'database specialist', r'engineering manager',
-        r'(data infra|full stack) team', r'Java Software Developer'
+        r'(cloud|analytics|full stack|ios|python|react|software|reliability|(back|front )end|site ' \
+        r'reliability|qa|support|platform security ) engineer',
+        r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
+        r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
+        r'(data infra|full stack) team', r'(java software|full(\-)?stack web) developer'
     ]
     company_list = [
     ]
@@ -68,8 +85,10 @@ def urban_techies(title, company):
 def gov_lovers(title, company):
     title_list = [
         r'of Government', r'department of', r'council of governments',
-        r'^(city|state|town|county) of .*',
+        r'^(city|state|town|county) of .*', r'government relations manager',
+        r'senior manager, public Affairs'
     ]
+
     company_list = [
         [r'(city planning)', r'(deputy director)'],
         [r'department of (housing( preservation)?|transportation|planning)', 
@@ -121,7 +140,7 @@ def company_matching(company_list, title, company):
     return False
 
 
-def job_typer(title, company, pre_type = []):
+def job_typer(title, company='', pre_type = []):
     if not title:
         return []
     blacklist = [
@@ -135,7 +154,7 @@ def job_typer(title, company, pre_type = []):
 
     job_type_list = [
         urban_techies, city_builders, transport_enthusiast,
-        gov_lovers, urban_scholars
+        gov_lovers, urban_scholars, city_sellers
     ]
 
     job_typings = [   

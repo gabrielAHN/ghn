@@ -11,7 +11,6 @@ import Slider from '@mui/material/Slider';
 import { ScatterplotLayer } from '@deck.gl/layers';
 import StationGraphs from './components/StationGraphs';
 
-
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWN1YXN1c2hpIiwiYSI6ImNsYnltdTc0NDAwaHozdm4xeHVsNDNuY3gifQ.E2AShv__LnmKLMATat664w';
 
 const INITIAL_VIEW_STATE = {
@@ -79,17 +78,7 @@ function getMonth(data, years) {
   return months;
 }
 
-function get_filter_label(MonthSlider, YearSlider, MonthDate, YearDate, setMonthSlider) {
 
-  var month = MonthDate[YearSlider.label][MonthSlider]
-
-  if (month === undefined) {
-    var month = MonthDate[YearSlider.label][0]
-    setMonthSlider(0);
-  }
-  var filter_label = month.value + 1 + '/' + YearSlider.label
-  return filter_label
-}
 
 function rgbtohtml(rgb) {
   return '#' + rgb.map(function (x) {
@@ -104,36 +93,43 @@ function BorderColor(clickInfo, NewFilterDate) {
 
   var total = row_date['start'] + row_date['end']
 
-  if (row_date['start'] / total >= 0.55) {
+  if (row_date['start'] / total >= 0.51) {
     var color = [245, 19, 19]
   } else if (
-    row_date['start'] / total <= 0.55 &&
-    row_date['end'] / total <= 0.55
+    row_date['end'] / total >= 0.51
   ) {
-    var color = [246, 208, 19]
-  } else {
     var color = [19, 102, 245]
+  } else {
+    var color = [246, 208, 19]
   }
 
   return color
 }
 
 
-
-
-
-export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , data, CitibikeDate}) {
+export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, data, CitibikeDate }) {
   const YearDate = getYear(CitibikeDate);
   const MonthDate = getMonth(CitibikeDate, YearDate);
   const [YearSlider, setYearSlider] = useState(YearDate[0]);
   const [MonthSlider, setMonthSlider] = useState(0);
-  const [NewFilterDate, setNewFilterDate] = useState(
-    get_filter_label(MonthSlider, YearSlider, MonthDate, YearDate, setMonthSlider)
-  );
+  const [NewFilterDate, setNewFilterDate] = useState('1/2017');
 
   const [isRunning, setIsRunning] = useState(false);
   const [clickInfo, setClickInfo] = useState(null);
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
+
+  function get_filter_label(MonthSlider, YearSlider, MonthDate, YearDate, setMonthSlider) {
+
+    const month = MonthDate[YearSlider.label]
+
+    if (month[MonthSlider] === undefined) {
+      setMonthSlider(month[0].value);
+      return month[0].value + 1 + '/' + YearSlider.label;
+    } else {
+      return month[MonthSlider].value + 1 + '/' + YearSlider.label;
+    }
+  }
+
 
 
   function NewChangeDate(event, newValue) {
@@ -141,27 +137,27 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
     var YearMonths = MonthDate[YearSlider.label]
       .map((month) => month.value)
 
-      var LastMonth = YearMonths[YearMonths.length - 1]
+    var LastMonth = YearMonths[YearMonths.length - 1]
 
     var NewYear = YearDate[YearSlider.value + 1]
     var NewMonth = MonthSlider + 1
 
-    if (NewYear == undefined && NewMonth > LastMonth) {
+    if (NewYear === undefined && NewMonth > LastMonth) {
       setYearSlider(YearDate[0]);
       setMonthSlider(0);
       setNewFilterDate(
-        get_filter_label(0, YearDate[0], MonthDate, YearDate)
+        get_filter_label(0, YearDate[0], MonthDate, YearDate, setMonthSlider)
       );
     } else if (NewMonth >= 12) {
       setYearSlider(NewYear);
       setMonthSlider(0);
       setNewFilterDate(
-        get_filter_label(0, NewYear, MonthDate, YearDate)
+        get_filter_label(0, NewYear, MonthDate, YearDate, setMonthSlider)
       );
-    } else if (YearMonths.includes(NewMonth) == true) {
+    } else if (YearMonths.includes(NewMonth) === true) {
       setMonthSlider(NewMonth);
       setNewFilterDate(
-        get_filter_label(NewMonth, YearSlider, MonthDate, YearDate)
+        get_filter_label(NewMonth, YearSlider, MonthDate, YearDate, setMonthSlider)
       );
     };
 
@@ -177,14 +173,14 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
     }
     setYearSlider(YearDate[newValue]);
     setNewFilterDate(
-      get_filter_label(MonthSlider, YearDate[newValue], MonthDate, YearDate)
+      get_filter_label(MonthSlider, YearDate[newValue], MonthDate, YearDate, setMonthSlider)
     );
   }
 
   function MonthChange(event, newValue) {
     setMonthSlider(newValue);
     setNewFilterDate(
-      get_filter_label(newValue, YearSlider, MonthDate, YearDate)
+      get_filter_label(newValue, YearSlider, MonthDate, YearDate, setMonthSlider)
     );
   }
 
@@ -224,7 +220,7 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
   function GetLineWidth(row, clickInfo) {
     if (
       clickInfo != null &&
-      clickInfo.object.station_id == row.station_id
+      clickInfo.object.station_id === row.station_id
     ) {
       return 25
     } else {
@@ -248,26 +244,25 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
       var color = [0, 0, 0, 0]
     } else {
       var total = row_date['start'] + row_date['end']
-
-      if (row_date != undefined && row_date['start'] / total >= 0.55) {
+      if (row_date != undefined && row_date['start'] / total >= 0.51) {
         var color = [245, 19, 19]
       } else if (
-        row_date['start'] / total <= 0.55 &&
-        row_date['end'] / total <= 0.55
+        row_date != undefined &&
+        row_date['end'] / total >= 0.51
       ) {
-        var color = [246, 208, 19]
-      } else {
         var color = [19, 102, 245]
+      } else {
+        var color = [246, 208, 19]
       }
     }
 
-    if (color_type == 'fill') {
+    if (color_type === 'fill') {
       color[3] = 100
     }
 
     if (
       clickInfo != null &&
-      clickInfo.object.station_name == row.station_name
+      clickInfo.object.station_name === row.station_name
     ) {
       var color = [0, 0, 0]
     }
@@ -330,6 +325,7 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
             marks={YearDate}
             max={YearDate.length - 1}
           />
+
           <Slider
             value={MonthSlider}
             onChange={MonthChange}
@@ -343,16 +339,17 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
 
       <Grid container spacing={2} >
         <Grid item
-          sx={12}
+          xs
           sm={12}
           md={clickInfo === null ? 12 : 9}
         >
           <DeckGL
-            style={{ 
+            style={{
               position: 'relative',
               height: '80vh',
+              width: '100%'
             }}
-            width= '100%'
+            width='100%'
             viewState={viewState}
             onViewStateChange={handleViewStateChange}
             controller={true}
@@ -363,22 +360,22 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE , da
               preventStyleDiffing={true}
               mapboxAccessToken={MAPBOX_TOKEN}
             />
-          <div
-            style={{ position: 'absolute', top: '5%', left: '5%' }}
-          >
-            <div style={{display: 'flex', alignItems: 'center'}} >
-              <span style={{ marginRight: '10px' }}>Most Trips Ended Dock</span>
-              <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(245, 19, 19)' }} />
+            <div
+              style={{ position: 'absolute', top: '5%', left: '5%' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center' }} >
+                <span style={{ marginRight: '10px' }}>Most Trips Ended Dock</span>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(245, 19, 19)' }} />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }} >
+                <span style={{ marginRight: '10px' }}>Most Trips Started Dock</span>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(19, 102, 245)' }} />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }} >
+                <span style={{ marginRight: '10px' }}>Similiar Amount of Trip Types</span>
+                <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(246, 208, 19)' }} />
+              </div>
             </div>
-            <div style={{display: 'flex', alignItems: 'center'}} >
-              <span style={{ marginRight: '10px' }}>Most Trips Started Dock</span>
-              <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(19, 102, 245)' }} />
-            </div>
-            <div style={{display: 'flex', alignItems: 'center'}} >
-              <span style={{ marginRight: '10px' }}>Similiar Amount of Trip Types</span>
-              <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(246, 208, 19)' }} />
-            </div>
-          </div>
           </DeckGL>
         </Grid>
         <Grid

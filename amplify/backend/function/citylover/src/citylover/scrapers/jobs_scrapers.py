@@ -9,18 +9,18 @@ from citylover.scrapers.job_typer import *
 from citylover.scrapers.location_standardizer import *
 
 
-
 class job_object:
     def __init__(self, title, company, location , url, datetime, job_type):
         self.title = clean_string(title).title()
         self.company = clean_string(company)
         self.location = location_standardizer(location)
+        self.country = country_standardizer(location)
         self.url = url.replace('www.', 'https://')
         self.datetime = get_datetime(clean_string(datetime))
         self.job_type = job_type
 
 
-def lever_jobs(url):
+def lever_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     
@@ -31,21 +31,81 @@ def lever_jobs(url):
     jobs = [
         job_object(
             title=job.find('h5').text,
-            company='Swiftly',
+            company=name,
             location=job.find('span', {'class', 'sort-by-location posting-category small-category-label location'}).text,
             url=job.find('a').get('href'),
             datetime='',
-            job_type=job_typer(job.find('h5').text, 'Swiftly')
+            job_type=job_typer(job.find('h5').text, name)
         )
         for job in jobs
         if job 
-        and job_typer(job.find('h5').text, 'Swiftly')
+        and job_typer(job.find('h5').text)
     ]
     if jobs:
         return jobs
 
 
-def planetizen_jobs(url):
+def greenhouse_jobs(url, name=''):
+    website = 'https://boards.greenhouse.io{}'
+    response = get_response(url)
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find_all('div', {'class': 'opening'})
+
+    if not jobs:
+        return []
+    jobs = [
+        job_object(
+            title=job.find('a').text,
+            company=name,
+            location=job.find('span', {'class', 'location'}).text,
+            url=website.format(job.find('a').get('href')),
+            datetime='',
+            job_type=job_typer(
+                    job.find('a').text
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('a').text
+                )
+        and job
+        and country_black_list(job.find('span', {'class', 'location'}).text)
+    ]
+    if jobs:
+        return jobs
+
+
+def lever_jobs(url, name=''):
+    response = get_response(url)
+
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find_all('div', {'class': 'posting'})
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job.find('h5').text,
+            company=name,
+            location=job.find('span').text,
+            url=job.find('a').get('href'),
+            datetime='',
+            job_type=job_typer(
+                    job.find('h5').text, name
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('h5').text, name
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+
+def planetizen_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find('div', {'class', 'view-content global-search'})
@@ -70,7 +130,7 @@ def planetizen_jobs(url):
         return jobs
 
 
-def allthingsurban_jobs(url):
+def allthingsurban_jobs(url, name=''):
     REGEX_2 = re.compile(r'list-item-(title|subtitle)')
 
     response = get_response(url)
@@ -104,7 +164,7 @@ def allthingsurban_jobs(url):
         return jobs
 
 
-def apany_jobs(url):
+def apany_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('tr')
@@ -127,7 +187,7 @@ def apany_jobs(url):
         return jobs
 
 
-def uber_jobs(url):
+def uber_jobs(url, name=''):
     payload = json.dumps({
         "params": {
         "location": [
@@ -164,7 +224,7 @@ def uber_jobs(url):
     jobs = [
          job_object(
             title=job['title'],
-            company='Uber',
+            company=name,
             location=', '.join([i['region'] for i in job['allLocations'] if i['region']]),
             url=f"www.uber.com/global/en/careers/list/{job['id']}/",
             datetime=job['updatedDate'],
@@ -184,7 +244,7 @@ def uber_jobs(url):
         return jobs
 
 
-# def nextcity_jobs(url):
+# def nextcity_jobs(url, name=''):
 #     header = {
 #         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
 #         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
@@ -223,7 +283,7 @@ def uber_jobs(url):
 #         return jobs
 
 
-def govlove_jobs(url):
+def govlove_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('article')
@@ -254,7 +314,7 @@ def govlove_jobs(url):
         return jobs
 
 
-def nyc_planning_jobs(url):
+def nyc_planning_jobs(url, name=''):
     website = 'www.nyc.gov'
     response = get_response(url)
     if response.status_code != 200:
@@ -266,7 +326,7 @@ def nyc_planning_jobs(url):
     jobs = [
         job_object(
             title=job.get('name'),
-            company='NYC Planning Department',
+            company=name,
             location='New York City',
             url=website+job.get('link'),
             datetime='',
@@ -279,7 +339,7 @@ def nyc_planning_jobs(url):
         return jobs
 
 
-def carto_jobs(url):
+def carto_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find('section', {'id': 'open-positions'})
@@ -291,7 +351,7 @@ def carto_jobs(url):
     jobs = [
         job_object(
             title=job.find('a').text,
-            company='Carto',
+            company=name,
             location=job.find('p').text,
             url=job.find('a').get('href'),
             datetime='',
@@ -305,7 +365,7 @@ def carto_jobs(url):
         return jobs
 
 
-def transitcenter_job(url):
+def transitcenter_job(url, name=''):
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3)'
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
@@ -323,7 +383,7 @@ def transitcenter_job(url):
     jobs = [
         job_object(
             title=job.text,
-            company='Transit Center',
+            company=name,
             location='New York',
             url=job.get('href'),
             datetime='',
@@ -336,31 +396,7 @@ def transitcenter_job(url):
     if jobs:
         return jobs
 
-
-def via_jobs(url):
-    response = get_response(url)
-    data = response.content.decode('utf-8')
-    jobs = json.loads(data).get('jobs')
-
-    if not jobs:
-        return []
-    jobs = [
-        job_object(
-            title=job.get('title'),
-            company='Via',
-            location=job.get('location').get('name'),
-            url=job.get('absolute_url'),
-            datetime='',
-            job_type=job_typer(job.get('title'), 'Via', ['transport_enthusiast'])
-        )
-        for job in jobs
-        if job_typer(job.get('title'), 'Via', ['transport_enthusiast'])
-        and job
-    ]
-    if jobs:
-        return jobs
-
-def mobilitydata_jobs(url):
+def mobilitydata_jobs(url, name=''):
     website = 'https://careers.mobilitydata.org{}'
     
     response = get_response(url)
@@ -369,11 +405,12 @@ def mobilitydata_jobs(url):
 
     if not jobs:
         return []
+
     jobs = [
         job_object(
             title=job.find('h2').text,
-            company='Mobility Data',
-            location=job.find('li', {'class':"location"}).text,
+            company=name,
+            location=job.find('li', {'class':"location"}).find_all('span')[0].text,
             url=website.format(job.find('a').get('href')),
             datetime='',
             job_type=job_typer(job.find('h2').text, 'Mobility Data', ['transport_enthusiast'])
@@ -386,7 +423,7 @@ def mobilitydata_jobs(url):
         return jobs
 
 
-def citymapper_jobs(url):
+def citymapper_jobs(url, name=''):
     website = 'https://apply.workable.com/citymapper/j/{}'
 
     payload = json.dumps({
@@ -410,7 +447,7 @@ def citymapper_jobs(url):
     jobs = [
         job_object(
             title=job['title'],
-            company='Citymapper',
+            company=name,
             location=job['location']['city'],
             url=website.format(job['shortcode']),
             datetime='',
@@ -424,7 +461,7 @@ def citymapper_jobs(url):
         return jobs
 
 
-def smartgrowamerica_jobs(url):
+def smartgrowamerica_jobs(url, name=''):
     response = get_response(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('h2', {'class': 'wp-block-spacer'})
@@ -434,7 +471,7 @@ def smartgrowamerica_jobs(url):
     jobs = [
         job_object(
             title=job.find('span').text.replace('Now hiring: ', ''),
-            company='Smart Growth America',
+            company=name,
             location='Washington, DC',
             url=job.find('a').get('href'),
             datetime='',
@@ -453,8 +490,110 @@ def smartgrowamerica_jobs(url):
     if jobs:
         return jobs
 
+def optibus_jobs(url, name=''):
+    response = get_response(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find('ul', {'class': 'comeet-positions-list'})
+    
+    if not jobs:
+        return []
+    
+    jobs = jobs.find_all('li')
+    if not jobs:
+        return []
+    jobs = [
+        job_object(
+            title=job.find('div').text,
+            company=name,
+            location=job.find('div', {'class': 'location-tag filter-tags'}).text,
+            url=job.find('a').get('href')[2:],
+            datetime='',
+            job_type=job_typer(
+                    job.find('div').text,
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('div').text
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
 
-def beta_nyc_jobs(url):
+def ito_jobs(url, name=''):
+    website = "https://itoworld.bamboohr.com/careers/{}"
+
+    response = get_response(url)
+    if response.status_code != 200:
+        return []
+    jobs = response.json()
+    
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job['jobOpeningName'],
+            company=name,
+            location='Cambridge, Cambridgeshire (Remote)',
+            url=website.format(job['id']),
+            datetime='',
+            job_type=job_typer(
+                    job['jobOpeningName'],
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs['result']
+        if job_typer(
+                    job['jobOpeningName']
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+def voi_jobs(url, name=''):
+
+    response = get_response(url)
+    
+    if response.status_code != 200:
+        return []
+    
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.find_all(
+        'li', {'class', "transition-opacity duration-150 border rounded block-grid-item border-block-base-text border-opacity-15"}
+        )
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job.find('span').get('title'),
+            company=name,
+            location=f"{job.find_all('span')[3].text}, {job.find_all('span')[5].text}",
+            url=job.find('a').get('href'),
+            datetime='',
+            job_type=job_typer(
+                    job.find('span').get('title'),
+                    name,
+                    ['transport_enthusiast']
+                )
+        )
+        for job in jobs
+        if job_typer(
+                    job.find('span').get('title')
+                )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+
+def beta_nyc_jobs(url, name=''):
     # response = get_response(url)
     # if response.status_code != 200:
     #     return []
