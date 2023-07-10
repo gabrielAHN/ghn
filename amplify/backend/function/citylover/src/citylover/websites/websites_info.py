@@ -653,5 +653,27 @@ website_info = [
             'scrape_function': greenhouse_jobs,
             'website': 'https://boards.greenhouse.io/veocorporatecareers'
         }
+    },
+    {
+        'id': 'populus',
+        'name': 'Populus',
+        'type': ['job'],
+        'image': 'https://images.squarespace-cdn.com/content/v1/5fc6dab681da8a590dace76d/1608170071061-NYJKZQQBQHK4IHASGYNR/Populus_SecondaryLogo_Dark.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': greenhouse_jobs,
+            'website': 'https://boards.greenhouse.io/populus'
+        }
+    },
+    {
+        'id': 'blablacar',
+        'name': 'Blablacar',
+        'type': ['job'],
+        'image': 'https://lever-client-logos.s3.us-west-2.amazonaws.com/e3520345-0a28-449b-8485-23082ade0c1f-1623869719522.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/blablacar'
+        }
     }
 ]

@@ -16,7 +16,7 @@ CANADA_COUNTRY_REGEX = re.compile(r'canada|^ca$')
 CANADA_STATE_REGEX = re.compile(r'(vancouver|ottawa|montr(é|e)al(,)?)')
 
 FRANCE_COUNTRY_REGEX = re.compile(r'france')
-FRANCE_STATE_REGEX = re.compile(r'(lille|ottawa|paris)')
+FRANCE_STATE_REGEX = re.compile(r'(lille|ottawa|paris(,)?)')
 
 GERMANY_COUNTRY_REGEX = re.compile(r'germany')
 GERMANY_STATE_REGEX = re.compile(r'(berlin|hannover|ludwigshafen)')

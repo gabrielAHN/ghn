@@ -11,8 +11,10 @@ NO_MATCHES = [
 
 def city_sellers(title, company):
     title_list = [
-        r'(sales|revenue) operations', r'sales representative',
-        r'public sector sales', r'(acquisition|business) manager'
+        r'(sales|revenue) operations', r'sales( development)? representative',
+        r'public sector sales', r'(acquisition|business|account) manager',
+        r'account executive', r'customer success manager', r'director of marketing'
+        r'city partnerships director'
     ]
     company_list = [
     ]
@@ -68,7 +70,8 @@ def city_builders(title, company):
 def urban_techies(title, company):
 
     title_list = [
-        r'(full stack|ios|python|react|software|reliability|(back|front )end|site reliability|qa|support) engineer',
+        r'(cloud|analytics|full stack|ios|python|react|software|reliability|(back|front )end|site ' \
+        r'reliability|qa|support|platform security ) engineer',
         r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
         r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
         r'(data infra|full stack) team', r'(java software|full(\-)?stack web) developer'
