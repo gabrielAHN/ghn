@@ -22,7 +22,10 @@ GERMANY_COUNTRY_REGEX = re.compile(r'germany')
 GERMANY_STATE_REGEX = re.compile(r'(berlin|hannover|ludwigshafen)')
 
 ITALY_COUNTRY_REGEX = re.compile(r'italy')
-ITALY_STATE_REGEX = re.compile(r'(milan)')
+ITALY_STATE_REGEX = re.compile(r'(milan|rome)')
+
+SPANISH_COUNTRY_REGEX = re.compile(r'(spain)')
+SPANISH_STATE_REGEX = re.compile(r'(madrid)')
 
 BELGIUM_COUNTRY_REGEX = re.compile(r'belgium')
 
@@ -95,6 +98,14 @@ def italy_country_standard(location):
     if ITALY_COUNTRY or ITALY_STATE:
         return 'Italy'
 
+def spanish_country_standard(location):
+
+    SPANISH_COUNTRY = re.search(SPANISH_COUNTRY_REGEX, location)
+    SPANISH_STATE = re.search(SPANISH_STATE_REGEX, location)
+
+    if SPANISH_COUNTRY or SPANISH_STATE:
+        return 'Spain'
+
 
 def location_standardizer(location, area='',country=''):
     clean_location = clean_string(location.lower()).title()
@@ -117,6 +128,7 @@ def country_standardizer(location):
     france_country = france_country_standard(clean_location)
     canada_country = canada_country_standard(clean_location)
     italy_country = italy_country_standard(clean_location)
+    spanish_country = spanish_country_standard(clean_location)
     remote_or_hybrid = remote_or_hybrid_standard(clean_location)
 
     if usa_country:
@@ -133,6 +145,8 @@ def country_standardizer(location):
         return france_country
     elif italy_country:
         return italy_country
+    elif spanish_country:
+        return spanish_country
     elif 'norway' in clean_location:
         return 'Norway'
     elif remote_or_hybrid:

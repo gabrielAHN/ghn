@@ -675,5 +675,16 @@ website_info = [
             'scrape_function': lever_jobs,
             'website': 'https://jobs.lever.co/blablacar'
         }
+    },
+    {
+        'id': 'dott',
+        'name': 'Dott',
+        'type': ['job'],
+        'image': 'https://lever-client-logos.s3.us-west-2.amazonaws.com/f11eb4df-5f0d-4027-8616-f0ae67765b48-1607421366657.png',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/dott'
+        }
     }
 ]
