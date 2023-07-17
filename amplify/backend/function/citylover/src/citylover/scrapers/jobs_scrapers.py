@@ -574,7 +574,13 @@ def voi_jobs(url, name=''):
         job_object(
             title=job.find('span').get('title'),
             company=name,
-            location=f"{job.find_all('span')[3].text}, {job.find_all('span')[5].text}",
+            location=' '.join(
+                [
+                    clean_string(i.text)
+                    for i in job.find_all('span')[2:]
+                    if i and '·' not in i
+                ]
+            ),
             url=job.find('a').get('href'),
             datetime='',
             job_type=job_typer(
