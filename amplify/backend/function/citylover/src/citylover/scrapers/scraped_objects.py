@@ -101,8 +101,11 @@ def get_items_list(website, data_date, website_name=''):
     if not scrape_function:
         return []
     items = scrape_function(website['website'], website_name)
-    items = filter_latest(items, data_date)
-    return items
+    if items:
+        items = filter_latest(items, data_date)
+        return items
+    else:
+        return []
 
 def limit_objects(website_objects):
     if len(website_objects) > 5:

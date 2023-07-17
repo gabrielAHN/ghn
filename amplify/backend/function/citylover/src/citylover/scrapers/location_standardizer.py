@@ -114,7 +114,10 @@ def location_standardizer(location, area='',country=''):
 
     if remote_or_hybrid:
         return remote_or_hybrid.title()
-    return clean_location.title()
+    elif clean_location:
+        return clean_location.title()
+    else:
+        return 'other'
 
 
 
