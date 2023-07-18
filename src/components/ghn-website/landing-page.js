@@ -47,6 +47,13 @@ const photo_buttons = [
       "hover_image": citibikehover,
       "color": "black",
       "url": 'citibike'
+  },
+  {
+      "name": "Station Viewer",
+      "image": citibikemap,
+      "hover_image": citibikehover,
+      "color": "black",
+      "url": 'StationViewer'
   }
 ]
 
