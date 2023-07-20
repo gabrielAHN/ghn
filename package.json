@@ -15,8 +15,8 @@
     "@testing-library/react": "13.4.0",
     "@testing-library/user-event": "13.5.0",
     "aws-amplify": "4.3.43",
-    "deck.gl": "8.9.21",
-    "@deck.gl/react": "8.9.21",
+    "deck.gl": "8.9.22",
+    "@deck.gl/react": "8.9.22",
     "echarts": "5.4.1",
     "echarts-for-react": "3.0.2",
     "gl-matrix": "3.4.3",
@@ -34,17 +34,17 @@
     "web-vitals": "2.1.4"
   },
   "overrides": {
-    "@deck.gl/core": "8.9.21",
-    "@deck.gl/layers": "8.9.21",
-    "@deck.gl/extensions": "8.9.21",
-    "@deck.gl/geo-layers": "8.9.21",
+    "@deck.gl/core": "8.9.22",
+    "@deck.gl/layers": "8.9.22",
+    "@deck.gl/extensions": "8.9.22",
+    "@deck.gl/geo-layers": "8.9.22",
     "@luma.gl/core": "8.5.20"
   },
   "resolutions": {
-    "@deck.gl/core": "8.9.21",
-    "@deck.gl/layers": "8.9.21",
-    "@deck.gl/extensions": "8.9.21",
-    "@deck.gl/geo-layers": "8.9.21",
+    "@deck.gl/core": "8.9.22",
+    "@deck.gl/layers": "8.9.22",
+    "@deck.gl/extensions": "8.9.22",
+    "@deck.gl/geo-layers": "8.9.22",
     "@luma.gl/core": "8.5.20"
   },
   "scripts": {
