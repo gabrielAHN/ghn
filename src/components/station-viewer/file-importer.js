@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
 import JSZip from 'jszip';
+// import Parser from 'csv-parse';
 
 export default function CsvFileUploader() {
   const [file, setFile] = useState(null);
@@ -8,22 +9,71 @@ export default function CsvFileUploader() {
   const [errorMessage, setErrorMessage] = useState(null);
   const zip = new JSZip();
 
-  const handleFileChange = (event) => {
 
-    const file = event.target.files[0];
+    const handleFileChange = async (event) => {
+      const zipContent = event.target.files[0];
+      const zip = new JSZip();
+  
+      try {
 
-    zip.loadAsync(file).then(
-        (zipContent) => {
-        const fileNames = Object.keys(zipContent.files);
+        const zipData = await zip.loadAsync(zipContent);
+        const fileNames = Object.keys(zipData.files);
         console.log(fileNames)
-        // setZipFiles(fileNames);
-    });
-    const csvFile = zip.file(/pathways\.txt$/i);
-    console.log(csvFile)
+        const csvFile = zipData.file('pathways.txt');
+  
+        if (csvFile) {
+          const content = await csvFile.async('text');
+          console.log(content)
+          // parseCSVData(content);
+        } else {
+          console.log('CSV file not found in the zip.');
+        }
+      } catch (error) {
+        console.error('Error reading the zip file:', error);
+      }
+    };
+    // const parseCSVData = (csvData) => {
+    //   Parser(csvData, { delimiter: ',' }, (err, output) => {
+    //     if (err) {
+    //       console.error('Error parsing CSV:', err);
+    //     } else {
+    //       console.log('CSV data as array:', output);
+    //       // You can now use the 'output' variable containing the CSV data as an array.
+    //     }
+    //   });
+    // };
+
+  // const handleFileChange = (event) => {
+
+  //   const file = event.target.files[0];
+
+  //   zip.loadAsync(file).then(
+  //       (zipContent) => {
+  //       const fileNames = Object.keys(zipContent.files);
+        
+  //       if (csvFile) {
+  //         const content = await csvFile.async('text');
+  //         parseCSVData(content);
+  //       }
+  //       const csvFile = zipContent.file(/pathways\.txt$/i);
+  //       const content = csvFile.async('text');
+
+  //       console.log(content)
+  //       // setZipFiles(fileNames);
+  //   });
+    // const csvFile = zip.file(/pathways\.txt$/i);
+
+
+    // console.log(csvFile)
 
     // // console.log(event.target.files)
     // const selectedFile = event.target.files[0];
+    // csvFile["stops.txt"].then(function (data) {
+    //   console.log(data)
+    //   // GetValueFile(data);                         
+    // });      
 
+    // console.log(selectedFile)
     // Object.keys(event.target.files).forEach((fileName) => {
     //     const filePromise = event.target.files.file(fileName).async('uint8array');
     //     console.log(filePromise)
@@ -31,8 +81,8 @@ export default function CsvFileUploader() {
     //   });
 
     // setFile(selectedFile);
-    setErrorMessage(null);
-  };
+  //   setErrorMessage(null);
+  // };
 
   const handleFileUpload = () => {
     if (file) {
