@@ -33,14 +33,9 @@
     "styled-components": "5.3.5",
     "web-vitals": "2.1.4"
   },
-  "overrides": {
-    "@deck.gl/core": "8.9.22",
-    "@deck.gl/layers": "8.9.22",
-    "@deck.gl/extensions": "8.9.22",
-    "@deck.gl/geo-layers": "8.9.22",
-    "@luma.gl/core": "8.5.20"
-  },
   "resolutions": {
+    "deck.gl": "8.9.22",
+    "@deck.gl/react": "8.9.22",
     "@deck.gl/core": "8.9.22",
     "@deck.gl/layers": "8.9.22",
     "@deck.gl/extensions": "8.9.22",
