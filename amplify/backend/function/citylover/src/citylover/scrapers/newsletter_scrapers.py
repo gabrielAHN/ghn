@@ -91,8 +91,10 @@ def govtech(url, name=''):
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(url, header)
-    soup = BeautifulSoup(content, 'html.parser')
+    response = get_response_header(url, header)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class': "ListA-items-item"})
     if not articles:
         return []
@@ -133,8 +135,11 @@ def transitcenter(url, name=''):
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(url, header)
-    soup = BeautifulSoup(content, 'html.parser')
+    response = get_response_header(url, header)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
+
     articles = soup.find_all('div', {'class': 'container wide is-widescreen'})
     if not articles:
         return []
@@ -254,8 +259,10 @@ def transloc(url, name=''):
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(url, header)
-    soup = BeautifulSoup(content, 'html.parser')
+    response = get_response_header(url, header)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {"class", "esg-entry-content eg-blog-posts-content"})
     if not articles:
         return []
@@ -305,8 +312,10 @@ def electronomous(url, name=''):
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(url, header)
-    soup = BeautifulSoup(content, 'html.parser')
+    response = get_response_header(url, header)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('h1', {'class',"elementor-heading-title elementor-size-default"})
     
     if not articles:
