@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import CsvFileUploader from './file-importer';
+
+import StationEditor from './station-editor';
 import Papa from 'papaparse';
 import JSZip from 'jszip';
 import Tabs from '@mui/material/Tabs';
@@ -33,7 +35,11 @@ export default function StationUI() {
           if (csvFile) {
             const content = await csvFile.async('text');
             var data = Papa.parse(content, {header: true});
-            setStations(data.data)
+            var stations = data.data.filter(
+              (row, index) => (
+                  row.location_type == "1"
+              ))
+            setStations(stations);
             // console.log(data)
             // parseCSVData(content);
           } else {
@@ -50,7 +56,7 @@ export default function StationUI() {
     //         fileReader.readAsArrayBuffer(file);
     //     }
     // };
-      console.log(Stations)
+      // console.log(Stations)
     return (
     <>
         {/* <CsvFileUploader /> */}
@@ -59,32 +65,27 @@ export default function StationUI() {
             {/* <button onClick={handleFileUpload}>Upload</button> */}
             {errorMessage && <p>{errorMessage}</p>}
         </div>
-        <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <TabList onChange={handleChange} centered>
+        <TabContext value={value} xs={{width: '100%'}}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
+            <TabList onChange={handleChange} variant="scrollable" scrollButtons="auto">
               {
-              Stations.filter(
-                (row, index) => (
-                    row.location_type == "1"
-                )).map((row, index) => (
-                <Tab wrapped 
-                key={row.stop_id}
+              Stations.map((row, index) => (
+                <Tab 
+                wrapped
+                key={index}
                 label={row.stop_name}
-                // value={tab.url}
-                onClick={() => setValue(`${row.stop_id}`)} 
+                onClick={() => setValue(index)} 
                 />
               ))
               }
             </TabList>
           </Box>
           {
-          Stations.filter(
+          Stations.map(
             (row, index) => (
-                row.location_type == "1"
-            )).map(
-            (row, index) => (
-                <TabPanel key={row.stop_id} value={row.stop_id} >
-                {row.stop_name}
+                <TabPanel key={index} value={index} >
+                  {row.stop_name}
+                  <StationEditor data={Stations} station={row.stop_name}/>
                 </TabPanel>
           ))
           }
