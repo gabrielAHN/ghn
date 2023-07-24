@@ -371,8 +371,10 @@ def transitcenter_job(url, name=''):
         'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 '
         'Safari/537.36'
     }
-    content = get_response_header(url, header)
-    soup = BeautifulSoup(content, 'html.parser')
+    response = get_response_header(url, header)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
 
     jobs = soup.find('div', {'class',"content-body"})
     if not jobs:

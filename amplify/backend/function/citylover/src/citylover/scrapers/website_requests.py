@@ -3,7 +3,7 @@ import requests
 
 def get_response_header(website, header):
     response = requests.get(website, headers=header, verify=False, timeout=20)
-    return response.content
+    return response
 
 
 def get_response(website):
