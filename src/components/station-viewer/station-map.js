@@ -15,64 +15,76 @@ import StopCircleIcon from '@mui/icons-material/StopCircle';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import Slider from '@mui/material/Slider';
-import { TripsLayer } from '@deck.gl/geo-layers';
-// import CitibikeTrips from './trip_map_data.json';
-// import FormatedTable from './trip_table.js';
+import { ScatterplotLayer } from '@deck.gl/layers';
+
 
 
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoiZWN1YXN1c2hpIiwiYSI6ImNsYnltdTc0NDAwaHozdm4xeHVsNDNuY3gifQ.E2AShv__LnmKLMATat664w';
 
-const INITIAL_VIEW_STATE = {
-    latitude: 40.7257548,
-    longitude: -73.9957581,
-    zoom: 12,
-    maxZoom: 20,
-    pitch: 0,
-    bearing: 0
-};
-
-
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
 
+const STOP_TYPE_COLORS = {
+    "0": [245, 19, 19],
+    "1": [19, 102, 245],
+    "2": [246, 208, 19],
+    "3": [0, 0, 255]
+} 
 
-export default function StationMap({ station_data = MAP_STYLE }) {
+export default function StationMap({ station_data, station_parts }) {
+    const [clickInfo, setClickInfo] = useState();
 
+    var initialViewState = {
+        id: station_data.stop_id,
+        longitude: station_data.stop_lon,
+        latitude: station_data.stop_lat,
+        zoom: 16,
+        maxZoom: 20,
+        pitch: 0,
+        bearing: 0
+    };
 
     var layers = [
-        // new TripsLayer({
-        //     id: 'CitibikeTrips',
-        //     data: filter_trips(CitibikeTrips[DataYear].trip_times, FilterData),
-        //     getPath: d => d.waypoints.map(p => p.coordinates),
-        //     getTimestamps: d => d.waypoints.map(p => p.timestamp),
-        //     currentTime: GraphTime,
-        //     opacity: 1.0,
-        //     widthMinPixels: 3,
-        //     capRounded: true,
-        //     shadowEnabled: false,
-        //     trailLength: 5000,
-        //     getColor: f => f.trip_type == 'electric_bike' ? [246, 208, 19] : [19, 102, 245],
-        //     fadeTrail: true,
-        //     updateTriggers: {
-        //         currentTime: GraphTime
-        //     }
-        // })
+        new ScatterplotLayer({
+            id: station_data.stop_id,
+            data: station_parts,
+            pickable: true,
+            opacity: 0.8,
+            // stroked: true,
+            filled: true,
+            pickable: true,
+            radiusScale: 1,
+            // radiusMinPixels: 1,
+            // radiusMaxPixels: 1,
+            // lineWidthMinPixels: 1,
+            onClick: info => setClickInfo(info),
+            getPosition: d => d.coordinates,
+            getRadius: d => 5,
+            getFillColor: d => STOP_TYPE_COLORS[d.stop_type]
+          })
     ];
+    // console.log(clickInfo.object.name);
 
     return (
-        <Box sx={{ marginBottom: 10 }}>
             <DeckGL
-                style={{ position: 'relative', width: '50%', height: '20vh' }}
-                viewState={INITIAL_VIEW_STATE}
+                style={{ position: 'relative', width: '100%', height: '50vh' }}
+                initialViewState={initialViewState}
                 controller={true}
                 layers={layers}
             >
+                { 
+                    clickInfo && (
+                    <div style={{position: 'fixed', zIndex: 1, pointerEvents: 'none', left: clickInfo.x, top: clickInfo.y}}>
+                      { clickInfo.object.name }
+                    </div>
+                  )
+                }
+                
                 <Map
                     styleDiffing={true}
                     mapStyle={MAP_STYLE}
                     mapboxAccessToken={MAPBOX_TOKEN}
                 />
             </DeckGL>
-        </Box>
     );
 }

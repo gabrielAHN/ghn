@@ -8,7 +8,6 @@ import StationUI from './station-ui';
 function StationViewer() {
     return (
         <div className='station-viewer'>
-        <h1>Station Viewer</h1>
         <StationUI />
         
         {/* <div style={{ 
