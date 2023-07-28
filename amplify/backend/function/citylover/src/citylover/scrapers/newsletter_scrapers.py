@@ -45,6 +45,8 @@ def rss_parser(url, name=''):
 
 def apple_parser(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('li', {'class', 'tracks__track tracks__track--podcast'})
     if not articles:
@@ -65,6 +67,8 @@ def allthingsurban(url, name=''):
     website = 'https://www.allthingsurban.net{}'
 
     response = get_response(url)
+    if not response:
+        return []
     if response.status_code != 200:
         return []
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -158,6 +162,8 @@ def transitcenter(url, name=''):
 
 def spur(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class', 'content'})[2:]
     if not articles:
@@ -176,6 +182,8 @@ def spur(url, name=''):
 
 def parking_mobility(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('div', {'class', 'blog-post-info'})
     if not articles:
@@ -194,6 +202,8 @@ def parking_mobility(url, name=''):
 
 def axios(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('amp-layout')
     if not articles:
@@ -217,6 +227,8 @@ def axios(url, name=''):
 def micromobilitypodcast(url, name=''):
     website = 'https://micromobility.io{}'
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('article')
     if not articles:
@@ -281,6 +293,8 @@ def transloc(url, name=''):
 def commutifi(url, name=''):
     website = 'https://www.commutifi.com/{}'
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = soup.find_all('a', {"class", "resource-item ver-2 w-inline-block"})
     links = [

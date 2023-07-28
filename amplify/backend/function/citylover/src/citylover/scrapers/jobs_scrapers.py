@@ -22,6 +22,8 @@ class job_object:
 
 def lever_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     
     jobs = soup.find_all('div', {'class', 'posting'})
@@ -48,6 +50,8 @@ def lever_jobs(url, name=''):
 def greenhouse_jobs(url, name=''):
     website = 'https://boards.greenhouse.io{}'
     response = get_response(url)
+    if not response:
+        return []
 
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('div', {'class': 'opening'})
@@ -78,6 +82,8 @@ def greenhouse_jobs(url, name=''):
 
 def lever_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
 
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('div', {'class': 'posting'})
@@ -107,6 +113,8 @@ def lever_jobs(url, name=''):
 
 def planetizen_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find('div', {'class', 'view-content global-search'})
     if not jobs:
@@ -134,6 +142,8 @@ def allthingsurban_jobs(url, name=''):
     REGEX_2 = re.compile(r'list-item-(title|subtitle)')
 
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find('div', {'class', 'list'})
     if not jobs:
@@ -166,6 +176,8 @@ def allthingsurban_jobs(url, name=''):
 
 def apany_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('tr')
     if not jobs:
@@ -215,8 +227,11 @@ def uber_jobs(url, name=''):
         'content-type': 'application/json',
     }
     response = get_post_response(url, header, payload)
-    if response.status_code != 200:
+    if not response:
         return []
+    elif not response.status_code != 200:
+        return []
+
     jobs = response.json()
     if jobs.get('status') != 'success' or jobs['data']['results'] == None:
         return []
@@ -285,6 +300,8 @@ def uber_jobs(url, name=''):
 
 def govlove_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('article')
     if not jobs:
@@ -317,6 +334,8 @@ def govlove_jobs(url, name=''):
 def nyc_planning_jobs(url, name=''):
     website = 'www.nyc.gov'
     response = get_response(url)
+    if not response:
+        return []
     if response.status_code != 200:
         return []
     jobs = response.json()
@@ -334,32 +353,6 @@ def nyc_planning_jobs(url, name=''):
         )
         for job in jobs
         if job_typer(job.get('name'), 'NYC Planning Department', ['gov_work'])
-    ]
-    if jobs:
-        return jobs
-
-
-def carto_jobs(url, name=''):
-    response = get_response(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
-    jobs = soup.find('section', {'id': 'open-positions'})
-    if not jobs:
-        return []
-    jobs = jobs.find_all('li')
-    if not jobs:
-        return []
-    jobs = [
-        job_object(
-            title=job.find('a').text,
-            company=name,
-            location=job.find('p').text,
-            url=job.find('a').get('href'),
-            datetime='',
-            job_type=job_typer(job.find('a').text, 'Carto')
-        )
-        for job in jobs
-        if job_typer(job.find('a').text, 'Carto')
-        and job.find('a')
     ]
     if jobs:
         return jobs
@@ -402,6 +395,8 @@ def mobilitydata_jobs(url, name=''):
     website = 'https://careers.mobilitydata.org{}'
     
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('li', {'class': 'position transition'})
 
@@ -441,6 +436,8 @@ def citymapper_jobs(url, name=''):
     }
 
     response = get_post_response(url, header, payload)
+    if not response:
+        return []
     jobs = json.loads(response.text).get('results')
 
     if not jobs:
@@ -465,6 +462,8 @@ def citymapper_jobs(url, name=''):
 
 def smartgrowamerica_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find_all('h2', {'class': 'wp-block-spacer'})
 
@@ -494,6 +493,8 @@ def smartgrowamerica_jobs(url, name=''):
 
 def optibus_jobs(url, name=''):
     response = get_response(url)
+    if not response:
+        return []
     soup = BeautifulSoup(response.content, 'html.parser')
     jobs = soup.find('ul', {'class': 'comeet-positions-list'})
     
@@ -529,6 +530,8 @@ def ito_jobs(url, name=''):
     website = "https://itoworld.bamboohr.com/careers/{}"
 
     response = get_response(url)
+    if not response:
+        return []
     if response.status_code != 200:
         return []
     jobs = response.json()
@@ -561,6 +564,8 @@ def ito_jobs(url, name=''):
 def voi_jobs(url, name=''):
 
     response = get_response(url)
+    if not response:
+        return []
     
     if response.status_code != 200:
         return []
