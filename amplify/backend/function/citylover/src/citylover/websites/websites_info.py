@@ -7,7 +7,7 @@ from citylover.scrapers.newsletter_scrapers import (
 from citylover.scrapers.jobs_scrapers import (
     planetizen_jobs, allthingsurban_jobs,
     apany_jobs, govlove_jobs, beta_nyc_jobs,
-    nyc_planning_jobs, carto_jobs, transitcenter_job,
+    nyc_planning_jobs, transitcenter_job,
     uber_jobs, mobilitydata_jobs, citymapper_jobs, 
     lever_jobs, smartgrowamerica_jobs,
     greenhouse_jobs, lever_jobs, optibus_jobs,
@@ -426,8 +426,8 @@ website_info = [
         'image': 'https://mma.prnewswire.com/media/695160/CARTO_Logo.jpg',
         'image_size':   '40px',
         'jobs': {
-            'scrape_function': carto_jobs,
-            'website': 'https://carto.com/careers/'
+            'scrape_function': lever_jobs,
+            'website': 'https://jobs.lever.co/cartodb'
         }
     },
     {
