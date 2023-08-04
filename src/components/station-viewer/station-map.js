@@ -66,25 +66,26 @@ export default function StationMap({ station_data, station_parts }) {
     // console.log(clickInfo.object.name);
 
     return (
+        <>
             <DeckGL
                 style={{ position: 'relative', width: '100%', height: '50vh' }}
                 initialViewState={initialViewState}
                 controller={true}
                 layers={layers}
             >
-                { 
-                    clickInfo && (
-                    <div style={{position: 'fixed', zIndex: 1, pointerEvents: 'none', left: clickInfo.x, top: clickInfo.y}}>
-                      { clickInfo.object.name }
-                    </div>
-                  )
-                }
-                
                 <Map
                     styleDiffing={true}
                     mapStyle={MAP_STYLE}
                     mapboxAccessToken={MAPBOX_TOKEN}
                 />
             </DeckGL>
+            { 
+                clickInfo && (
+                <div style={{position: 'relative'}}>
+                    { clickInfo.object.name }
+                </div>
+                )
+            }
+        </>
     );
 }

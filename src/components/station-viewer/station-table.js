@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 function Row(props) {
     const row_fields = props.row_fields;
     const data = props.data;
+    const station_number = props.station_number;
 
     const filtered_data = Object.keys(data)
     .filter(key => row_fields.includes(key))
@@ -21,7 +22,11 @@ function Row(props) {
              
             <TableRow
                 hover
-                onClick={() => window.open(`${data.url}`, "_blank")}
+                onClick={
+                    () => {
+                    props.set_select_station(station_number);
+                    props.set_value(station_number);
+                }}
                 sx={{ '& > *': { borderBottom: 'unset' } }}>
                     {
                     Object.entries(filtered_data).map(
@@ -35,8 +40,13 @@ function Row(props) {
 }
 
 
-function StationTable({data, column_names, row_fields, message}) {
-    console.log(!data);
+function StationTable(props) {
+
+
+    const data = props.data;
+    const column_names = props.column_names;
+    const row_fields = props.row_fields;
+
     return (
         <Table>
             <TableHead>
@@ -52,11 +62,12 @@ function StationTable({data, column_names, row_fields, message}) {
                 { 
                     data ? Object.keys(data).map(
                         (row, index) => (
-                            <Row key={index} data={data[row]} row_fields={row_fields} />
+                            <Row key={index} station_number={index} set_value={props.set_value} 
+                            data={data[row]} row_fields={row_fields} set_select_station={props.set_select_station} />
                         )
                     ):
                     <tr>
-                        <td>{message}</td>
+                        <td>{props.message}</td>
                     </tr>
                 }
             </TableBody>

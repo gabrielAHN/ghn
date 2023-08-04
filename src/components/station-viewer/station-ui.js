@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import StationEditor from './station-editor';
 import StationTable from './station-table';
 import Papa from 'papaparse';
+import ClearIcon from '@mui/icons-material/Clear';
+import CircularProgress from '@mui/material/CircularProgress';
 import Input from '@mui/material/Input';
 import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
 
@@ -23,6 +25,8 @@ import TabPanel from '@mui/lab/TabPanel';
 
 export default function StationUI() {
   const [FileStatus, setFileStatus] = useState('not_started');
+  const [SearchData, setSearchData] = useState([]);
+  const [SearchText, setSearchText] = useState('');
   const [SelectStation, setSelectStation] = useState(null);
   const [value, setValue] = useState(0);
   const [StopsData, setStopsData] = useState([]);
@@ -83,16 +87,27 @@ export default function StationUI() {
   //         fileReader.readAsArrayBuffer(file);
   //     }
   // };
-  console.log(SelectStation)
 
   if (StationData.length == 0) {
     return (
-      <Grid container spacing={1} >
+      <Grid container spacing={2} >
+        <Grid item sx={12} sm={12}>
+          <h1 style={{fontSize: '15vh'}}>Station 🚉 Viz</h1>
+        </Grid>
         <Grid item xs={12} sm={12}>
-        <h1 style={{fontSize: '15vh'}}>Station 🚉 Viz</h1>
         {
-          FileStatus == 'started' ? <h1>Loading...</h1> : 
-          <Button component="label" style={{height: '20%'}}>
+          FileStatus == 'started' ? 
+          <CircularProgress
+            size={30}
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          /> : 
+          <Button component="label" style={{height: '100%'}}>
             <FileUploadOutlined />
             <p>Upload GTFS Zip File</p>
             <input
@@ -105,80 +120,120 @@ export default function StationUI() {
         }
         {errorMessage && <p>{errorMessage}</p>}
       </Grid>
-      <Grid item xs sm>
-      Created by <a
+      <Grid item xs={12} sm={12}>
+      <a
         className="link-style" href={'/'}
         style={{
           'color': 'black',
           'textDecoration': 'none',
-        }}>gabrielhn.com</a>
+        }}>Created by gabrielhn.com</a>
       </Grid>
     </Grid>
     )
   }  
-  // if (SelectStation === null) {
-  //   return (
-  //     <>
-  //     <h1>Station 🚉 Viz</h1>
-  //     <StationTable data={StationData} 
-  //       column_names={['stop_name', 'stop_id']} 
-  //       row_fields={['','stop_name', 'stop_id']} 
-  //       message={'test'}
-  //     />
-  //     {/* {
-  //       Object.keys(StationData).map(
-  //         (key, index) => (
-  //           <h1>{StationData[key].stop_id}</h1>
-  //       ))
-  //     } */}
-  //     </>
-  //   )
-  // }
+  if (SelectStation === null) {
+    console.log(SearchText)
+    return (
+      <>
+      <h1>Station 🚉 Viz</h1>
+      <Grid container spacing={2} >
+        <Grid item xs sm={1}>
+          <Button component="label"
+            onClick={() => {
+              setStationData([]);
+              setFileStatus('not_started');
+              }} >
+          Upload New File
+          </Button>  
+        </Grid>
+        <Grid item xs sm={10}>
+          <TextField
+              id="outlined-basic"
+              fullWidth
+              label="Search for a station"
+              variant="outlined"
+              placeholder="Search for a Station 🕵️"
+              type="text"
+              value={SearchText}
+              onChange={(event) =>
+                // console.log(event.target)
+                setSearchText(event.target.value)
+              }
+              endAdornment={
+                  <InputAdornment position="end">
+                    <ClearIcon />
+                  </InputAdornment>
+                // <IconButton 
+                //   // sx={{visibility: score? "visible": "hidden"}} 
+                //   onClick={() => setSearchText('')}
+                //   >
+                //   <ClearIcon />
+                // </IconButton>
+              }
+          />
+        </Grid>
+      </Grid>
+      <StationTable 
+        data={StationData}
+        set_select_station={setSelectStation}
+        set_value={setValue}
+        column_names={['stop id', 'stop name', 'latitude', 'longtitude']} 
+        row_fields={['','stop_name', 'stop_id', 'stop_lat', 'stop_lon']} 
+        message={'test'}
+      />
+      </>
+    )
+  }
   else {
+
     return (
       <>
         <h1>Station 🚉 Viz</h1>
         <Grid container spacing={2} >
-        <Grid item xs sm={1}>
-          <Button component="label"
-          onClick={() => {
-            setStationData([]);
-            setFileStatus('not_started');
-            }} >
-          Upload New File
-          </Button>  
-        </Grid>
-        <Grid item xs sm={1}>
-          <Button component="label">
-          All Stations
-          </Button>  
-        </Grid>
-        <Grid item xs sm={8}>
-          <TextField
-              id="outlined-basic"
-              fullWidth
-              label="Search Postings"
-              variant="outlined"
-              placeholder="Search for the post you want 🕵️"
-              type="text"
+          <Grid item sx sm={1}>
+            <Button component="label"
+            onClick={() => {
+              setStationData([]);
+              setFileStatus('not_started');
+              }} >
+            Upload New File
+            </Button>  
+          </Grid>
+          <Grid item sx sm={1}>
+            <Button component="label"
+            onClick={() => {
+              setValue(0);
+              setSelectStation(null);
+              }}>
+            All Stations
+            </Button>  
+          </Grid>
+          <Grid item sx sm={9}>
+            <TextField
+                id="outlined-basic"
+                fullWidth
+                label="Search Postings"
+                variant="outlined"
+                placeholder="Search for the post you want 🕵️"
+                type="text"
 
-              // value={searched}
-              // onChange={(event) => setSearched(event.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <Button variant="text">Text</Button>
-                  // <InputAdornment position="end">
-                  //   <SearchIcon />
-                  // </InputAdornment>
-                ),
-              }}
-          />
-        </Grid>
+                // value={searched}
+                // onChange={(event) => setSearched(event.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <Button variant="text">Text</Button>
+                    // <InputAdornment position="end">
+                    //   <ClearIcon />
+                    // </InputAdornment>
+                  ),
+                }}
+            />
+          </Grid>
         </Grid>
         <Grid container spacing={2} >
           <Grid item
             xs
-            sm={12}
+            sm={8}
           >
             <TabContext value={value} xs={{width: '100%'}}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
@@ -203,12 +258,12 @@ export default function StationUI() {
                 sm={12}
               >
               {
-              Object.keys(StationData).map(
-                (key, index) => (
-                    <TabPanel key={index} value={index} >
-                      <StationEditor data={StopsData} station_data={StationData[key]}/>
-                    </TabPanel>
-              ))
+                Object.keys(StationData).map(
+                  (key, index) => (
+                      <TabPanel key={index} value={index} >
+                        <StationEditor data={StopsData} station_data={StationData[key]}/>
+                      </TabPanel>
+                ))
               }
               </Grid>
             </TabContext>
