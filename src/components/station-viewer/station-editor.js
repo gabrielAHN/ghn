@@ -22,9 +22,9 @@ export default function StationEditor({data, station_data}) {
             )
     
     return (
-        <div>
+        <>
             <h1>{station_data.stop_name}</h1>
             <StationMap station_data={station_data} station_parts={station_parts} />
-        </div>
+        </>
     )
 };

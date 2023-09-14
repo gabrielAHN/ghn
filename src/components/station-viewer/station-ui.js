@@ -31,10 +31,28 @@ export default function StationUI() {
   const [value, setValue] = useState(0);
   const [StopsData, setStopsData] = useState([]);
   const [StationData, setStationData] = useState([]);
+  const [FilterStationData, setFilterStationData] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+
+  const TextSearch = (event, newValue) => {
+    var FilterStationData = []
+
+    
+    Object.keys(StationData).map(
+      (row, index) => {
+        if (StationData[row].stop_name.toLowerCase().includes(event.toLowerCase())) {
+          FilterStationData[row] = StationData[row]
+        } if (StationData[row].stop_id.toLowerCase().includes(event.toLowerCase())) {
+          FilterStationData[row] = StationData[row]
+        }
+      }
+    )
+    setSearchText(event);
+    setFilterStationData(FilterStationData)
   };
 
   const handleFileChange = async (event) => {
@@ -45,18 +63,24 @@ export default function StationUI() {
 
       const zipData = await zip.loadAsync(zipContent);
       const fileNames = Object.keys(zipData.files);
+
       //   console.log(fileNames)
       //   const csvFile = zipData.file('pathways.txt');
-      const csvFile = zipData.file('stops.txt');
+      const StopFile = zipData.file('stops.txt');
 
-      if (csvFile) {
+      if (StopFile) {
         setFileStatus('started');
 
-        const content = await csvFile.async('text');
+        const content = await StopFile.async('text');
         var data = Papa.parse(content, { header: true });
         var station_data = {};
 
+        // var test = data.data.filter(
+        //   (row, index) => (
+        //     row.location_type == "2"
+        //   ).map(
 
+        // )
         data.data.filter(
           (row, index) => (
             row.location_type == "1"
@@ -67,11 +91,18 @@ export default function StationUI() {
                 stop_id: row.stop_id,
                 stop_name: row.stop_name,
                 stop_lat: Number(row.stop_lat),
-                stop_lon: Number(row.stop_lon)
+                stop_lon: Number(row.stop_lon),
+                exit_count: data.data.filter(
+                  (exit_stop, index) => (
+                    exit_stop.location_type == "2"
+                    && exit_stop.parent_station == row.stop_id
+                    )
+                  ).length
               }
-          )
-        );
+            )
+          );
         setStationData(station_data);
+        setFilterStationData(station_data);
         setStopsData(data.data);
       } else {
         console.log('CSV file not found in the zip.');
@@ -132,7 +163,6 @@ export default function StationUI() {
     )
   }  
   if (SelectStation === null) {
-    console.log(SearchText)
     return (
       <>
       <h1>Station 🚉 Viz</h1>
@@ -156,8 +186,7 @@ export default function StationUI() {
               type="text"
               value={SearchText}
               onChange={(event) =>
-                // console.log(event.target)
-                setSearchText(event.target.value)
+                TextSearch(event.target.value)
               }
               endAdornment={
                   <InputAdornment position="end">
@@ -174,18 +203,17 @@ export default function StationUI() {
         </Grid>
       </Grid>
       <StationTable 
-        data={StationData}
+        data={FilterStationData}
         set_select_station={setSelectStation}
         set_value={setValue}
-        column_names={['stop id', 'stop name', 'latitude', 'longtitude']} 
-        row_fields={['','stop_name', 'stop_id', 'stop_lat', 'stop_lon']} 
+        column_names={['Stop Id', 'Stop Name', 'Exit Count', 'Latitude', 'Longtitude']} 
+        row_fields={['','stop_name', 'stop_id', 'exit_count','stop_lat', 'stop_lon']} 
         message={'test'}
       />
       </>
     )
   }
   else {
-
     return (
       <>
         <h1>Station 🚉 Viz</h1>
@@ -216,7 +244,10 @@ export default function StationUI() {
                 variant="outlined"
                 placeholder="Search for the post you want 🕵️"
                 type="text"
-
+                value={SearchText}
+                onChange={(event) =>
+                  TextSearch(event.target.value)
+                }
                 // value={searched}
                 // onChange={(event) => setSearched(event.target.value)}
                 InputProps={{
@@ -232,21 +263,21 @@ export default function StationUI() {
         </Grid>
         <Grid container spacing={2} >
           <Grid item
-            xs
-            sm={8}
+            sx={12}
+            sm={12}
           >
             <TabContext value={value} xs={{width: '100%'}}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider', width: '100%' }}>
-                <TabList 
+                <TabList
                 onChange={handleChange} variant="scrollable"
                 scrollButtons="auto" >
                   {
-                    Object.keys(StationData).map(
+                    Object.keys(FilterStationData).map(
                     (key, index) => (
                       <Tab 
                       wrapped
                       key={index}
-                      label={StationData[key].stop_name}
+                      label={FilterStationData[key].stop_name}
                       onClick={() => setValue(index)} 
                       />
                   ))
@@ -254,14 +285,14 @@ export default function StationUI() {
                 </TabList>
               </Box>
               <Grid item
-                xs
-                sm={12}
+                xs={13}
+                sm={13}
               >
               {
-                Object.keys(StationData).map(
+                Object.keys(FilterStationData).map(
                   (key, index) => (
                       <TabPanel key={index} value={index} >
-                        <StationEditor data={StopsData} station_data={StationData[key]}/>
+                        <StationEditor data={StopsData} station_data={FilterStationData[key]}/>
                       </TabPanel>
                 ))
               }
