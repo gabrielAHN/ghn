@@ -206,7 +206,7 @@ export default function StationUI() {
         data={FilterStationData}
         set_select_station={setSelectStation}
         set_value={setValue}
-        column_names={['Stop Id', 'Stop Name', 'Exit Count', 'Latitude', 'Longtitude']} 
+        column_names={['Stop Id', 'Stop Name', 'Latitude', 'Longtitude','Exit Count']} 
         row_fields={['','stop_name', 'stop_id', 'exit_count','stop_lat', 'stop_lon']} 
         message={'test'}
       />
