@@ -26,8 +26,13 @@ def rss_parser(url, name=''):
     except ET.ParseError as err:
         return []
     
-    items = root.find('channel').findall("item")
-
+    items = root.find('channel')
+    
+    if not items:
+        return []
+    
+    items = items.findall("item")
+    
     if not items:
         return []
 
