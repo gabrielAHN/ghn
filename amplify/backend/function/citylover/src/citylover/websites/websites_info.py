@@ -8,10 +8,10 @@ from citylover.scrapers.jobs_scrapers import (
     planetizen_jobs, allthingsurban_jobs,
     apany_jobs, govlove_jobs, beta_nyc_jobs,
     nyc_planning_jobs, transitcenter_job,
-    uber_jobs, mobilitydata_jobs, citymapper_jobs, 
+    uber_jobs, mobilitydata_jobs, citymapper_jobs,
     lever_jobs, smartgrowamerica_jobs,
     greenhouse_jobs, lever_jobs, optibus_jobs,
-    ito_jobs, voi_jobs
+    ito_jobs, voi_jobs, dbf_jobs
 )
 
 
@@ -685,6 +685,17 @@ website_info = [
         'jobs': {
             'scrape_function': lever_jobs,
             'website': 'https://jobs.lever.co/dott'
+        }
+    },
+    {
+        'id': 'digitalbluefoam',
+        'name': 'Digital Blue Foam',
+        'type': ['job'],
+        'image': 'https://assets-global.website-files.com/64c79ac5be374c3df952fa71/64e6109eb0e64d7926970b5b_dbf.svg',
+        'image_size': '90px',
+        'jobs': {
+            'scrape_function': dbf_jobs,
+            'website': 'https://www.digitalbluefoam.com/company/career'
         }
     }
 ]

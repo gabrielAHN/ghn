@@ -71,10 +71,11 @@ def urban_techies(title, company):
 
     title_list = [
         r'(cloud|analytics|full stack|ios|python|react|software|reliability|(back|front )end|site ' \
-        r'reliability|qa|support|platform security ) engineer',
+        r'reliability|qa|support|platform security |design computation ) engineer',
         r'(data|staff product|solutions) (engineer|analyst)', r'\(?gis\)? (administrator|analyst)',
         r'backend engineer', r'database specialist', r'(engineering|product analytics|technical product) (manager|director)',
-        r'(data infra|full stack) team', r'(java software|full(\-)?stack web) developer'
+        r'(data infra|full stack) team', r'(front-end|java software|full(\-| )?stack( web)?) developer',
+        r'head of (ai|automation)'
     ]
     company_list = [
     ]

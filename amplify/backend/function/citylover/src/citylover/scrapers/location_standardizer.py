@@ -29,6 +29,8 @@ SPANISH_STATE_REGEX = re.compile(r'(madrid)')
 
 BELGIUM_COUNTRY_REGEX = re.compile(r'belgium')
 
+SINGAPORE_CITY_REGEX = re.compile(r'singapore')
+
 
 def remote_or_hybrid_standard(location):
     remote_regex = r'remote'
@@ -107,6 +109,14 @@ def spanish_country_standard(location):
         return 'Spain'
 
 
+def singapore_country_standard(location):
+
+    SINGAPORE_CITY = re.search(SINGAPORE_CITY_REGEX, location)
+
+    if SINGAPORE_CITY:
+        return 'Singapore'
+
+
 def location_standardizer(location, area='',country=''):
     clean_location = clean_string(location.lower()).title()
 
@@ -133,6 +143,7 @@ def country_standardizer(location):
     italy_country = italy_country_standard(clean_location)
     spanish_country = spanish_country_standard(clean_location)
     remote_or_hybrid = remote_or_hybrid_standard(clean_location)
+    singapore_country = singapore_country_standard(clean_location)
 
     if usa_country:
         return usa_country
@@ -150,6 +161,8 @@ def country_standardizer(location):
         return italy_country
     elif spanish_country:
         return spanish_country
+    elif singapore_country:
+        return singapore_country
     elif 'norway' in clean_location:
         return 'Norway'
     elif remote_or_hybrid:
