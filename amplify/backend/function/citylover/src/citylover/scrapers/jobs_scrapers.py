@@ -198,6 +198,45 @@ def apany_jobs(url, name=''):
     if jobs:
         return jobs
 
+def citymapper_jobs(url, name=''):
+    website = 'https://apply.workable.com/citymapper/j/{}'
+
+    payload = json.dumps({
+        "query": "",
+        "location": [],
+        "department": [],
+        "worktype": [],
+        "remote": []
+    })
+    header = {
+    'content-type': 'application/json',
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
+    }
+
+    response = get_post_response(url, header, payload)
+    if not response:
+        return []
+    jobs = json.loads(response.text).get('results')
+
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job['title'],
+            company=name,
+            location=job['location']['city'],
+            url=website.format(job['shortcode']),
+            datetime='',
+            job_type=job_typer(job['title'], 'Citymapper', ['transport_enthusiast'])
+        )
+        for job in jobs
+        if job_typer(job['title'], 'Citymapper', ['transport_enthusiast'])
+        and job
+    ]
+    if jobs:
+        return jobs
+
 
 def uber_jobs(url, name=''):
     payload = json.dumps({
@@ -420,46 +459,6 @@ def mobilitydata_jobs(url, name=''):
         return jobs
 
 
-def citymapper_jobs(url, name=''):
-    website = 'https://apply.workable.com/citymapper/j/{}'
-
-    payload = json.dumps({
-        "query": "",
-        "location": [],
-        "department": [],
-        "worktype": [],
-        "remote": []
-    })
-    header = {
-    'content-type': 'application/json',
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'
-    }
-
-    response = get_post_response(url, header, payload)
-    if not response:
-        return []
-    jobs = json.loads(response.text).get('results')
-
-    if not jobs:
-        return []
-
-    jobs = [
-        job_object(
-            title=job['title'],
-            company=name,
-            location=job['location']['city'],
-            url=website.format(job['shortcode']),
-            datetime='',
-            job_type=job_typer(job['title'], 'Citymapper', ['transport_enthusiast'])
-        )
-        for job in jobs
-        if job_typer(job['title'], 'Citymapper', ['transport_enthusiast'])
-        and job
-    ]
-    if jobs:
-        return jobs
-
-
 def smartgrowamerica_jobs(url, name=''):
     response = get_response(url)
     if not response:
@@ -600,6 +599,34 @@ def voi_jobs(url, name=''):
         if job_typer(
                     job.find('span').get('title')
                 )
+        and job
+    ]
+    if jobs:
+        return jobs
+
+def dbf_jobs(url, name=''):
+    website = 'www.digitalbluefoam.com{}'
+    
+    response = get_response(url)
+    if not response:
+        return []
+    soup = BeautifulSoup(response.content, 'html.parser')
+    jobs = soup.findAll('div', {'class': 'w-layout-grid grid-6'})
+
+    if not jobs:
+        return []
+
+    jobs = [
+        job_object(
+            title=job.find('h3').text,
+            company=name,
+            location=job.find('div', {'class': 'text-block-27'}).text,
+            url=website.format(job.find('a').get('href')),
+            datetime='',
+            job_type=job_typer(job.find('h3').text, name)
+        )
+        for job in jobs
+        if job_typer(job.find('h3').text, name)
         and job
     ]
     if jobs:
