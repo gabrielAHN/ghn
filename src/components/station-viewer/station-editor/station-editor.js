@@ -1,4 +1,4 @@
-import StationMap from './station-map';
+import StationMap from '../components/station-map';
 
 export default function StationEditor({data, station_data}) {
 

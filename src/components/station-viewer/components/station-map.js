@@ -63,7 +63,6 @@ export default function StationMap({ station_data, station_parts }) {
             getFillColor: d => STOP_TYPE_COLORS[d.stop_type]
           })
     ];
-    // console.log(clickInfo.object.name);
 
     return (
         <>
