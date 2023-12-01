@@ -3,10 +3,11 @@ import { TextField, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 
-function SearchComponent(...props) {
+function SearchComponent(props) {
     const [SearchText, setSearchText] = useState('');
+    var search_data = props.station_data
+    var filter_function = props.filter_function
 
-    var search_data = props[0].station_data
 
     const TextSearch = (event, newValue) => {
         var FilterStationData = []
@@ -21,7 +22,7 @@ function SearchComponent(...props) {
             }
         )
         setSearchText(event);
-        props[0].filter_function(FilterStationData)
+        filter_function(FilterStationData)
     };
 
     return (
@@ -41,7 +42,7 @@ function SearchComponent(...props) {
                     <IconButton onClick={
                         () => {
                             setSearchText('')
-                            props[0].filter_function(search_data)
+                            filter_function(search_data)
                         }
                     }>
                         <ClearIcon style={{ color: 'red' }} />

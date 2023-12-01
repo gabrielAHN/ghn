@@ -1,64 +1,89 @@
-import StationTable from '../components/station-table';
-import SearchComponent from '../components/search-component';
+import React, { useState } from 'react';
 import JSZip from 'jszip';
-import { Button } from "@mui/material";
-import { Grid } from '@material-ui/core';
+import { GtfsParser } from './gtfs-parser';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-var requestOptions = {
-    method: 'GET',
-    // mode: 'no-cors',
-    // redirect: 'follow',
-    headers: {
-        "Accept-Ranges": "bytes",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Content-Type": "application/zip",
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel" /
-        "Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, "/
-        "like Gecko) Chrome/119.0.0.0 Safari/537.36"
-      }
-  };
 
-var url = 'https://storage.googleapis.com/storage/v1/b/mdb-latest/o/us-massachusetts-massachusetts-bay-transportation-authority-mbta-gtfs-437.zip'
+var ExampleDataDict = [
+    {
+        name: 'Boston MBTA GTFS',
+        url: 'https://www.googleapis.com/download/storage/v1/b/mdb-latest/o/us-massachusetts-massachusetts-bay-transportation-authority-mbta-gtfs-437.zip?alt=media'
+    },
+    {
+        name: 'San Diego Metro GTFS',
+        url: 'https://storage.googleapis.com/storage/v1/b/mdb-latest/o/us-california-san-diego-international-airport-metropolitan-transit-system-mts-gtfs-13.zip?alt=media'
+    },
+    {
+        name: 'Budapest Metro GTFS',
+        url: 'https://storage.googleapis.com/storage/v1/b/mdb-latest/o/hu-budapest-budapesti-kozlekedesi-kozpont-bkk-gtfs-990.zip?alt=media'
+    },
+]
 
-// var url = "https://cdn.mbta.com/MBTA_GTFS.zip"
 
 export default function ExampleData(...props) {
+    const [FileError, setFileError] = useState([]);
+    const [ExampleDataset, setExampleDataset] = useState('');
+
     const zip = new JSZip();
 
-    const downloadFile = async () => {
+    var file_status = props[0].file_status
+    var set_file_status = props[0].set_file_status
+    var set_station_data = props[0].set_station_data
+    var set_filter_station_data = props[0].set_filter_stationdata
+    var set_stops_data = props[0].set_stops_data
+
+    const downloadFile = async (event) => {
+        setExampleDataset(event.target.value)
+
+        var url = event.target.value.url;
+
         const response = await fetch(url);
-        const buffer = await response.arrayBuffer();
-        // const zip = await unzipper.Open.buffer(buffer);
-        // const files = zip.files;
-        console.log(buffer);
-        console.log(FileReader.readAsArrayBuffer(Blob))
-        // const blob = await response.blob();
-        const zipData = await JSZip.loadAsync(buffer);
-        // console.log(zipData);
-        // const zipData = await JSZip.loadAsync(blob);
-        console.log(buffer);
+
+        const arrayBuffer = await response.arrayBuffer();
+
+        const zipFile = await zip.loadAsync(arrayBuffer);
+
+        GtfsParser(
+            {
+                zipFile: zipFile,
+                set_file_error: setFileError,
+                file_status: file_status,
+                set_file_status: set_file_status,
+                set_stops_data: set_stops_data,
+                set_station_data: set_station_data,
+                set_filter_station_data: set_filter_station_data
+            }
+        )
     };
-    // var set_file_status = props[0].set_file_status
-    // var station_data = props[0].station_data
-    // var set_station_data = props[0].set_station_data
-    // var set_filter_station_data = props[0].set_filter_stationdata
-    // var set_select_station = props[0].set_select_station
-    // var set_value = props[0].set_value
-    // var table_data = props[0].table_data
+
 
     return (
         <>
-            <Button component="label"
-            onClick={() => {
-                downloadFile();
-            //   setStationData([]);
-            //   setFileStatus('not_started');
-              }} 
-              >
-                Example Dataset
-            </Button>  
-
+            <FormControl sx={{ width: '20vh' }}>
+                <InputLabel id="demo-simple-select-label">Example Dataset</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Example GTFS Dataset"
+                    value={ExampleDataset}
+                    onChange={downloadFile}
+                >
+                    {
+                        ExampleDataDict.map(
+                            (item, index) => (
+                                <MenuItem
+                                    key={index}
+                                    value={item}
+                                >
+                                    {item.name}
+                                </MenuItem>
+                            ))
+                    }
+                </Select>
+            </FormControl>
         </>
-
     );
 }

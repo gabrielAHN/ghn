@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-import AllStationsEditor from './station-editor/all-stations-editor';
 import AllStationViewer from './all-station-viewer/all-station-viewer';
-import SearchComponent from './components/search-component';
+import StationEditorMain from './station-editor/station-editor-main';
 import GTFSFileUploader from './gtfs-uploader/file-importer';
 import ExampleData from './gtfs-uploader/example-data';
 
@@ -16,7 +15,6 @@ export default function StationViewer() {
   const [StopsData, setStopsData] = useState([]);
   const [StationData, setStationData] = useState([]);
   const [FilterStationData, setFilterStationData] = useState([]);
-  const [EditorView, setEditorView] = useState(0);
 
 
   if (StationData.length == 0) {
@@ -43,7 +41,13 @@ export default function StationViewer() {
             />
         </Grid>
         <Grid item xs={12} sm={12}>
-            <ExampleData />
+            <ExampleData 
+              file_status={FileStatus}
+              set_file_status={setFileStatus}
+              set_stops_data={setStopsData}
+              set_station_data={setStationData}
+              set_filter_stationdata={setFilterStationData}
+            />
         </Grid>
       </Grid>
     )
@@ -59,10 +63,6 @@ export default function StationViewer() {
                 table_data={FilterStationData}
                 set_station_data={setStationData}
                 set_select_station={setSelectStation}
-                set_value={setEditorView}
-                column_names={['Stop Id', 'Stop Name', 'Latitude', 'Longtitude','Exit Count']} 
-                row_fields={['','stop_name', 'stop_id', 'exit_count','stop_lat', 'stop_lon']} 
-                message={'test'}
         />
         <a className="link-style" href={'/'}
             style={{
@@ -78,7 +78,7 @@ export default function StationViewer() {
       <>
         <h1>Station 🚉 Viz</h1>
         <Grid container spacing={2} >
-          <Grid item sx sm={1}>
+          <Grid item sx={5} sm={5}>
             <Button component="label"
             onClick={() => {
               setStationData([]);
@@ -87,10 +87,9 @@ export default function StationViewer() {
             Upload New File
             </Button>  
           </Grid>
-          <Grid item sx sm={1}>
+          <Grid item sx={5} sm={5}>
             <Button component="label"
               onClick={() => {
-                setEditorView(0);
                 setSelectStation(null);
                 setStationData(StationData);
                 }}
@@ -98,23 +97,19 @@ export default function StationViewer() {
                 All Stations
             </Button>  
           </Grid>
-          <Grid item sx sm={9}>
-            <SearchComponent
-              filter_function={setFilterStationData}
-              station_data={StationData}
-            />
-          </Grid>
         </Grid>
         <Grid container spacing={2} >
           <Grid item
             sx={12}
             sm={12}
           >
-            <AllStationsEditor 
+            <StationEditorMain
+                data={StopsData}
+                station_data={SelectStation}
                 filter_station_data={FilterStationData}
                 stops_data={StopsData}
-                editor_view={EditorView}
-                set_editor_view={setEditorView}
+                // editor_view={EditorView}
+                // set_editor_view={setEditorView}
             />
           </Grid>
         </Grid>

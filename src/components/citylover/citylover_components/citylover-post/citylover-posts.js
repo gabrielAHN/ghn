@@ -15,9 +15,9 @@ const color_dict = {
 }
 
 
-export default function CityloverPosts({PostsData, BrandData}) {
+export default function CityloverPosts({ PostsData, BrandData }) {
     const [ViewType, setViewType] = useState("1");
-    
+
 
     const handleChange = (event, newAlignment) => {
         if (newAlignment !== null) {
@@ -60,7 +60,8 @@ export default function CityloverPosts({PostsData, BrandData}) {
                             color_dict={color_dict}
                         />
                     }
-                    {ViewType == 3 && PostsData &&
+                    {
+                        ViewType == 3 && PostsData &&
                         <CityloverPostSearch
                             post_data={PostsData}
                             brands_dict={BrandData}

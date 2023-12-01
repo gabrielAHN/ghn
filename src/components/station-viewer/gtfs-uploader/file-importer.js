@@ -1,11 +1,12 @@
 import JSZip from 'jszip';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
-import CircularProgress from '@mui/material/CircularProgress';
 import { GtfsParser } from './gtfs-parser';
 
 import { useState } from 'react';
-import { Grid } from '@material-ui/core';
+
+import { Grid, Box } from '@material-ui/core';
 import { styled } from '@mui/system';
 
 
@@ -24,17 +25,20 @@ const WarningMessage = styled('div')({
 
 export default function GTFSFileUploader(...props) {
   const [FileError, setFileError] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   var set_file_status = props[0].set_file_status
   var file_status = props[0].file_status
-  var set_filter_stationdata = props[0].set_filter_stationdata
+  var set_filter_station_data = props[0].set_filter_stationdata
   var set_stops_data = props[0].set_stops_data
   var set_station_data = props[0].set_station_data
 
   const handleFileChange = async (event) => {
     const zip = new JSZip();
-    
-    const zipContent = event.target.files[0];
 
+    setLoading(true);
+
+    const zipContent = event.target.files[0];
 
     if (zipContent === undefined) {
       set_file_status('no_zipfile')
@@ -46,58 +50,73 @@ export default function GTFSFileUploader(...props) {
       const zipData = await zip.loadAsync(zipContent);
 
       GtfsParser(
-        zipData,
-        setFileError,
-        set_file_status,
-        set_stops_data,
-        set_station_data,
-        set_filter_stationdata
+        {
+          zipFile:zipData,
+          set_file_error:setFileError,
+          file_status:file_status,
+          set_file_status:set_file_status,
+          set_stops_data:set_stops_data,
+          set_station_data:set_station_data,
+          set_filter_station_data:set_filter_station_data
+        }
       );
+      // setLoading(false);
     }
   };
 
 
   if (file_status == 'not_started') {
     return (
-      <Button variant="contained" component="label" style={{ height: '100%' }}>
-        <FileUploadOutlined />
-        <p>Upload GTFS Zip File</p>
-        <input
-          type="file"
-          hidden
-          onChange={handleFileChange}
-        />
-      </Button>
-    )
-  }
-  if (file_status == 'started') {
-    return (
-      <CircularProgress
-        size={30}
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          marginTop: '-12px',
-          marginLeft: '-12px',
-        }}
-      />
+      <Box sx={{ '& > button': { m: 2 } }}>
+        <LoadingButton
+          size="Large"
+          variant="outlined"
+          component="label"
+          loading={loading}
+          endIcon={<FileUploadOutlined />}
+          loadingIndicator="Loading…"
+        >
+          <span>
+            Upload GTFS Zip File
+          </span>
+          <input
+            type="file"
+            hidden
+            onChange={handleFileChange}
+          />
+        </LoadingButton>
+      </Box>
     )
   }
   if (file_status == 'no_zipfile') {
     return (
       <Grid container spacing={4} justifyContent="center" >
         <Grid item sx={12} sm={12}>
-          <Button variant="contained" component="label" style={{ height: '100%' }}>
-            <FileUploadOutlined />
-            <p>Try a new GTFS Zip File Here</p>
+          <LoadingButton
+          // size="small"
+          // color="secondary"
+          // onClick={handleClick}
+          // loading={loading}
+          // loadingPosition="start"
+          // startIcon={<SaveIcon />}
+          // variant="contained"
+            size="Large"
+            variant="outlined"
+            component="label"
+            loading={loading}
+            loadingPosition="start"
+            endIcon={<FileUploadOutlined />}
+            // loadingIndicator="Loading…"
+          >
+            <span>
+              Try a new GTFS Zip File Here
+            </span>
             <input
-              styles={{ display: "none" }}
               type="file"
               hidden
               onChange={handleFileChange}
             />
-          </Button>
+          </LoadingButton>
         </Grid>
         <Grid item xs={12} sm={6}>
           <WarningMessage>
@@ -123,16 +142,23 @@ export default function GTFSFileUploader(...props) {
     return (
       <Grid container spacing={4} justifyContent="center" >
         <Grid item sx={12} sm={12}>
-          <Button variant="contained" component="label" style={{ height: '100%' }}>
-            <FileUploadOutlined />
-            <p>Try a new GTFS Zip File Here</p>
+          <LoadingButton
+            size="Large"
+            variant="outlined"
+            component="label"
+            loading={loading}
+            endIcon={<FileUploadOutlined />}
+            loadingIndicator="Loading…"
+          >
+            <span>
+              Try a new GTFS Zip File Here
+            </span>
             <input
-              styles={{ display: "none" }}
               type="file"
               hidden
               onChange={handleFileChange}
             />
-          </Button>
+          </LoadingButton>
         </Grid>
         <Grid item xs={12} sm={6}>
           <WarningMessage>
