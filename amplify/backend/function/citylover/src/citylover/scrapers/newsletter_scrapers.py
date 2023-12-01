@@ -173,6 +173,7 @@ def spur(url, name=''):
     articles = soup.find_all('div', {'class', 'content'})[2:]
     if not articles:
         return []
+
     articles = [
         article_object(
             title=article.find('h2').text,
@@ -180,6 +181,9 @@ def spur(url, name=''):
             datetime=article.find('time').text
         )
         for article in articles
+        if article.find('time')
+        and article.find('a')
+        and article.find('h2')
     ]
     if articles:
         return articles
