@@ -24,7 +24,10 @@ export default function FlowMap(props) {
     // create_nodes()
     const [nodes, setNodes] = useState([]);
     const [edges, setEdges] = useEdgesState([]);
-    const { getLayoutedElements } = NodesOrganizer({useReactFlow});
+    const { getLayoutedElements } = NodesOrganizer();
+    // const { getLayoutedElements } = NodesOrganizer({useReactFlow});
+
+    console.log(getLayoutedElements({ 'elk.algorithm': 'layered', 'elk.direction': 'DOWN' }))
 
     var pathway_nodes = props.station_data.pathways.nodes
     // console.log(pathway_nodes)
@@ -46,7 +49,7 @@ export default function FlowMap(props) {
         return node
       }
     )
-    console.log(flow_map_nodes)
+    // console.log(getLayoutedElements)
     // setNodes(flow_map_nodes)
     // {
     //   id: '1',
