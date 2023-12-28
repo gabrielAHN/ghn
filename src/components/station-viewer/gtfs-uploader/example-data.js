@@ -62,7 +62,7 @@ export default function ExampleData(...props) {
 
     return (
         <>
-            <FormControl sx={{ width: '20vh' }}>
+            <FormControl sx={{ width: '25vh' }}>
                 <InputLabel id="demo-simple-select-label">Example Dataset</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
