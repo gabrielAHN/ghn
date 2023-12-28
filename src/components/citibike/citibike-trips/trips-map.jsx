@@ -17,7 +17,7 @@ import FastRewindIcon from '@mui/icons-material/FastRewind';
 import Slider from '@mui/material/Slider';
 import { TripsLayer } from '@deck.gl/geo-layers';
 import CitibikeTrips from './trip_map_data.json';
-import FormatedTable from './trip_table.js';
+import FormatedTable from './trip_table';
 
 
 
