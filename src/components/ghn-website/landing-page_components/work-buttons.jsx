@@ -26,7 +26,6 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
 
 const ImageText = styled('div')({
     color: 'white',
-    fontSize: 30,
     position: 'relative',
     width: '20%',
     fontSize: 25,
