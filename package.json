@@ -1,8 +1,17 @@
 {
   "name": "ghn",
-  "version": "0.1.0",
-  "private": false,
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
   "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
@@ -27,8 +36,6 @@
     "mapbox-gl": "1.13.0",
     "papaparse": "5.3.2",
     "pretty-format": "29.0.3",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-map-gl": "7.0.21",
     "react-material-ui-carousel": "3.4.2",
     "react-redux": "8.0.5",
@@ -38,42 +45,14 @@
     "styled-components": "5.3.5",
     "web-vitals": "2.1.4"
   },
-  "overrides": {
-    "@deck.gl/core": "^8.9.28",
-    "@deck.gl/layers": "^8.9.28",
-    "@deck.gl/extensions": "^8.9.28",
-    "@deck.gl/geo-layers": "^8.9.28",
-    "@luma.gl/core": "8.5.21"
-  },
-  "resolutions": {
-    "@deck.gl/core": "^8.9.28",
-    "@deck.gl/layers": "^8.9.28",
-    "@deck.gl/extensions": "^8.9.28",
-    "@deck.gl/geo-layers": "^8.9.28",
-    "@luma.gl/core": "8.5.21"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^3.0.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^3.0.8"
   }
 }
