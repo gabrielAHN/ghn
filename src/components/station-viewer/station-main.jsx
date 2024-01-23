@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import AllStationViewer from './all-station-viewer/all-station-viewer';
-import StationEditorMain from './station-editor/station-editor-main';
-import GTFSFileUploader from './gtfs-uploader/file-importer';
-import ExampleData from './gtfs-uploader/example-data';
+import AllStationViewer from './all-station-viewer/all-station-viewer.jsx';
+import StationEditorMain from './station-editor/station-editor-main.jsx';
+import GTFSFileUploader from './gtfs-uploader/file-importer.jsx';
+import ExampleData from './gtfs-uploader/example-data.jsx';
 
 import { Button } from "@mui/material";
 import { Grid } from '@material-ui/core';
@@ -11,6 +11,7 @@ import { Grid } from '@material-ui/core';
 
 export default function StationViewer() {
   const [FileStatus, setFileStatus] = useState('not_started');
+  const [ProgressData, setProgressData] = useState(0);
   const [SelectStation, setSelectStation] = useState(null);
   const [StopsData, setStopsData] = useState([]);
   const [StationData, setStationData] = useState([]);
@@ -35,6 +36,8 @@ export default function StationViewer() {
             <GTFSFileUploader 
               file_status={FileStatus}
               set_file_status={setFileStatus}
+              progress_data={ProgressData}
+              set_progress_data={setProgressData}
               set_stops_data={setStopsData}
               set_station_data={setStationData}
               set_filter_stationdata={setFilterStationData}
@@ -44,6 +47,8 @@ export default function StationViewer() {
             <ExampleData 
               file_status={FileStatus}
               set_file_status={setFileStatus}
+              progress_data={ProgressData}
+              set_progress_data={setProgressData}
               set_stops_data={setStopsData}
               set_station_data={setStationData}
               set_filter_stationdata={setFilterStationData}
@@ -51,7 +56,7 @@ export default function StationViewer() {
         </Grid>
       </Grid>
     )
-  } 
+  }
   if (SelectStation === null) {
     return (
       <>

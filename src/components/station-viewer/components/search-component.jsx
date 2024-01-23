@@ -3,7 +3,7 @@ import { TextField, IconButton } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 
-function SearchComponent(props) {
+export default function SearchComponent(props) {
     const [SearchText, setSearchText] = useState('');
     var search_data = props.station_data
     var filter_function = props.filter_function
@@ -52,4 +52,3 @@ function SearchComponent(props) {
         />
     );
 }
-export default SearchComponent;

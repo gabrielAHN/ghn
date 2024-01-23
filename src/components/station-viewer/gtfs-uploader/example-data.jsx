@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
-import { GtfsParser } from './gtfs-parser';
+import { GtfsParser } from './gtfs-parser.jsx';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+// import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgressWithLabel from '../components/upload-progress-component.jsx';
+
+import { Box } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 
 var ExampleDataDict = [
@@ -23,20 +28,24 @@ var ExampleDataDict = [
 ]
 
 
-export default function ExampleData(...props) {
+export default function ExampleData(props) {
     const [FileError, setFileError] = useState([]);
     const [ExampleDataset, setExampleDataset] = useState('');
 
     const zip = new JSZip();
 
-    var file_status = props[0].file_status
-    var set_file_status = props[0].set_file_status
-    var set_station_data = props[0].set_station_data
-    var set_filter_station_data = props[0].set_filter_stationdata
-    var set_stops_data = props[0].set_stops_data
+    var file_status = props.file_status
+    var set_file_status = props.set_file_status
+    var progress_data = props.progress_data
+    var set_progress_data = props.set_progress_data
+    var set_station_data = props.set_station_data
+    var set_filter_station_data = props.set_filter_stationdata
+    var set_stops_data = props.set_stops_data
 
     const downloadFile = async (event) => {
         setExampleDataset(event.target.value)
+        
+        set_file_status('loading')
 
         var url = event.target.value.url;
 
@@ -47,22 +56,47 @@ export default function ExampleData(...props) {
         const zipFile = await zip.loadAsync(arrayBuffer);
 
         GtfsParser(
-            {
-                zipFile: zipFile,
-                set_file_error: setFileError,
-                file_status: file_status,
-                set_file_status: set_file_status,
-                set_stops_data: set_stops_data,
-                set_station_data: set_station_data,
-                set_filter_station_data: set_filter_station_data
-            }
+                zipFile = zipFile,
+                set_file_error = setFileError,
+                progress_data = progress_data,
+                set_progress_data = set_progress_data,
+                file_status = file_status,
+                set_file_status = set_file_status,
+                set_stops_data = set_stops_data,
+                set_station_data = set_station_data,
+                set_filter_station_data = set_filter_station_data
         )
     };
 
-
-    return (
+    if (file_status === 'loading') {
+        return (
+        // <Box sx={{ display: 'flex', height: '10vh', width: '10vh' }}>
         <>
-            <FormControl sx={{ width: '25vh' }}>
+            <CircularProgressWithLabel value={progress_data}/>
+            <Button
+                variant="outlined"
+                component="label"
+                loadingIndicator="Loading…"
+                onClick={
+                    () => {
+                        set_station_data([]);
+                        set_file_status('not_started')
+                    }
+                }
+            >
+                Reset
+            </Button>
+        </>
+        )
+    } else return (
+        <>
+            <Button
+                variant="outlined"
+                component="label"
+                loadingIndicator="Loading…"
+                onClick={() => {set_file_status('loading')}}
+                />
+            {/* <FormControl sx={{ width: '25vh' }}>
                 <InputLabel id="demo-simple-select-label">Example Dataset</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
@@ -83,7 +117,7 @@ export default function ExampleData(...props) {
                             ))
                     }
                 </Select>
-            </FormControl>
+            </FormControl> */}
         </>
     );
 }

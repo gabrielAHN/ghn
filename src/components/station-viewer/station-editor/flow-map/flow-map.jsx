@@ -12,13 +12,13 @@ import ReactFlow, {
     applyEdgeChanges 
   } from 'reactflow';
 
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 
-import elkLayout from "./graph";
+import elkLayout from "./graph.jsx";
 import 'reactflow/dist/style.css';
-import PlatformNode from './platform-node';
-import ExitEntranceNode from './exit-entrance-node';
-import PathwaysNode from './pathways-node';
+import PlatformNode from './platform-node.jsx';
+import ExitEntranceNode from './exit-entrance-node.jsx';
+import PathwaysNode from './pathways-node.jsx';
 
 // const nodeTypes = {
 //   0: PlatformNode,
@@ -81,40 +81,7 @@ function FlowFormat(props) {
     };
   });
 
-  // Object.entries(nodeTypes).map(
-  //   ([key, value], index) => {
-  //   FlowNodes.push({
-  //     id: key,
-  //     type: 'group',
-  //     style: {
-  //     width: 500,
-  //     height: 500
-  //     },
-  //     position: { x: index*1000, y: 0 }
-  //     })
-  //   }
-  // )
-  // console.log(FlowNodes)
-      // console.log(key)
-    // FlowNodes.push({
-    //   id: 'A',
-    //   type: 'group',
-    //   position: { x: 0, y: 0 }
-    // })
-    // console.log(node)
-
-  // FlowNodes.push({
-  //   id: 'A',
-  //   type: 'group',
-  //   position: { x: 0, y: 0 }
-  //   // style: {
-  //   //   width: 500,
-  //   //   height: 500,
-  //   // }
-  // });
-
-
-//   { id: 'e12', source: '1', target: '2', type: 'smoothstep' },
+  
   const FlowEdges = initialEdges.map((edges) => {
       return {
           id: edges.pathway_id,

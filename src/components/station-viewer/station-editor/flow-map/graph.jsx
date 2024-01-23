@@ -20,7 +20,7 @@ const elkLayout = (flowdata) => {
             'elk.partitioning.activate': 'true',
             'elk.layered.mergeEdges': 'true',
             'elk.layered.layering.strategy': 'BF_MODEL_ORDER',
-            // 'elk.spacing.nodeNode': '1',
+            'elk.spacing.nodeNode': '100',
             'elk.layered.spacing.edgeNodeBetweenLayers': '100',
             'elk.layered.spacing.nodeNodeBetweenLayers': '100',
             

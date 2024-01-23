@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import LandingPage from './ghn-website/landing-page';
-import Citylover from './citylover/citylover-main';
-import Citibike from './citibike/citibike-main';
-import StationViewer from './station-viewer/station-main';
+import LandingPage from './ghn-website/landing-page.jsx';
+import Citylover from './citylover/citylover-main.jsx';
+import Citibike from './citibike/citibike-main.jsx';
+import StationViewer from './station-viewer/station-main.jsx';
 
 
 function Main() {
