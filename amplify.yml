@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - yarn install
+        - yarn add deck.gl@8.9.34
     build:
       commands:
         - yarn run build
