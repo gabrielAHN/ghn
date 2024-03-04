@@ -3,11 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - yarn install
-        - yarn add deck.gl@8.9.34
+        - yarn install --frozen-lockfile
     build:
       commands:
-        - yarn run build
+        - yarn build
   artifacts:
     baseDirectory: /dist
     files:
