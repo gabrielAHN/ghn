@@ -1,28 +1,3 @@
 {
-  "function": {
-    "citylover": {
-      "build": true,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_citylover_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "citylover"
-        }
-      ]
-    },
-    "AMPLIFY_function_citylover_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "citylover"
-        }
-      ]
-    }
-  }
+  "function": {}
 }

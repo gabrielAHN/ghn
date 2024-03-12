@@ -5,13 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
-    position: 'relative',
-    height: '20%',
+    fontFamily: "'Quicksand', sans-serif",
     borderRadius: '5px!important',
-    [theme.breakpoints.down('sm')]: {
-        width: '100% !important', // Overrides inline-style
-        height: 100,
-    },
     '&:hover, &.Mui-focusVisible': {
         transform: "scale(1.1)",
         zIndex: 1,
@@ -60,6 +55,10 @@ const Image = styled('span')(({ theme }) => ({
 
 
 export default function WorkButtons({ photo_buttons }) {
+    const openUrl = (url) => {
+        window.open(url, '_blank');
+    };
+
     return (
         <div id="work" className="h2-ghn">
             <h1>Work</h1>
@@ -70,8 +69,7 @@ export default function WorkButtons({ photo_buttons }) {
                             variant='contained'
                             focusRipple
                             key={index}
-                            component={Link}
-                            to={`/${photo.url}`}
+                            onClick={() => openUrl(photo.url)}
                             sx={{
                                 left: 0,
                                 right: 0,
@@ -91,7 +89,8 @@ export default function WorkButtons({ photo_buttons }) {
                                     height: '25vh',
                                     backgroundImage: `url(${photo.hover_image})`
                                 }
-                            }}>
+                            }}
+                        >
                             <ImageBackdrop className="MuiImageBackdrop-root" />
                             <Image>
                                 <ImageText className="ImageText">

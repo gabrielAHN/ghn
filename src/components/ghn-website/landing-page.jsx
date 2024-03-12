@@ -4,10 +4,12 @@ import { Grid } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 import BioCarousel from './landing-page_components/Bio-carousel';
 import WorkButtons from './landing-page_components/work-buttons';
-import citylover from './assets/citylover.png';
-import cityloverhover from './assets/workbutton-images/citylover-hover.gif'
+import citieslover from './assets/citieslover.png';
+import citiesloverhover from './assets/workbutton-images/citieslover-hover.gif'
 import citibikemap from './assets/workbutton-images/citibike.png'
 import citibikehover from './assets/workbutton-images/citibike-hover.gif'
+import jenreyes from './assets/workbutton-images/jenreyes.png'
+import jenreyeshover from './assets/workbutton-images/jenreyes-hover.gif'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
 import IconButton from '@mui/material/IconButton';
@@ -33,12 +35,13 @@ const buttons_data = [
 ]
 
 const photo_buttons = [
+
   {
       "name": "Citylover",
-      "image": citylover,
-      "hover_image": cityloverhover,
+      "image": citieslover,
+      "hover_image": citiesloverhover,
       "color": "white",
-      "url": 'citylover'
+      "url": 'https://citieslover.com '
 
   },
   {
@@ -47,7 +50,14 @@ const photo_buttons = [
       "hover_image": citibikehover,
       "color": "black",
       "url": 'citibike'
-  }
+  },
+  {
+    "name": "Blog Website",
+    "image": jenreyes,
+    "hover_image": jenreyeshover,
+    "color": "black",
+    "url": 'https://www.jenreyes-au.com/'
+},
 ]
 
 function LandingPage() {
@@ -98,7 +108,7 @@ function LandingPage() {
             <IconButton href='https://github.com/gabrielAHN' target='_blank'>
               <GitHubIcon />
             </IconButton>
-            <IconButton href="mailto:example@example.com">
+            <IconButton href="mailto:gabrielhn@hey.com">
               <EmailIcon />
             </IconButton>
         </div>
