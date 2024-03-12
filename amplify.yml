@@ -6,7 +6,7 @@ frontend:
         - yarn install --frozen-lockfile
     build:
       commands:
-        - yarn vite build && yarn run build
+        - yarn vite build
   artifacts:
     baseDirectory: /dist
     files:
