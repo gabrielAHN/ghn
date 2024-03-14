@@ -3,10 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - yarn install
+        - yarn install --frozen-lockfile
     build:
       commands:
-        - yarn run build
+        - yarn vite build
   artifacts:
     baseDirectory: /dist
     files:

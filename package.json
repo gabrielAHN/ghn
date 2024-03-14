@@ -31,7 +31,7 @@
     "@testing-library/user-event": "13.5.0",
     "@types/path-browserify": "^1.0.2",
     "aws-amplify": "4.3.43",
-    "deck.gl": "^8.9.28",
+    "deck.gl": "8.9.34",
     "echarts": "5.4.1",
     "echarts-for-react": "3.0.2",
     "elkjs": "^0.8.2",
@@ -60,6 +60,7 @@
     "typescript": "^5.0.0"
   },
   "resolutions": {
+    "deck.gl": "8.9.35",
     "@deck.gl/core": "^8.9.19",
     "@deck.gl/layers": "^8.9.19",
     "@deck.gl/extensions": "^8.9.19",
