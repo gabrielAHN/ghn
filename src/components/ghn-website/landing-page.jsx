@@ -2,7 +2,7 @@ import ME from './assets/me.png';
 import wulfz from './assets/wulfz.gif';
 import { Grid } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
-import BioCarousel from './landing-page_components/Bio-carousel';
+import BioMain from './landing-page_components/bio/bio-main';
 import WorkButtons from './landing-page_components/work-buttons';
 import citieslover from './assets/citieslover.png';
 import citiesloverhover from './assets/workbutton-images/citieslover-hover.gif'
@@ -37,19 +37,19 @@ const buttons_data = [
 const photo_buttons = [
 
   {
-      "name": "Citylover",
-      "image": citieslover,
-      "hover_image": citiesloverhover,
-      "color": "white",
-      "url": 'https://citieslover.com '
+    "name": "Cities Lover",
+    "image": citieslover,
+    "hover_image": citiesloverhover,
+    "color": "white",
+    "url": 'https://citieslover.com '
 
   },
   {
-      "name": "Citibike Deep Dive",
-      "image": citibikemap,
-      "hover_image": citibikehover,
-      "color": "black",
-      "url": 'citibike'
+    "name": "Citibike Deep Dive",
+    "image": citibikemap,
+    "hover_image": citibikehover,
+    "color": "black",
+    "url": 'citibike'
   },
   {
     "name": "Blog Website",
@@ -57,7 +57,7 @@ const photo_buttons = [
     "hover_image": jenreyeshover,
     "color": "black",
     "url": 'https://www.jenreyes-au.com/'
-},
+  },
 ]
 
 function LandingPage() {
@@ -66,8 +66,8 @@ function LandingPage() {
 
   useEffect(() => {
     if (count == 3) {
-          setPhoto(wulfz);
-        }
+      setPhoto(wulfz);
+    }
     else if (count > 3) {
       setPhoto(ME);
       setCount(0);
@@ -78,39 +78,35 @@ function LandingPage() {
     <ThemeProvider theme={ghn_theme}>
       <div style={{ margin: '2.5%' }}>
         <img src={photo}
-          onClick={()=> setCount(count+1)}
-          style={{width: '40%', borderRadius: '50%'}}
-          />
+          onClick={() => setCount(count + 1)}
+          style={{ width: '45vh', borderRadius: '50%',margin: 'auto'}}
+        />
         <h1 className="h1-ghn">Gabriel Hidalgo ~ Naranjo</h1>
         <h4 className="h2-ghn">Art 🧑‍🎨, Cities 🌇, and Tech🦾</h4>
         <Grid alignItems="center" container spacing={6} justifyContent="center">
           {
-          buttons_data.map((button, index) => (
-            <Grid item key={index}>
-              <a className="link-style" href={button.onclick_action}
-                  style={{
-                    'fontSize': 30,
-                    'color': 'black',
-                    'textDecoration': 'none',
-                    'fontFamily': 'Quicksand, sans-serif'
-                  }}
-              >{button.text}</a>
-             </Grid>
-          ))}
+            buttons_data.map((button, index) => (
+              <Grid item key={index}>
+                <a className="link-style" style={{fontSize: '2em'}} href={button.onclick_action}>{button.text}</a>
+              </Grid>
+            ))}
         </Grid>
-        <br/>
-        <br/>
-        <div>
-          <WorkButtons photo_buttons={photo_buttons}/>
-          <BioCarousel />
+
+        <div id="work" className="h2-ghn">
+          <h1>Work</h1>
+          <WorkButtons photo_buttons={photo_buttons} />
         </div>
-        <div id="contact" >
-            <IconButton href='https://github.com/gabrielAHN' target='_blank'>
-              <GitHubIcon />
-            </IconButton>
-            <IconButton href="mailto:gabrielhn@hey.com">
-              <EmailIcon />
-            </IconButton>
+        <div id="bio" className="h2-ghn">
+          <BioMain />
+        </div>
+        <div id="contact" className="h2-ghn" >
+          <h1>Contact</h1>
+          <IconButton href='https://github.com/gabrielAHN' target='_blank'>
+            <GitHubIcon />
+          </IconButton>
+          <IconButton href="mailto:gabrielhn@hey.com">
+            <EmailIcon />
+          </IconButton>
         </div>
       </div>
     </ThemeProvider>

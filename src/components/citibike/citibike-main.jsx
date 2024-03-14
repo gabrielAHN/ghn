@@ -64,11 +64,7 @@ function Citibike() {
   return (
     <div style={{ margin: 20, minWidth: '50%' }}>
       <h1>Citibike 🚲 Deepdive</h1>
-      <a className="link-style" href={'/'}
-        style={{
-          'color': 'black',
-          'textDecoration': 'none',
-        }}>gabrielhn.com</a>
+      <a className="link-style" href={'/'}>gabrielhn.com</a>
       <p>Citibike data can be an overloading experience 🤯 to explore so I made 
         some interesting anaylsis for the data across the years to find out how New Yorkers are using the biking.
       </p>

@@ -1,7 +1,6 @@
 import { Grid } from '@material-ui/core';
 import ButtonBase from '@mui/material/ButtonBase';
 import { styled } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
 
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
@@ -23,7 +22,7 @@ const ImageText = styled('div')({
     color: 'white',
     position: 'relative',
     width: '20%',
-    fontSize: 25,
+    fontSize: '2em',
     p: 4,
     pt: 2,
     pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
@@ -60,47 +59,44 @@ export default function WorkButtons({ photo_buttons }) {
     };
 
     return (
-        <div id="work" className="h2-ghn">
-            <h1>Work</h1>
-            <Grid alignItems="center" container spacing={0} justifyContent="center" style={{ marginBottom: "10vh" }}>
-                {photo_buttons.map((photo, index) => (
-                    <Grid item key={index} style={{ width: '50vh', margin: '0.9%' }} >
-                        <ImageButton
-                            variant='contained'
-                            focusRipple
-                            key={index}
-                            onClick={() => openUrl(photo.url)}
-                            sx={{
-                                left: 0,
-                                right: 0,
-                                top: 0,
-                                bottom: 0,
-                                backgroundSize: 'cover',
+        <Grid alignItems="center" container spacing={0} justifyContent="center" style={{ marginBottom: "10vh" }}>
+            {photo_buttons.map((photo, index) => (
+                <Grid item key={index} style={{ width: '50vh', margin: '0.9%' }} >
+                    <ImageButton
+                        variant='contained'
+                        focusRipple
+                        key={index}
+                        onClick={() => openUrl(photo.url)}
+                        sx={{
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            bottom: 0,
+                            backgroundSize: 'cover',
+                            width: '50vh',
+                            height: '20vh',
+                            color: 'white',
+                            backgroundPosition: 'center 40%',
+                            backgroundImage: `url(${photo.image})`,
+                            "&:hover":
+                            {
+                                transition: "all 0.275s",
+                                transform: 'scale(1.3)',
                                 width: '50vh',
-                                height: '20vh',
-                                color: 'white',
-                                backgroundPosition: 'center 40%',
-                                backgroundImage: `url(${photo.image})`,
-                                "&:hover":
-                                {
-                                    transition: "all 0.275s",
-                                    transform: 'scale(1.3)',
-                                    width: '50vh',
-                                    height: '25vh',
-                                    backgroundImage: `url(${photo.hover_image})`
-                                }
-                            }}
-                        >
-                            <ImageBackdrop className="MuiImageBackdrop-root" />
-                            <Image>
-                                <ImageText className="ImageText">
-                                    {photo.name}
-                                </ImageText>
-                            </Image>
-                        </ImageButton>
-                    </Grid>
-                ))}
-            </Grid>
-        </div>
+                                height: '25vh',
+                                backgroundImage: `url(${photo.hover_image})`
+                            }
+                        }}
+                    >
+                        <ImageBackdrop className="MuiImageBackdrop-root" />
+                        <Image>
+                            <ImageText className="ImageText">
+                                {photo.name}
+                            </ImageText>
+                        </Image>
+                    </ImageButton>
+                </Grid>
+            ))}
+        </Grid>
     );
 }

@@ -11,12 +11,6 @@ const theme = createTheme({
         shortest: 1000
       }
     },
-    button: {
-        // textTransform: "none"
-        // fontWeight: 500,
-        // fontStyle: 'italic',
-        // fontFamily: 'Comfortaa, cursive;',
-      },
     typography: {
         button: {
             textTransform: "none"
@@ -24,8 +18,7 @@ const theme = createTheme({
         fontFamily: [
             'Quicksand, sans-serif;'
           ].join(','),
-    },
-    // h3: undefined,
+    }
 });
 
 export default theme;

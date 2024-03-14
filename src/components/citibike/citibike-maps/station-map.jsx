@@ -11,7 +11,7 @@ import Slider from '@mui/material/Slider';
 import { ScatterplotLayer } from '@deck.gl/layers';
 import StationGraphs from './components/StationGraphs';
 
-const MAPBOX_TOKEN = import.meta.env.VITE_LINKEDIN_URL;
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPS_API;
 
 const INITIAL_VIEW_STATE = {
   latitude: 40.7257548,

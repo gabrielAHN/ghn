@@ -19,7 +19,7 @@ import { TripsLayer } from '@deck.gl/geo-layers';
 import CitibikeTrips from './trip_map_data.json';
 import FormatedTable from './trip_table';
 
-const MAPBOX_TOKEN = import.meta.env.VITE_LINKEDIN_URL;
+const MAPBOX_TOKEN = import.meta.env.VITE_MAPS_API;
 
 const INITIAL_VIEW_STATE = {
   latitude: 40.7257548,
