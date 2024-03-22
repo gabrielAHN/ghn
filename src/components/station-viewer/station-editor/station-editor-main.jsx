@@ -1,66 +1,64 @@
-import { filter } from 'jszip';
 import { Grid } from '@material-ui/core';
-import StationMap from './station-map';
-import FlowMap from './flow-map/flow-map';
+import StationMap from './station-map/station-map';
+import FlowMap from './flow-map/flow-map-main';
+import StationTable from './station-table/station-table';
+
 
 
 
 export default function StationEditorMain(props) {
-    var filter_station_data = props.filter_station_data
-    var station_data = props.station_data
+    // const { select_station, filter_station_data, station_data } = props;
+    // var filter_station_data = props.filter_station_data
+    // var station_data = props.station_data
 
-    var select_station = filter_station_data[station_data]
+    // var select_station = filter_station_data[station_data]
 
-    select_station.pathways.nodes.map(
-        (nodes) => {
-            if (nodes.location_type === "0")
-                return nodes
-        }
-    )
+    // select_station.pathways.nodes.map(
+    //     (nodes) => {
+    //         if (nodes.location_type === "0")
+    //             return nodes
+    //     }
+    // )
 
-    var platforms = select_station.pathways.nodes.filter(
-        nodes => 
-        {
-            if (nodes.location_type === "0")
-                return nodes
-        }
-    )
+    // var platforms = select_station.pathways.nodes.filter(
+    //     nodes => 
+    //     {
+    //         if (nodes.location_type === "0")
+    //             return nodes
+    //     }
+    // )
 
-    var exits = select_station.pathways.nodes.filter(
-        nodes => 
-        {
-            if (nodes.location_type === "2")
-                return nodes
-        }
-    )
+    // var exits = select_station.pathways.nodes.filter(
+    //     nodes => 
+    //     {
+    //         if (nodes.location_type === "2")
+    //             return nodes
+    //     }
+    // )
 
-    var nodes = select_station.pathways.nodes.filter(
-        nodes => 
-        {
-            if (nodes.location_type === "0")
-                return nodes
-        }
-    )
+    // var nodes = select_station.pathways.nodes.filter(
+    //     nodes => 
+    //     {
+    //         if (nodes.location_type === "0")
+    //             return nodes
+    //     }
+    // )
+    const { SelectStation,  StationData} = props;
 
     return (
-        <Grid container spacing={1} style={{borderRadius: '4px', padding: '1.25vh'}} >
-            <Grid item xs={13} sm={13}>
-                <h1>{select_station.stop_name}</h1>
-                <h2>Stop/platform: {platforms.length}</h2>
-                <h2>Exit: {exits.length}</h2>
+        <Grid container spacing={2} style={{borderRadius: '4px', padding: '1.25vh'}} >
+            <Grid item xs={12} sm={12}>
+                <StationTable {...props} />
             </Grid>
-                <StationMap station_data={select_station} />
-            test
+            <Grid item xs={12} sm={12}>
+                <StationMap {...props} />
+            </Grid>
                 {
-                    select_station.pathways.links.length > 0 ? 
+                    StationData[SelectStation].pathways_status === '✅' ? 
                     (
-                        
-                        <FlowMap
-                            station_data={select_station}
-                        />
-                    )
-                : null} 
-
+                        <FlowMap {...props} />
+                    ): null
+                } 
         </Grid>
     )
 };

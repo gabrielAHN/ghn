@@ -107,7 +107,7 @@ function BorderColor(clickInfo, NewFilterDate) {
 }
 
 
-export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, data, CitibikeDate }) {
+export default function CitibikeMap({ strokeWidth = 1, data, CitibikeDate }) {
   const YearDate = getYear(CitibikeDate);
   const MonthDate = getMonth(CitibikeDate, YearDate);
   const [YearSlider, setYearSlider] = useState(YearDate[0]);
@@ -356,7 +356,7 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, dat
             layers={layers}
           >
             <Map
-              mapStyle={mapStyle}
+              mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
               mapboxAccessToken={MAPBOX_TOKEN}
             />

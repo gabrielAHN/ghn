@@ -1,29 +1,10 @@
-import { useState } from 'react';
-import { TextField, IconButton } from '@mui/material';
-import ClearIcon from '@mui/icons-material/Clear';
+import { TextField } from '@mui/material';
+
 
 
 export default function SearchComponent(props) {
-    const [SearchText, setSearchText] = useState('');
-    var search_data = props.station_data
-    var filter_function = props.filter_function
+    let { SearchText, setSearchText, search_data, filter_function } = props;
 
-
-    const TextSearch = (event, newValue) => {
-        var FilterStationData = []
-
-        Object.keys(search_data).map(
-            (row, index) => {
-                if (search_data[row].stop_name.toLowerCase().includes(event.toLowerCase())) {
-                    FilterStationData[row] = search_data[row]
-                } if (search_data[row].stop_id.toLowerCase().includes(event.toLowerCase())) {
-                    FilterStationData[row] = search_data[row]
-                }
-            }
-        )
-        setSearchText(event);
-        filter_function(FilterStationData)
-    };
 
     return (
         <TextField
@@ -31,24 +12,12 @@ export default function SearchComponent(props) {
             fullWidth
             label="Search for a station"
             variant="outlined"
-            placeholder="Search for a Station 🕵️"
+            placeholder="Search for a Stop ID"
             type="text"
             value={SearchText}
             onChange={(event) =>
-                TextSearch(event.target.value)
+                setSearchText(event.target.value)
             }
-            InputProps={{
-                endAdornment: (
-                    <IconButton onClick={
-                        () => {
-                            setSearchText('')
-                            filter_function(search_data)
-                        }
-                    }>
-                        <ClearIcon style={{ color: 'red' }} />
-                    </IconButton>
-                ),
-            }}
         />
     );
 }

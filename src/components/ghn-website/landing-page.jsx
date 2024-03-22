@@ -35,7 +35,13 @@ const buttons_data = [
 ]
 
 const photo_buttons = [
-
+  {
+    "name": "Station Viewer",
+    "image": citibikemap,
+    "hover_image": citibikehover,
+    "color": "black",
+    "url": 'StationViewer'
+},
   {
     "name": "Cities Lover",
     "image": citieslover,
@@ -45,21 +51,6 @@ const photo_buttons = [
 
   },
   {
-<<<<<<< HEAD
-      "name": "Citibike Deep Dive",
-      "image": citibikemap,
-      "hover_image": citibikehover,
-      "color": "black",
-      "url": 'citibike'
-  },
-  {
-      "name": "Station Viewer",
-      "image": citibikemap,
-      "hover_image": citibikehover,
-      "color": "black",
-      "url": 'StationViewer'
-  }
-=======
     "name": "Citibike Deep Dive",
     "image": citibikemap,
     "hover_image": citibikehover,
@@ -73,7 +64,6 @@ const photo_buttons = [
     "color": "black",
     "url": 'https://www.jenreyes-au.com/'
   },
->>>>>>> main
 ]
 
 function LandingPage() {

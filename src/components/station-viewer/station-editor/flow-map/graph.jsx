@@ -21,7 +21,7 @@ const elkLayout = (flowdata) => {
             'elk.layered.mergeEdges': 'true',
             'elk.layered.layering.strategy': 'BF_MODEL_ORDER',
             'elk.spacing.nodeNode': '100',
-            'elk.layered.spacing.edgeNodeBetweenLayers': '100',
+            'elk.layered.spacing.edgeNodeBetweenLayers': '200',
             'elk.layered.spacing.nodeNodeBetweenLayers': '100',
             
             // intCoordinates: true,
@@ -42,7 +42,6 @@ const elkLayout = (flowdata) => {
         children: flowdata.nodes,
         edges: flowdata.edges
     };
-    // console.log(graph)
     return elk.layout(graph);
 };
 
