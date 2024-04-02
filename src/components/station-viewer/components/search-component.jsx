@@ -1,10 +1,7 @@
 import { TextField } from '@mui/material';
 
-
-
 export default function SearchComponent(props) {
-    let { SearchText, setSearchText, search_data, filter_function } = props;
-
+    let { SearchText, setSearchText } = props;
 
     return (
         <TextField

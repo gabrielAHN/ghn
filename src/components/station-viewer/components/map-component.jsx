@@ -1,41 +1,37 @@
+import React, { useCallback } from 'react';
 import Map from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
+
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPS_API;
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
 
-
-
-
 export default function MapComponent(props) {
-    const { setClickInfo, viewState, MapLayers, onViewStateChange, BOUNDS } = props;
+    const { setClickInfo, viewState, MapLayers, onViewStateChange, bounds, setViewState } = props;
 
-    const handleViewStateChange = ({ viewState }) => {
-        const longitude = Math.max(BOUNDS.minLng, Math.min(BOUNDS.maxLng, viewState.longitude));
+    const handleViewStateChange = useCallback(({ viewState }) => {
+        const longitude = Math.max(bounds.minLng, Math.min(bounds.maxLng, viewState.longitude));
+        const latitude = Math.max(bounds.minLat, Math.min(bounds.maxLat, viewState.latitude));
+        const zoom = Math.max(bounds.minZoom, Math.min(bounds.maxZoom, viewState.zoom));
 
-        const latitude = Math.max(BOUNDS.minLat, Math.min(BOUNDS.maxLat, viewState.latitude));
-
-        const zoom = Math.max(BOUNDS.minZoom, Math.min(BOUNDS.maxZoom, viewState.zoom));
+        const newState = { ...viewState, longitude, latitude, zoom };
 
         if (longitude !== viewState.longitude || latitude !== viewState.latitude || zoom !== viewState.zoom) {
-            onViewStateChange({
-                viewState: { ...viewState, longitude, latitude, zoom }
-            });
+            setViewState(newState);
         } else {
-            onViewStateChange({ viewState });
+            setViewState(viewState);
         }
-    };
-
+    }, [onViewStateChange, bounds, setViewState, viewState]);
 
     return (
         <DeckGL
-            viewState={viewState}
+            initialViewState={viewState}
             onViewStateChange={handleViewStateChange}
             controller={true}
             layers={MapLayers}
             onClick={(event) => {
                 if (event.layer === null) {
-                    setClickInfo(null)
+                    setClickInfo(null);
                 }
             }}
         >
@@ -45,5 +41,5 @@ export default function MapComponent(props) {
                 mapboxAccessToken={MAPBOX_TOKEN}
             />
         </DeckGL>
-    )
+    );
 }

@@ -1,8 +1,7 @@
 import Grid from '@mui/material/Grid';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import FileUploadOutlined from '@mui/icons-material/FileUploadOutlined';
-import { useState, useMemo } from 'react';
-import TabContext from '@mui/lab/TabContext';
+import { useMemo } from 'react';
 import Tab from '@mui/material/Tab';
 
 export default function StationViewerHeader(props) {
@@ -12,8 +11,7 @@ export default function StationViewerHeader(props) {
         StationData,
         setStationData,
         setProgressData
-     } = props;
-    const [ value, setValue] = useState("0");
+    } = props;
 
 
     const tabPanelItems = useMemo(() => [
@@ -43,10 +41,9 @@ export default function StationViewerHeader(props) {
 
     return (
         <Grid container spacing={2} >
-            <TabContext value={value}>
-                <Grid item xs={12}>
+            <Grid item xs={12}>
                 {
-                tabPanelItems.map((item, index) =>
+                    tabPanelItems.map((item, index) =>
                     (
                         <Tab
                             key={String(index)}
@@ -56,10 +53,9 @@ export default function StationViewerHeader(props) {
                             label={item.label}
                             onClick={item.onClick}
                         />
-                        ))
+                    ))
                 }
-                </Grid>
-            </TabContext>
-      </Grid>
-)
+            </Grid>
+        </Grid>
+    )
 };

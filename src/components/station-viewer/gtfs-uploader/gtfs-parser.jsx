@@ -12,7 +12,6 @@ function GetPathwaysData(props) {
     const linkData = pathways.filter(item =>
         nodeIds.has(item.from_stop_id) || nodeIds.has(item.to_stop_id)
     );
-    
     return { nodes, links: linkData };
 }
 
@@ -22,6 +21,7 @@ function delay(ms) {
 
 function GetPathwaysStatus(props){
     const { row, stops, pathways } = props;
+
     const pathways_object = GetPathwaysData({
         row: row, 
         stops: stops,
@@ -61,12 +61,12 @@ export default async function GtfsParser(props) {
         setFilterStationData } = props;
 
     try {
-        const pathways = Papa.parse(pathwaysData, { header: true });
+        const pathways = pathwaysData ? Papa.parse(pathwaysData, { header: true }) : { data: [] };
         const stops = Papa.parse(stopsData, { header: true });
-        
+
         let stationData = {};
         const totalStations = stops.data.filter(row => row.location_type === '1');
-
+        
         for (const [index, row] of totalStations.entries()) {
             const exitCount = stops.data.filter(exitStop =>
                 exitStop.location_type === '2' && exitStop.parent_station === row.stop_id
@@ -78,11 +78,11 @@ export default async function GtfsParser(props) {
                 stop_lon: Number(row.stop_lon),
                 exit_count: exitCount,
                 wheelchair_status: WheelChairStatus(row.wheelchair_boarding),
-                pathways_status: GetPathwaysStatus({
-                    row:row,
+                pathways_status: pathways.data.length > 0 ? GetPathwaysStatus({
+                    row: row,
                     stops: stops.data,
-                    pathways:pathways.data
-                }),
+                    pathways: pathways.data
+                }) : "❌",
                 pathways: GetPathwaysData({                    
                     row:row,
                     stops: stops.data,
@@ -94,7 +94,6 @@ export default async function GtfsParser(props) {
             setProgressData(progressPercentage);
             await delay(2);
         }
-
         setStationData(stationData);
         setFilterStationData(stationData);
         setStopsData(stops.data);

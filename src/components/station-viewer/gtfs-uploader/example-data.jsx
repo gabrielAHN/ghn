@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 import GtfsParser from './gtfs-parser';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import { InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
 
 var ExampleDataDict = [
@@ -20,14 +17,18 @@ var ExampleDataDict = [
         name: 'Budapest Metro GTFS',
         url: 'https://storage.googleapis.com/storage/v1/b/mdb-latest/o/hu-budapest-budapesti-kozlekedesi-kozpont-bkk-gtfs-990.zip?alt=media'
     },
+    {
+        name: 'Paris Metro GTFS',
+        url: 'https://storage.googleapis.com/storage/v1/b/mdb-latest/o/fr-paris-ile-de-france-mobilite-gtfs-1026.zip?alt=media'   
+    }
 ]
 
 
 export default function ExampleData(props) {
-    const [FileError, setFileError] = useState([]);
     const [loading, setLoading] = useState(false);
     const [ExampleDataset, setExampleDataset] = useState('');
-    const { FileStatus, ProgressData, setFileStatus, setProgressData, setStationData, setStopsData, setFilterStationData } = props;
+    const { FileStatus, ProgressData, setFileStatus, setProgressData,
+        setStationData, setStopsData, setFilterStationData, setFileError } = props;
     const zip = new JSZip();
 
 
@@ -46,19 +47,20 @@ export default function ExampleData(props) {
         const stopFile = zipData.file('stops.txt');
         const pathwaysFile = zipData.file('pathways.txt');
 
-        if (!stopFile || !pathwaysFile) {
+        if (!stopFile) {
             const errors = [];
-            if (!stopFile) errors.push('No Stop file');
-            if (!pathwaysFile) errors.push('No Pathways file');
+            if (!stopFile) errors.push('Required Stops.txt file');
+            if (!pathwaysFile) errors.push('Optional Pathways.txt file');
+            setFileStatus('error_gtfs_file');
             setFileError(errors);
-            setFileStatus('error_zipfile');
             return;
-        }
+          }
 
         const [stopsData, pathwaysData] = await Promise.all([
             stopFile.async('text'),
-            pathwaysFile.async('text'),
+            pathwaysFile ? pathwaysFile.async('text') : null,
         ]);
+  
 
         GtfsParser({
             stopsData,
@@ -80,7 +82,7 @@ export default function ExampleData(props) {
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="Example GTFS Dataset"
+                label="Example GTFS Datasets"
                 value={ExampleDataset}
                 onChange={downloadFile}
             >

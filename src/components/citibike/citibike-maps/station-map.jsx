@@ -3,11 +3,9 @@ import Box from "@material-ui/core/Box";
 import Map from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
 
-import { Grid } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import { Grid, Button, Slider } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
-import Slider from '@mui/material/Slider';
 import { ScatterplotLayer } from '@deck.gl/layers';
 import StationGraphs from './components/StationGraphs';
 

@@ -1,39 +1,37 @@
 import JSZip from 'jszip';
 import { useState } from 'react';
-import { Grid, Box, styled } from '@mui/material';
+import {
+  Grid, Box, Button,
+  Accordion, AccordionSummary, AccordionDetails
+} from '@mui/material';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import LoadingButton from '@mui/lab/LoadingButton';
 import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
 import GtfsParser from './gtfs-parser';
 
 
-const WarningMessage = styled('div')({
-  display: 'flex',
-  width: '100%',
-  backgroundColor: '#ffa726',
-  color: 'white',
-  borderRadius: '4px',
-  padding: '20px 16px',
-  border: 'none',
-  textDecoration: 'none',
-  fontWeight: 'bold'
-});
-
-
 
 export default function GTFSFileUploader(props) {
-  const [fileError, setFileError] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { FileStatus, ProgressData, setFileStatus, setProgressData, setStationData, setStopsData, setFilterStationData } = props;
+  const {
+    FileStatus, ProgressData, setFileStatus,
+    setProgressData, setStationData, setStopsData,
+    setFilterStationData, setFileError, FileError } = props;
 
   const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
-    if (!file || file.type !== 'application/zip') {
-      setFileStatus('no_zipfile');
+
+
+    if (!file) {
+      setFileStatus('not_started');
       setLoading(false);
       return;
     }
-
-    try {
+    else if (file.type !== 'application/zip') {
+      setFileStatus("no_zipfile");
+      setLoading(false);
+    }
+    else {
       setLoading(true);
       setFileStatus("loading");
       setProgressData(0);
@@ -43,42 +41,44 @@ export default function GTFSFileUploader(props) {
       const stopFile = zipData.file('stops.txt');
       const pathwaysFile = zipData.file('pathways.txt');
 
-      if (!stopFile || !pathwaysFile) {
+      if (!stopFile) {
         const errors = [];
-        if (!stopFile) errors.push('No Stop file');
-        if (!pathwaysFile) errors.push('No Pathways file');
+        if (!stopFile) errors.push('Required Stops.txt file');
+        if (!pathwaysFile) errors.push('Optional Pathways.txt file');
+        setFileStatus('error_gtfs_file');
         setFileError(errors);
-        setFileStatus('error_zipfile');
         return;
       }
-
       const [stopsData, pathwaysData] = await Promise.all([
         stopFile.async('text'),
-        pathwaysFile.async('text'),
+        pathwaysFile ? pathwaysFile.async('text') : null,
       ]);
 
-      GtfsParser({
-        stopsData,
-        pathwaysData,
-        setFileError,
-        ProgressData,
-        setProgressData,
-        FileStatus,
-        setFileStatus,
-        setStopsData,
-        setStationData,
-        setFilterStationData,
-      });
-    } catch (error) {
-      console.error('Error processing the zip file:', error);
-      setFileStatus('error_zipfile');
-    } finally {
-      setLoading(false);
+      try {
+        GtfsParser({
+          stopsData,
+          pathwaysData,
+          setFileError,
+          ProgressData,
+          setProgressData,
+          FileStatus,
+          setFileStatus,
+          setStopsData,
+          setStationData,
+          setFilterStationData,
+        });
+      } catch (error) {
+        console.error('Error processing the zip file:', error);
+        setFileStatus('processing_error');
+      } finally {
+        setFileError([]);
+        setLoading(false);
+      }
     }
   };
 
   const renderFileUploader = () => (
-    <Box sx={{ '& > button': { m: 2 } }}>
+    <Box>
       <LoadingButton
         size="large"
         variant="outlined"
@@ -93,29 +93,72 @@ export default function GTFSFileUploader(props) {
     </Box>
   );
 
-  const renderWarningMessage = (message, link = null) => (
-    <Grid container spacing={4} justifyContent="center">
-      <Grid item xs={12} sm={12}>
-        {renderFileUploader()}
+  const renderWarningMessage = (props) => {
+    const { message, link, title, color, files_error } = props;
+
+    return (
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={12}>
+          <Accordion style={{ width: '16em', margin: 'auto' }}>
+            <AccordionSummary
+              expandIcon={<ArrowDownwardIcon size='size' />}
+              aria-controls="panel1-content"
+              sx={{
+                height: '2em',
+                backgroundColor: color,
+                color: 'black',
+                borderRadius: '4px',
+              }}>
+              {title}
+            </AccordionSummary>
+            <AccordionDetails
+              sx={{
+                backgroundColor: `rgba(${color.match(/\d+/g).join(", ")}, 0.3)`,
+              }}>
+              {message}
+              {
+                files_error && files_error.map((file, index) => (
+                  <p key={index}>{file}</p>
+                ))
+              }
+              {link && (
+                <Button size="small" variant="outlined" href={link} target='_blank'
+                  sx={{ marginTop: '1em' }}>
+                  Here is an example valid GTFS zip file
+                </Button>
+              )}
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          {renderFileUploader()}
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={6}>
-        <WarningMessage>
-          {message}
-          {link && (
-            <a className='link-style-station' href={link} target='_blank' style={{ color: 'white', textDecoration: 'none', fontWeight: 'bold' }}>
-              Here is an example valid GTFS zip file.
-            </a>
-          )}
-        </WarningMessage>
-      </Grid>
-    </Grid>
-  );
+    )
+  };
+
 
   switch (FileStatus) {
     case 'no_zipfile':
-      return renderWarningMessage('You have not uploaded a zip file 😔 please try to upload a valid GTFS zip file.', 'https://cdn.mbta.com/MBTA_GTFS.zip');
-    case 'error_zipfile':
-      return renderWarningMessage(`Your GTFS file is missing the following: ${fileError.join(', ')}`);
+      return renderWarningMessage({
+        title: 'Invalid File Type 💾',
+        color: 'rgb(255, 153, 102)',
+        message: `You have not uploaded a zip file containing GTFS 😔 please try to upload a valid GTFS zip file`,
+        link: 'https://transitfeeds.com/p/mta/79/latest/download'
+      });
+    case 'error_gtfs_file':
+      return renderWarningMessage({
+        title: 'GTFS Missing Required Files',
+        color: 'rgb(255, 204, 0)',
+        files_error: FileError,
+        message: 'Your GTFS file is missing the following files:',
+      });
+    case 'processing_error':
+      return renderWarningMessage({
+        title: "Processing Error 🤖",
+        color: "rgb(204, 51, 0)",
+        message: "Problem Processing the data, please try another file"
+      });
     default:
       return renderFileUploader();
   }
