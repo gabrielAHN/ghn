@@ -57,7 +57,7 @@ export default function Main({
               Title={ClickInfo.object.code}
               Data={ClickInfo.object}
               ColumnsData={["code", "coordinates", "stop_type"]}
-              ColumnName={["Stop ID", "Coordinates", "Location Type"]}
+              ColumnName={["Stop ID", "Coordinates", "Stop Type"]}
             />
           </Paper>
         </Grid>
