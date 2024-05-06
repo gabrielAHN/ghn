@@ -43,7 +43,7 @@ const photo_buttons = [
     "image": stationviz,
     "hover_image": stationvizhover,
     "color": "black",
-    "url": 'StationViewer'
+    "url": 'stationViz'
 },
   {
     "name": "Cities Lover",
