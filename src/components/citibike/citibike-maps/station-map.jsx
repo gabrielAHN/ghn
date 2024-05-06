@@ -3,11 +3,9 @@ import Box from "@material-ui/core/Box";
 import Map from 'react-map-gl';
 import DeckGL from '@deck.gl/react';
 
-import { Grid } from '@material-ui/core';
-import Button from '@mui/material/Button';
+import { Grid, Button, Slider } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
-import Slider from '@mui/material/Slider';
 import { ScatterplotLayer } from '@deck.gl/layers';
 import StationGraphs from './components/StationGraphs';
 
@@ -107,7 +105,7 @@ function BorderColor(clickInfo, NewFilterDate) {
 }
 
 
-export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, data, CitibikeDate }) {
+export default function CitibikeMap({ strokeWidth = 1, data, CitibikeDate }) {
   const YearDate = getYear(CitibikeDate);
   const MonthDate = getMonth(CitibikeDate, YearDate);
   const [YearSlider, setYearSlider] = useState(YearDate[0]);
@@ -159,7 +157,7 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, dat
       setNewFilterDate(
         get_filter_label(NewMonth, YearSlider, MonthDate, YearDate, setMonthSlider)
       );
-    };
+    }
 
   }
 
@@ -356,7 +354,7 @@ export default function CitibikeMap({ strokeWidth = 1, mapStyle = MAP_STYLE, dat
             layers={layers}
           >
             <Map
-              mapStyle={mapStyle}
+              mapStyle={MAP_STYLE}
               preventStyleDiffing={true}
               mapboxAccessToken={MAPBOX_TOKEN}
             />
