@@ -40,7 +40,6 @@ export default function StationViewMain({ FilterStationData, SelectStation, Stat
 
   const minDistance = 5;
 
-
   const LocationTypes = useMemo(() => (
     setNodeTypes(
       nodes.reduce((acc, { location_type }) => ({

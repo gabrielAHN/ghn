@@ -167,7 +167,7 @@ export default function StationViewer() {
   }
   else {
      let filtertabPanelItems = tabPanelItems.filter(item => {
-      if (StationData[SelectStation].pathways_status === '❌') {
+      if (['❌', '🟡'].includes(StationData[SelectStation].pathways_status)) {
         return item.value !== 'station_connection';
       }
       return true;
