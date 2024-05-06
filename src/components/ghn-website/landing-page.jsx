@@ -11,6 +11,8 @@ import citibikemap from './assets/workbutton-images/citibike.png'
 import citibikehover from './assets/workbutton-images/citibike-hover.gif'
 import jenreyes from './assets/workbutton-images/jenreyes.png'
 import jenreyeshover from './assets/workbutton-images/jenreyes-hover.gif'
+import stationviz from './assets/workbutton-images/station-viz.png'
+import stationvizhover from './assets/workbutton-images/station-viz.gif'
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
 import IconButton from '@mui/material/IconButton';
@@ -37,9 +39,9 @@ const buttons_data = [
 
 const photo_buttons = [
   {
-    "name": "Station Viewer",
-    "image": citibikemap,
-    "hover_image": citibikehover,
+    "name": "Station Viz",
+    "image": stationviz,
+    "hover_image": stationvizhover,
     "color": "black",
     "url": 'StationViewer'
 },
@@ -57,14 +59,7 @@ const photo_buttons = [
     "hover_image": citibikehover,
     "color": "black",
     "url": 'citibike'
-  },
-  {
-    "name": "Blog Website",
-    "image": jenreyes,
-    "hover_image": jenreyeshover,
-    "color": "black",
-    "url": 'https://www.jenreyes-au.com/'
-  },
+  }
 ]
 
 function LandingPage() {

@@ -11,7 +11,7 @@ export default function Main() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/Citibike" element={<Citibike />} />
-        <Route path="/StationViewer" element={<StationViewer/>} />
+        <Route path="/StationViz" element={<StationViewer/>} />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </div>
