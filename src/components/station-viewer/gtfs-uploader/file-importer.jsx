@@ -19,7 +19,8 @@ export default function GTFSFileUploader(props) {
     FileStatus, setFileStatus, abortControllerRef,
     setProgressData, setStationData,
     setFilterStationData, setFileError, FileError } = props;
-  const location = useLocation().name;
+  const location = useLocation();
+
 
   const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
@@ -38,6 +39,17 @@ export default function GTFSFileUploader(props) {
         }
       )
       setFileStatus("no_zipfile");
+      setLoading(false);
+    }
+    else if ((file.size / (1024 * 1024)) >= 60) {
+      FileTracking(
+        {
+          status: 'zipfile_too_big',
+          file_type: file.type,
+          file_name: file.name,
+        }
+      )
+      setFileStatus('zipfile_too_big');
       setLoading(false);
     }
     else {
@@ -67,10 +79,12 @@ export default function GTFSFileUploader(props) {
         setFileError(errors);
         return;
       }
+
       const [stopsData, pathwaysData] = await Promise.all([
         stopFile.async('text'),
         pathwaysFile ? pathwaysFile.async('text') : null,
       ]);
+
       try {
         await GtfsParser({
           stopsData,
@@ -167,6 +181,12 @@ export default function GTFSFileUploader(props) {
         color: 'rgb(255, 153, 102)',
         message: `You have not uploaded a zip file containing GTFS 😔 please try to upload a valid GTFS zip file`,
         link: 'https://transitfeeds.com/p/mta/79/latest/download'
+      });
+    case 'zipfile_too_big':
+      return renderWarningMessage({
+        title: 'Zip File Too Big 📚',
+        color: 'rgb(255, 204, 0)',
+        message: `You have not uploaded a zip file that is too big above 40MB please try to upload a smaller GTFS zip file`,
       });
     case 'error_gtfs_file':
       return renderWarningMessage({

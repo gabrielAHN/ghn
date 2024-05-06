@@ -97,7 +97,7 @@ export default function StationViewer() {
         </Grid>
         {
           [
-            "not_started",
+            "not_started", "zipfile_too_big",
             "no_zipfile", "error_gtfs_file", "processing_error",
           ].includes(FileStatus) ?
             (
