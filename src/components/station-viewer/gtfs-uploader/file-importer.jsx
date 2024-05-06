@@ -4,23 +4,25 @@ import {
   Grid, Box, Button,
   Accordion, AccordionSummary, AccordionDetails
 } from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import { useLocation } from 'react-router-dom';
 import LoadingButton from '@mui/lab/LoadingButton';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
 import GtfsParser from './gtfs-parser';
-
+import ClickTracking from '../../data-tracking/click-tracking';
+import FileTracking from '../../data-tracking/file-tracking';
 
 
 export default function GTFSFileUploader(props) {
   const [loading, setLoading] = useState(false);
   const {
-    FileStatus, ProgressData, setFileStatus,
-    setProgressData, setStationData, setStopsData,
+    FileStatus, setFileStatus, abortControllerRef,
+    setProgressData, setStationData,
     setFilterStationData, setFileError, FileError } = props;
+  const location = useLocation().name;
 
   const handleFileChange = async (event) => {
     const file = event.target.files?.[0];
-
 
     if (!file) {
       setFileStatus('not_started');
@@ -28,6 +30,13 @@ export default function GTFSFileUploader(props) {
       return;
     }
     else if (file.type !== 'application/zip') {
+      FileTracking(
+        {
+          status: 'non_zipfile',
+          file_type: file.type,
+          file_name: file.name,
+        }
+      )
       setFileStatus("no_zipfile");
       setLoading(false);
     }
@@ -35,6 +44,7 @@ export default function GTFSFileUploader(props) {
       setLoading(true);
       setFileStatus("loading");
       setProgressData(0);
+      const Signal = abortControllerRef.current.signal;
 
       const zip = new JSZip();
       const zipData = await zip.loadAsync(file);
@@ -45,6 +55,14 @@ export default function GTFSFileUploader(props) {
         const errors = [];
         if (!stopFile) errors.push('Required Stops.txt file');
         if (!pathwaysFile) errors.push('Optional Pathways.txt file');
+        FileTracking(
+          {
+            status: 'invalid_file',
+            file_type: file.type,
+            file_name: file.name,
+            error: errors,
+          }
+        )
         setFileStatus('error_gtfs_file');
         setFileError(errors);
         return;
@@ -53,23 +71,25 @@ export default function GTFSFileUploader(props) {
         stopFile.async('text'),
         pathwaysFile ? pathwaysFile.async('text') : null,
       ]);
-
       try {
-        GtfsParser({
+        await GtfsParser({
           stopsData,
+          Signal,
           pathwaysData,
           setFileError,
-          ProgressData,
           setProgressData,
           FileStatus,
           setFileStatus,
-          setStopsData,
           setStationData,
           setFilterStationData,
         });
       } catch (error) {
-        console.error('Error processing the zip file:', error);
-        setFileStatus('processing_error');
+        if (error.name === 'AbortError') {
+          setFileStatus('aborted');
+          setProgressData(0);
+        } else {
+          setFileStatus('processing_error');
+        }
       } finally {
         setFileError([]);
         setLoading(false);
@@ -88,10 +108,12 @@ export default function GTFSFileUploader(props) {
         loadingIndicator="Loading…"
       >
         <span>Upload GTFS Zip File</span>
-        <input type="file" hidden onChange={handleFileChange} />
+        <input type="file" hidden onChange={handleFileChange}
+          onClick={() => ClickTracking('upload_file_button', location)} />
       </LoadingButton>
     </Box>
   );
+
 
   const renderWarningMessage = (props) => {
     const { message, link, title, color, files_error } = props;
@@ -159,6 +181,8 @@ export default function GTFSFileUploader(props) {
         color: "rgb(204, 51, 0)",
         message: "Problem Processing the data, please try another file"
       });
+    case 'error':
+      return renderFileUploader();
     default:
       return renderFileUploader();
   }

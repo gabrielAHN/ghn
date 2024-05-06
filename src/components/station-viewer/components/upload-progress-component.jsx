@@ -1,22 +1,15 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, LinearProgress, Grid } from '@mui/material';
 
 
-export default function CircularProgressWithLabel(props) {
+export default function LinearProgressWithLabel(props) {
   return (
-    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-      <CircularProgress variant="determinate" value={props.value} />
-      <Box sx={{
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        position: 'absolute',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        {`${Math.round(props.value)}%`}
+    <Grid item sx={{  maxWidth: '50vh', margin: '0 auto' }}>
+      <Box sx={{ width: '100%', mr: 1 }}>
+        <LinearProgress variant="determinate" {...props} />
       </Box>
-    </Box>
+      <p>
+      {`${Math.round(props.value,)}%`}
+      </p>
+    </Grid>
   );
 }

@@ -2,7 +2,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LandingPage from './ghn-website/landing-page';
 import Citibike from './citibike/citibike-main';
-import StationViewer from './station-viewer/station-main.jsx';
+import StationViewer from './station-viewer/station-main';
 
 export default function Main() {
 

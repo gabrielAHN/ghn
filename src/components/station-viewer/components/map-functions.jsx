@@ -10,7 +10,7 @@ export function findCenter(data) {
     const avgLon = coordinates.reduce((sum, coord) => sum + coord.lon, 0) / coordinates.length;
 
     return { lat: avgLat, lon: avgLon };
-};
+}
 
 export function getBoundingBox(data) {
     let minLat = Infinity, maxLat = -Infinity, minLng = Infinity, maxLng = -Infinity;
@@ -27,4 +27,4 @@ export function getBoundingBox(data) {
         maxLat,
         maxLng
     };
-};
+}

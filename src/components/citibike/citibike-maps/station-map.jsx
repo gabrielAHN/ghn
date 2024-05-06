@@ -157,7 +157,7 @@ export default function CitibikeMap({ strokeWidth = 1, data, CitibikeDate }) {
       setNewFilterDate(
         get_filter_label(NewMonth, YearSlider, MonthDate, YearDate, setMonthSlider)
       );
-    };
+    }
 
   }
 

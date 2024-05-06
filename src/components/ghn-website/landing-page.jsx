@@ -2,6 +2,7 @@ import ME from './assets/me.png';
 import wulfz from './assets/wulfz.gif';
 import { Grid } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { useLocation } from 'react-router-dom';
 import BioMain from './landing-page_components/bio/bio-main';
 import WorkButtons from './landing-page_components/work-buttons';
 import citieslover from './assets/citieslover.png';
@@ -16,7 +17,7 @@ import IconButton from '@mui/material/IconButton';
 
 import ghn_theme from './theme';
 import React, { useState, useEffect } from 'react';
-
+import ClickTracking from '../data-tracking/click-tracking';
 
 
 const buttons_data = [
@@ -69,6 +70,8 @@ const photo_buttons = [
 function LandingPage() {
   const [count, setCount] = useState(0);
   const [photo, setPhoto] = useState(ME);
+  const location = useLocation();
+
 
   useEffect(() => {
     if (count == 3) {
@@ -77,8 +80,9 @@ function LandingPage() {
     else if (count > 3) {
       setPhoto(ME);
       setCount(0);
-    };
+    }
   }, [count]);
+  
 
   return (
     <ThemeProvider theme={ghn_theme}>
@@ -93,7 +97,12 @@ function LandingPage() {
           {
             buttons_data.map((button, index) => (
               <Grid item key={index}>
-                <a className="link-style" style={{fontSize: '2em'}} href={button.onclick_action}>{button.text}</a>
+                <a className="link-style" style={{fontSize: '2em'}} 
+                href={button.onclick_action} 
+                onClick={()=>ClickTracking(button.text, location)}
+                >
+                  {button.text}
+                </a>
               </Grid>
             ))}
         </Grid>
@@ -107,7 +116,9 @@ function LandingPage() {
         </div>
         <div id="contact" className="h2-ghn" >
           <h1>Contact</h1>
-          <IconButton href='https://github.com/gabrielAHN' target='_blank'>
+          <IconButton href='https://github.com/gabrielAHN' target='_blank'
+            onClick={()=>ClickTracking('GitHub', location)}
+          >
             <GitHubIcon />
           </IconButton>
           <IconButton href="mailto:gabrielhn@hey.com">

@@ -30,7 +30,9 @@ export default function MapComponent(props) {
             controller={true}
             layers={MapLayers}
             onClick={(event) => {
-                if (event.layer === null) {
+                if (event.object) {
+                    setClickInfo(event);
+                } else {
                     setClickInfo(null);
                 }
             }}

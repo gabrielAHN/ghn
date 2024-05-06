@@ -1,10 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import {
-  Table,
-  TableBody,
-  TableRow,
-  TableCell,
+  Box,
+  Paper,
   IconButton,
   MenuItem,
   Select,
@@ -13,9 +11,11 @@ import {
   Collapse,
   styled,
 } from "@mui/material";
+import TableComponent from "../components/table-component";
+import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MapComponent from "../components/map-component.jsx";
-import { getBoundingBox, findCenter } from "../components/map-functions.jsx";
+import MapComponent from "../components/map-component";
+import { getBoundingBox, findCenter } from "../components/map-functions";
 
 const DATA_STATUS = {
   "✅": {
@@ -51,7 +51,7 @@ export default function StationMapViewer(props) {
   const {
     FilterStationData,
     setSelectStation,
-    setValue,
+    setHeaderPage,
     setFilterStationData,
     StationData,
   } = props;
@@ -59,6 +59,10 @@ export default function StationMapViewer(props) {
   const [MapLayers, setMapLayers] = useState([]);
   const [DataColor, setDataColor] = useState("pathways_status");
   const [expanded, setExpanded] = useState(true);
+
+  const handleClose = () => {
+    setClickInfo(null);
+  };
 
   const bounds = {
     ...getBoundingBox(FilterStationData),
@@ -74,18 +78,10 @@ export default function StationMapViewer(props) {
     zoom: 7,
   });
 
-  // const onViewStateChange = useCallback{
-  //   ({ viewState }) => setViewState(viewState),
-  //   [],
-  // };
-  const onViewStateChange = useCallback(({viewState}) => {
-    // Manipulate view state
-    // viewState.target[0] = Math.min(viewState.target[0], 10);
-    // Save the view state and trigger rerender
-    // setViewState(viewState);
+
+  const onViewStateChange = useCallback(({ viewState }) => {
     setViewState(viewState)
   }, [viewState, setViewState]);
-  // console.log(viewState)
 
   const handleChange = (event) => {
     setDataColor(event.target.value);
@@ -114,24 +110,6 @@ export default function StationMapViewer(props) {
       Object.entries(FilterStationData).map(([key, value]) => value[DataColor]),
     ),
   );
-
-  const gridItemStyle = {
-    position: {
-      xs: "relative",
-      md: "absolute",
-    },
-    whiteSpace: "nowrap",
-    overflowWrap: "break-word",
-    overflow: "auto",
-    minWidth: "42vh",
-    textOverflow: "break-word",
-    backgroundColor: "rgba(255, 255, 255)",
-    borderRadius: "5px",
-    padding: "2%",
-    margin: "2%",
-    zIndex: 1000,
-    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
-  };
 
   useEffect(() => {
     const mapPoints = Object.entries(FilterStationData).map(([key, value]) => ({
@@ -181,64 +159,6 @@ export default function StationMapViewer(props) {
 
   return (
     <Grid container spacing={1}>
-      {ClickInfo && (
-        <Grid item sx={gridItemStyle} xs={12}>
-          <p>
-            <b>{ClickInfo.object.stop_name}</b>
-          </p>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              setSelectStation(ClickInfo.object.stop_id);
-              setValue(ClickInfo.object.stop_name);
-              setFilterStationData(StationData);
-            }}
-          >
-            More Detail
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => {
-              setViewState({
-                longitude: ClickInfo.object.stop_lon,
-                latitude: ClickInfo.object.stop_lat,
-                zoom: 16,
-              });
-            }}
-          >
-            Reset View
-          </Button>
-          <Table>
-            <TableBody>
-              {[
-                "Stop Id",
-                "Stop Lon",
-                "Stop Lat",
-                "Exit Count",
-                "Pathways Status",
-                "Wheelchair Status",
-              ].map((field, index) => (
-                <TableRow key={index}>
-                  <TableCell component="th" scope="row" width="auto">
-                    {field}
-                  </TableCell>
-                  <TableCell
-                    align="right"
-                    width="auto"
-                    sx={{
-                      whiteSpace: "nowrap",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                    }}
-                  >
-                    {ClickInfo.object[field.toLowerCase().replace(/ /g, "_")]}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Grid>
-      )}
       <Grid
         item
         xs={12}
@@ -304,6 +224,58 @@ export default function StationMapViewer(props) {
           </Collapse>
         </div>
       </Grid>
+      {ClickInfo && (
+        <Grid item xs={12} sx={{
+          zIndex: 10,
+          position: { xs: "relative", md: "absolute" },
+          margin: '1vh',
+        }}>
+          <Paper sx={{ position: 'relative', padding: 1 }}>
+            <IconButton
+              size="small"
+              sx={{
+                zIndex: 100,
+                position: 'absolute',
+                right: 8,
+                top: 8,
+              }}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+            <h4>{ClickInfo.object.stop_name}</h4>
+            <TableComponent
+              Data={ClickInfo.object}
+              ColumnsData={["stop_id", "stop_lon", "stop_lat", "exit_count", "pathways_status", "wheelchair_status"]}
+              ColumnName={["Stop Id", "Stop Lon", "Stop Lat", "Exit Count", "Pathways Status", "Wheelchair Status"]}
+            />
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 2 }}>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setSelectStation(ClickInfo.object.stop_id);
+                  setHeaderPage(ClickInfo.object.stop_name);
+                  setFilterStationData(StationData);
+                }}
+              >
+                More Station Info
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  setViewState({
+                    longitude: ClickInfo.object.stop_lon,
+                    latitude: ClickInfo.object.stop_lat,
+                    zoom: 16,
+                  });
+                }}
+              >
+                Reset View
+              </Button>
+            </Box>
+          </Paper>
+        </Grid>
+      )}
     </Grid>
   );
 }
