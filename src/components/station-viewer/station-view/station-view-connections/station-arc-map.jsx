@@ -113,7 +113,7 @@ export default function StationArcMap({
       getWidth: 3,
       pickable: true,
       onClick: ArcOnclick
-      });
+    });
 
     const layers = [arcLayer, pointlayer];
 
@@ -133,61 +133,68 @@ export default function StationArcMap({
 
   return (
     <Grid container sx={{ marginTop: '2vh' }}>
-    <Grid item xs={12} md={12} sx={{height: "65vh", position: "relative"}}>
-      <MapComponent
-        ClickInfo={ClickInfo}
-        setClickInfo={setClickInfo}
-        setViewState={setViewState}
-        viewState={viewState}
-        MapLayers={MapLayers}
-        onViewStateChange={onViewStateChange}
-        bounds={bounds}
-      />
-    </Grid>
+      <Grid item xs={12} md={12} sx={{ height: "65vh", position: "relative" }}>
+        <MapComponent
+          ClickInfo={ClickInfo}
+          setClickInfo={setClickInfo}
+          setViewState={setViewState}
+          viewState={viewState}
+          MapLayers={MapLayers}
+          onViewStateChange={onViewStateChange}
+          bounds={bounds}
+        />
+      </Grid>
       {
-      ClickInfo && (
-        <Grid item xs={12} sx={{
-          zIndex: 10,
-          position: { xs: "relative", sm: "absolute" },
-          margin: '1vh',
-        }}>
-          <Paper sx={{ position: 'relative', padding: 1 }}>
-            <IconButton
-              size="small"
-              sx={{
-                zIndex: 100,
-                position: 'absolute',
-                right: 8,
-                top: 8,
-              }}
-              onClick={handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-            <h4>{ClickInfo.code}</h4>
-            {
-              ClickInfo.layer.id === "ArcLayer" ? (
-                <TableComponent
-                Data={{
-                  "Total Time": ClickInfo.object.total_time,
-                  "From": ClickInfo.object.from.name,
-                  "To": ClickInfo.object.to.name
+        ClickInfo && (
+          <Grid item xs={12} sx={{
+            zIndex: 10,
+            position: { xs: "relative", sm: "absolute" },
+            margin: '1vh',
+          }}>
+            <Paper sx={{ position: 'relative', padding: 1 }}>
+              <IconButton
+                size="small"
+                sx={{
+                  zIndex: 100,
+                  position: 'absolute',
+                  right: 8,
+                  top: 8,
                 }}
-                ColumnsData={["Total Time", "From", "To"]}
-                ColumnName={["Total Time", "From", "To"]}
-                />
-              ): ClickInfo.layer.id === 'all-stations-layer' ? (
-                <TableComponent
-                Title={ClickInfo.object.code}
-                Data={ClickInfo.object}
-                ColumnsData={["code", "coordinates", "stop_type"]}
-                ColumnName={["Stop ID", "Coordinates", "Stop Type"]}
-                />
-              ) : null
-            }
-          </Paper>
-        </Grid>
-      )}
+                onClick={handleClose}
+              >
+                <CloseIcon />
+              </IconButton>
+              <h4>{ClickInfo.code}</h4>
+              {
+                ClickInfo.layer.id === "ArcLayer" ? (
+                  <TableComponent
+                    Data={{
+                      "Total Time": ClickInfo.object.total_time,
+                      "From": ClickInfo.object.from.name,
+                      "To": ClickInfo.object.to.name
+                    }}
+                    ColumnsData={["Total Time", "From", "To"]}
+                    ColumnName={["Total Time", "From", "To"]}
+                  />
+                ) : ClickInfo.layer.id === 'all-stations-layer' ? (() => {
+                  const coordinates = ClickInfo.object.coordinates;
+
+                  return (
+                    <TableComponent
+                      Title={ClickInfo.object.code}
+                      Data={{
+                        ...ClickInfo.object,
+                        lat: coordinates[1],
+                        lon: coordinates[0],
+                      }}
+                      ColumnsData={["code", "lat", "lon", "stop_type"]}
+                      ColumnName={["Stop ID", "Lat", "Lon", "Stop Type"]}
+                    />)
+                })() : null
+              }
+            </Paper>
+          </Grid>
+        )}
     </Grid>
   );
 }

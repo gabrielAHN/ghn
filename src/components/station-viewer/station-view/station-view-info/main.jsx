@@ -6,10 +6,10 @@ import TableComponent from "../../components/table-component";
 import StationTableInfo from "./components/station-table-info";
 
 
-export default function Main({ 
+export default function Main({
   nodes, NodeTypes, setFilteredNodes, handleCheckboxChange,
-  FilteredNodes, selectedStation 
-  }) {
+  FilteredNodes, selectedStation
+}) {
   const [ClickInfo, setClickInfo] = useState(null);
   const [viewState, setViewState] = useState(null)
 
@@ -33,35 +33,45 @@ export default function Main({
           handleCheckboxChange={handleCheckboxChange}
         />
       </Grid>
-      {ClickInfo && (
-        <Grid item xs={12} sx={{
-          zIndex: 10,
-          position: { xs: "relative", md: "absolute" },
-          margin: '1vh',
-        }}>
-          <Paper sx={{ position: 'relative', padding: 1 }}>
-            <IconButton
-              size="small"
-              sx={{
-                zIndex: 100,
-                position: 'absolute',
-                right: 8,
-                top: 8,
-              }}
-              onClick={handleClose}
-            >
-              <CloseIcon />
-            </IconButton>
-            <h4>{ClickInfo.object.code}</h4>
-            <TableComponent
-              Title={ClickInfo.object.code}
-              Data={ClickInfo.object}
-              ColumnsData={["code", "coordinates", "stop_type"]}
-              ColumnName={["Stop ID", "Coordinates", "Stop Type"]}
-            />
-          </Paper>
-        </Grid>
-      )}
+      {
+        ClickInfo && (() => {
+          const coordinates = ClickInfo.object.coordinates;
+
+          return (
+            <Grid item xs={12} sx={{
+              zIndex: 10,
+              position: { xs: "relative", md: "absolute" },
+              margin: '1vh',
+            }}>
+              <Paper sx={{ position: 'relative', padding: 1 }}>
+                <IconButton
+                  size="small"
+                  sx={{
+                    zIndex: 100,
+                    position: 'absolute',
+                    right: 8,
+                    top: 8,
+                  }}
+                  onClick={handleClose}
+                >
+                  <CloseIcon />
+                </IconButton>
+                <h4>{ClickInfo.object.code}</h4>
+                <TableComponent
+                  Title={ClickInfo.object.code}
+                  Data={{
+                    ...ClickInfo.object,
+                    lat: coordinates[1],
+                    lon: coordinates[0],
+                  }}
+                  ColumnsData={["code", "lat", "lon", "stop_type"]}
+                  ColumnName={["Stop ID", "Lat", "Lon", "Stop Type"]}
+                />
+              </Paper>
+            </Grid>
+          )
+        })()
+      }
       <Grid item xs={12} md={12} sx={{ marginTop: '2vh' }}>
         <StationTableInfo
           setClickInfo={setClickInfo}
