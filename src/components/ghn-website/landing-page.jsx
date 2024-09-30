@@ -36,7 +36,7 @@ const buttons_data = [
 
 const photo_buttons = [
   {
-    "name": "",
+    "name": "GTFS Viz",
     "image": gtfsViz,
     "hover_image": gtfsVizHover,
     "color": "black",
