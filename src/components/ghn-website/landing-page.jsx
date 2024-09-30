@@ -9,12 +9,9 @@ import citieslover from './assets/citieslover.png';
 import citiesloverhover from './assets/workbutton-images/citieslover-hover.gif'
 import citibikemap from './assets/workbutton-images/citibike.png'
 import citibikehover from './assets/workbutton-images/citibike-hover.gif'
-import jenreyes from './assets/workbutton-images/jenreyes.png'
-import jenreyeshover from './assets/workbutton-images/jenreyes-hover.gif'
-import stationviz from './assets/workbutton-images/station-viz.png'
-import stationvizhover from './assets/workbutton-images/station-viz.gif'
+import gtfsViz from './assets/workbutton-images/gtfs-viz.png'
+import gtfsVizHover from './assets/workbutton-images/gtfs-viz.gif'
 import GitHubIcon from '@mui/icons-material/GitHub';
-import EmailIcon from '@mui/icons-material/Email';
 import IconButton from '@mui/material/IconButton';
 
 import ghn_theme from './theme';
@@ -39,11 +36,11 @@ const buttons_data = [
 
 const photo_buttons = [
   {
-    "name": "Station Viz",
-    "image": stationviz,
-    "hover_image": stationvizhover,
+    "name": "",
+    "image": gtfsViz,
+    "hover_image": gtfsVizHover,
     "color": "black",
-    "url": 'stationViz'
+    "url": 'https://gtfs-viz-production.up.railway.app/'
 },
   {
     "name": "Cities Lover",
@@ -115,9 +112,6 @@ function LandingPage() {
             onClick={()=>ClickTracking('GitHub', location)}
           >
             <GitHubIcon />
-          </IconButton>
-          <IconButton href="mailto:gabrielhn@hey.com">
-            <EmailIcon />
           </IconButton>
         </div>
       </div>
