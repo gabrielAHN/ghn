@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  webpack5: false,
   eslint: {
     ignoreDuringBuilds: true,
   },
