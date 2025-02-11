@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 16.19.0
+        - nvm install 18
         - yarn
     build:
       commands:
