@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-sdk/types": "3.734.0",
+    "@aws-sdk/types": "^3.734.0",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@deck.gl/core": "^8.9.34",
     "@deck.gl/extensions": "^8.9.34",
