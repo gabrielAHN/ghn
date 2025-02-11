@@ -5,7 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { useLocation } from 'react-router-dom';
 import BioMain from './landing-page_components/bio/bio-main';
 import WorkButtons from './landing-page_components/work-buttons';
-import citieslover from './assets/citieslover.png';
+import citieslover from './assets/workbutton-images/citieslover.png';
 import citiesloverhover from './assets/workbutton-images/citieslover-hover.gif'
 import citibikemap from './assets/workbutton-images/citibike.png'
 import citibikehover from './assets/workbutton-images/citibike-hover.gif'

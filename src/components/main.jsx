@@ -10,7 +10,7 @@ export default function Main() {
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/Citibike" element={<Citibike />} />
-        <Route path="/StationViz" element={<Navigate replace to="https://gtfs-viz-production.up.railway.app/" />}  />
+        <Route path="/StationViz" element={<Navigate replace to="https://gtfs-viz-production-f1a4.up.railway.app/" />}  />
         <Route path="*" element={<Navigate replace to="/" />} />
       </Routes>
     </div>
