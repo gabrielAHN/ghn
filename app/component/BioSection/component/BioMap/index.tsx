@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import dynamic from 'next/dynamic';
-import { BIO_INFO } from '../BioData';
-import MapInfo from './MapInfo'
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { BIO_INFO } from "../BioData";
+import MapInfo from "./MapInfo";
 
-const MapComponent = dynamic(() => import('./MapComponent'), {
-  ssr: false,
-});
+const DeckglMap = dynamic(
+  () => import("@/components/mapComponent/DeckglMap"),
+  { ssr: true }
+);
 
 function BioMap() {
   const [state, setState] = useState({
@@ -17,7 +18,14 @@ function BioMap() {
     <div className="flex items-center justify-center mt-3">
       <div className="relative h-[15em] w-[90%] rounded-md">
         <MapInfo state={state} setState={setState} />
-        <MapComponent state={state}/>
+        <DeckglMap
+          initialViewState={state.viewState}
+          Controller={{
+            dragPan: false,
+            dragRotate: false,
+            scrollZoom: false,
+          }}
+        />
       </div>
     </div>
   );

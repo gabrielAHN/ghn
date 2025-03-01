@@ -45,20 +45,18 @@ export default function Home() {
             href={"https://github.com/gabrielAHN"}
             rel="noopener noreferrer"
             target="_blank"
-            className="h-[20vh] w-20 mb-[10vh]"
           >
-            <Button variant="icon" className="h-10">
-              <FaGithub className="h-[20vh] w-[20vh]" />
+            <Button variant="icon">
+              <FaGithub className="h-20 w-20" />
             </Button>
           </Link>
           <Link
             href={"https://linkedin.com/in/gabriel-hidalgo-41742867"}
             rel="noopener noreferrer"
             target="_blank"
-            className="h-[20vh] w-20 mb-[10vh]"
           >
-            <Button variant="icon" className="h-10">
-              <FaLinkedin className="h-[20vh] w-[20vh]" />
+            <Button variant="icon" >
+              <FaLinkedin className="h-20 w-20" />
             </Button>
           </Link>
         </div>

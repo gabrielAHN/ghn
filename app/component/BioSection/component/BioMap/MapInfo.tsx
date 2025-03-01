@@ -23,6 +23,7 @@ function MapInfo({ state, setState }) {
                         ...BIO_INFO[CountryList[newButtonState]].view,
                         pitch: 0,
                         bearing: 0,
+                        transitionDuration: 5000,
                         transitionInterpolator: new FlyToInterpolator(),
                     },
                 };

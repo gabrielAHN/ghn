@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PostHogProvider } from '@/providers/PostHogProvider'
+import { Providers } from '@/providers/Providers'
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -32,9 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={quicksand.variable}>
       <body className="antialiased">
-        <PostHogProvider>
-        {children}
-        </PostHogProvider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

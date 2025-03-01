@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import PostHogPageView from "@/app/PostHogPageView"
 
 
-export function PostHogProvider({ children }) {
+export default function PostHogProvider({ children }) {
   useEffect(() => {
     posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
       api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
