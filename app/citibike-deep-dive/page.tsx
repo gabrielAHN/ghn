@@ -5,7 +5,8 @@ import dynamic from "next/dynamic";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaFile } from "react-icons/fa";
+
 
 const CitibikeDeepDive = dynamic(() => import("./Components/index"), {
     ssr: true,
@@ -23,10 +24,15 @@ export default function Page() {
             Created by gabrielhn
           </Link>
         </div>
-        <div className="flex justify-center mt-2">
+        <div className="flex justify-center gap-2 mb-3">
           <Link href="https://github.com/gabrielAHN/Citibike-Deepdive" rel="noopener noreferrer" target="_blank">
             <Button variant="icon" className="flex items-center justify-center">
               <FaGithub className="h-16 w-16" />
+            </Button>
+          </Link>
+          <Link href="https://ghn-public-data.s3.us-east-1.amazonaws.com/citibike-data/CitibikeData.db" rel="noopener noreferrer" target="_blank">
+            <Button variant="icon" className="flex items-center justify-center">
+              <FaFile className="h-16 w-16" /> 
             </Button>
           </Link>
         </div>
