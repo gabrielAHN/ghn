@@ -90,7 +90,6 @@ function Work() {
               <span className="px-4 py-2">{work.label}</span>
             </div>
             <Image
-              unoptimized
               src={work.gif}
               alt={work.label}
               className="
@@ -153,7 +152,6 @@ function Work() {
                 <span className="px-4 py-2">{work.label}</span>
               </div>
               <Image
-                unoptimized
                 src={work.gif}
                 alt={work.label}
                 className="

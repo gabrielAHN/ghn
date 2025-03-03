@@ -21,7 +21,6 @@ export default function BioAccordion() {
                             src={value.photo}
                             alt={`Background for ${value.header}`}
                             fill
-                            priority={false}
                             className="object-cover object-center"
                         />
                     </div>
