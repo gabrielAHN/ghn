@@ -5,7 +5,7 @@ import MapInfo from "./MapInfo";
 
 const DeckglMap = dynamic(
   () => import("@/components/mapComponent/DeckglMap"),
-  { ssr: true }
+  { ssr: false }
 );
 
 function BioMap() {
