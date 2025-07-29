@@ -9,8 +9,11 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import Work from "./component/WorkSection";
+
 import Bio from "./component/BioSection";
+import SmallProjects from "./component/SmallProjects";
+import Work from "./component/WorkSection";
+
 
 export default function Home() {
   const [count, setCount] = useState(0);
@@ -30,6 +33,10 @@ export default function Home() {
       id: "work",
       label: "Work",
       component: <Work />,
+    },
+    {
+      id: "small-projects",
+      component: <SmallProjects />,
     },
     {
       id: "bio",

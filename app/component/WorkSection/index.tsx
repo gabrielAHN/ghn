@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import GtfsViz from "@/assets/Work/gtfs-viz.png";
 import GtfsVizGif from "@/assets/Work/gtfs-viz.gif";
 import CitiesLover from "@/assets/Work/citieslover.png";
 import CitiesLoverGif from "@/assets/Work/citieslover-hover.gif";
-import CitibikeDeep from "@/assets/Work/citibike-deep-dive.png";
-import CitibikeDeepGif from "@/assets/Work/citibike-deep-dive.gif";
+
 
 const WorkData = [
   {
@@ -23,15 +23,7 @@ const WorkData = [
     gif: CitiesLoverGif,
     url: "https://citieslover.com/intro",
     external: true,
-  },
-  {
-    id: "CitibikeDeepDive",
-    label: "Citibike Deep Dive",
-    photo: CitibikeDeep,
-    gif: CitibikeDeepGif,
-    url: "/citibike-deep-dive",
-    external: false,
-  },
+  }
 ];
 
 function Work() {
