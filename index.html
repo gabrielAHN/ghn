@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/technologist.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/fonts/QuicksandRegular.woff"
+      as="font"
+      type="font/woff"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-family: "Quicksand";
+        src: url("/fonts/QuicksandRegular.woff") format("woff");
+        font-display: swap;
+      }
+      :root {
+        --font-quicksand: "Quicksand", sans-serif;
+      }
+    </style>
+    <title>gabrielhn - Portfolio</title>
+    <meta
+      name="description"
+      content="Gabriel Hidalgo's portfolio - Developer, urbanist, and techn enthusiast. Currently at CARTO in Tokyo."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gabrielhn.com/" />
+    <meta property="og:title" content="gabrielhn - Portfolio" />
+    <meta
+      property="og:description"
+      content="Gabriel Hidalgo's portfolio - Developer, urbanist, and techn enthusiast. Currently at CARTO in Tokyo.."
+    />
+    <meta property="og:image" content="https://gabrielhn.com/technologist.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://gabrielhn.com/" />
+    <meta property="twitter:title" content="gabrielhn - Portfolio" />
+    <meta
+      property="twitter:description"
+      content="Gabriel Hidalgo's portfolio - Developer, urbanist, and techn enthusiast. Currently at CARTO in Tokyo.."
+    />
+    <meta
+      property="twitter:image"
+      content="https://gabrielhn.com/technologist.png"
+    />
+  </head>
+  <body class="antialiased font-quicksand">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
