@@ -1,7 +1,9 @@
 {
   "name": "ghn",
+  "version": "1.0.0",
   "type": "module",
-  "private": false,
+  "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
