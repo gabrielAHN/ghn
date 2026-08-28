@@ -6,6 +6,12 @@ function SmallProjects() {
 
   const works = [
     {
+      id: "quota-viewer",
+      label: "Quota Viewer 👀",
+      url: "https://github.com/gabrielAHN/quota-viewer-ios",
+      external: true,
+    },
+    {
       id: "dogo-cam",
       label: "Dogo Cam 📹",
       url: "https://github.com/gabrielAHN/dogo-cam-project",
