@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState, useEffect } from "react"
 import { FaGithub, FaLinkedin } from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 import { Button } from "@/components/ui/button"
 import { Image } from "@unpic/react"
 import { OptimizedVideo } from "@/components/OptimizedVideo"
@@ -64,6 +65,15 @@ function Home() {
           >
             <Button variant="icon">
               <FaLinkedin className="h-20 w-20" />
+            </Button>
+          </a>
+          <a
+            href="https://x.com/artdeco_tech"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Button variant="icon">
+              <FaXTwitter className="h-20 w-20" />
             </Button>
           </a>
         </div>
