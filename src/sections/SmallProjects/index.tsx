@@ -6,6 +6,12 @@ function SmallProjects() {
 
   const works = [
     {
+      id: "transit-sonified",
+      label: "Transit Sonified 🎶",
+      url: "https://github.com/gabrielAHN/transit-sonified",
+      external: true,
+    },
+    {
       id: "quota-viewer",
       label: "Quota Viewer 👀",
       url: "https://github.com/gabrielAHN/quota-viewer-ios",
